@@ -98,15 +98,15 @@ function ungallery() {
 	}
 	closedir($dp);
 	print '</b><br>';
+	if ($gallery == "") $w = $topW;									//  Set size of top level gallery picture
+	if (file_exists($pic_root.$gallery."/banner.txt")) {
+		print '<div class="post-headline"><h1>'; 
+		include ($pic_root.$gallery."/banner.txt");					//	We also display the caption from banner.txt
+		print "</h1>";
+	}
 
 	if (!isset($src) && isset($pic_array)) {							//	If we are not in browse view,
-		if ($gallery == "") $w = $topW;									//  Set size of top level gallery picture
-		print '<table class="one-cell"><tr><td class="cell1">';			//	Begin the WordPress Atahualpa 1 cell table
-		if (file_exists("pics/".$gallery."/banner.txt")) {
-			print '<div class="post-headline"><h1>'; 
-			include ("pics/".$gallery."/banner.txt");					//	We also display the caption from banner.txt
-			print "</h1>";
-		}
+		print '<table class="one-cell"><tr><td class="cell1">';			//	Begin the 1 cell table
 		$column = 0;
 		foreach ($pic_array as $filename) {								//  Use the pic_array to assign the links and img src
 			if(stristr($filename, ".JPG")) {
