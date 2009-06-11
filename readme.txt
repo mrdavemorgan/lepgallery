@@ -37,6 +37,9 @@ Mark Reynolds http://markpreynolds.com
 * Multiple gallery views:  Top level intro, thumbnails, browsing previous and next pictures.
 
 == Dependencies ==
+1. This is the browsing view.  One picture is larger and thumbnails for the previous and next picture links are displayed. 
+
+== Dependencies ==
 
 * PHP GD lib on server. This is mostly standard these days.
 * Permalinks via Settings -> Permalinks -> Custom Structure -> /%category%/%postname%
