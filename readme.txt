@@ -38,7 +38,8 @@ Mark Reynolds http://markpreynolds.com
 
 == Screenshots ==
 
-1. This is the browsing view.  One picture is larger and thumbnails for the previous and next picture links are displayed. screenshot-1.jpg.
+1. The browsing view.  One picture is larger and thumbnails for the previous and next picture links are displayed.  There were movie files in this directory, so links to view those are displayed also.
+2. The gallery thumbnail view.  A breadcrumb trail up to the top level of the gallery is displayed along with the sub-galleries.  These are each generated automatically by reading the file system of your photo directories.
 
 == Dependencies ==
 
