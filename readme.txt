@@ -36,7 +36,8 @@ Mark Reynolds http://markpreynolds.com
 * Gallery hierarchy breadcrumbs and with links to parent galleries and sub-galleries
 * Multiple gallery views:  Top level intro, thumbnails, browsing previous and next pictures.
 
-== Dependencies ==
+== Screenshots ==
+
 1. This is the browsing view.  One picture is larger and thumbnails for the previous and next picture links are displayed. 
 
 == Dependencies ==
