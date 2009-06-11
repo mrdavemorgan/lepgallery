@@ -38,7 +38,7 @@ Mark Reynolds http://markpreynolds.com
 
 == Screenshots ==
 
-1. This is the browsing view.  One picture is larger and thumbnails for the previous and next picture links are displayed. 
+1. This is the browsing view.  One picture is larger and thumbnails for the previous and next picture links are displayed. screenshot-1.jpg.
 
 == Dependencies ==
 
