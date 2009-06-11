@@ -33,7 +33,7 @@ Mark Reynolds http://markpreynolds.com
 * Set optional banner captions
 * Hidden, private galleries
 * Thumbnail cache files are added to photo directory for faster page loads
-* Support for png, jpg, bmp, mov, avi, mp3, mp4
+* Support for PNG, JPG, GIF, MP4, AVi and MOV
 * Automatic image rotation of jpegs with exif orientation
 * Gallery hierarchy breadcrumbs and with links to parent galleries and sub-galleries
 * Multiple gallery views:  Top level intro, thumbnails, browsing previous and next pictures.
