@@ -40,8 +40,9 @@ Mark Reynolds http://markpreynolds.com
 
 == Screenshots ==
 
-1. The browsing view.  One picture is larger and thumbnails for the previous and next picture links are displayed.  There were movie files in this directory, so links to view those are displayed also.
-2. The gallery thumbnail view.  A breadcrumb trail up to the top level of the gallery is displayed along with the sub-galleries.  These are each generated automatically by reading the file system of your photo directories.
+1. The UnGallery top level view.  A single picture is displayed as are the links to the subdirectories/subgalleries.
+2. Selecting one of the subgallery links above displays the gallery thumbnail view of all JPGs, PNG and GIFs in that directory.  A breadcrumb trail up to the top level of the galleries is displayed along with the subgalleries.  These are each generated automatically by reading the file system of your photo directories.
+3. Clicking on a thumbnail displays the browsing view.  One picture is larger and the previous and next picture thumbnail links are displayed.  There were movie files in this directory, so links to view those are displayed also.
 
 == Dependencies ==
 
