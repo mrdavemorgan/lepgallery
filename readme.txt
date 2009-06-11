@@ -9,9 +9,11 @@ Imports directories of pictures as a browsable WordPress gallery.
 
 == Description ==
 
-The main value of UnGallery is zero management of the photo gallery within WordPress.  After installing the plugin, you upload, move, delete and edit the photo files directly.  UnGallery picks up the changes immediately.
+UnGallery imports directories of pictures as a browsable WordPress gallery. 
 
-This plugin is still young, so there may be things to fix.  Feel free to use it, extend it or contact me with questions.
+The main value is zero management of the photo gallery within WordPress.  After installing the plugin, you upload, move, delete and edit the photo files directly.  UnGallery picks up the changes immediately.  If you've ever had to reorganize many of your pictures, or remove a few or edit the red-eye of a dozen, you know how inconvenient it can be to have to return to the gallery UI to keep it updated.  With UnGallery, any changes you make to your pictures or their organization are automatically current, on the next browser refresh.
+
+This plugin is still young, so there will be things to fix.  Feel free to use it, extend it or contact me with questions.
 Much of the script is taken from other published sources and noted inline.
 
 Mark Reynolds http://markpreynolds.com
