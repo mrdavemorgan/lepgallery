@@ -11,9 +11,9 @@ Imports directories of pictures as a browsable WordPress gallery.
 
 UnGallery imports directories of pictures as a browsable WordPress gallery. 
 
-The main value is no management of the gallery layer.  You can just point UnGallery at a directory hierarchy of photos, even thousands, and they are all displayed and browsable via your blog.  Any edits you make to the pictures or the organization of your directories are automatically current, on the next browser refresh.
+It's main value is no management at the gallery layer.  You can just point UnGallery at a directory hierarchy of photos, even thousands of them, and they are immediately displayed and browsable in your blog.  Any edits you make to the pictures or the organization of your directories are automatically current, on the next browser refresh.
 
-If you've ever had to reorganize many of your pictures, or remove a few or edit the red-eye of a dozen, you know how inconvenient it can be to have to return to the gallery management UI to keep it updated.  With UnGallery, all add/remove/edit changes you make to your pictures are automatically rolled into the gallery view, in WordPress.
+If you've ever had to reorganize where your photos are stored, remove a few or edit the red-eye of a dozen, you know how inconvenient it is to return to the gallery management UI to update everything.  With UnGallery, all add/remove/edit changes you make to your pictures are automatically rolled into the gallery view, in WordPress.
 
 This plugin is still young, so there will be things to fix.  Feel free to use it, extend it or contact me with questions.
 Much of the script is taken from other published sources and noted inline.
@@ -34,11 +34,11 @@ Mark Reynolds http://markpreynolds.com
 * Photo library is managed outside of WordPress, simply update via FTP, SCP, etc.  UnGallery sees changes immediately.
 * Set optional banner captions
 * Hidden, private galleries
-* Thumbnail cache files are added to photo directory for faster page loads
-* Support for PNG, JPG, GIF, MP4, AVi and MOV
-* Automatic image rotation of jpegs with exif orientation
-* Gallery hierarchy breadcrumbs and with links to parent galleries and sub-galleries
-* Multiple gallery views:  Top level intro, thumbnails, browsing previous and next pictures.
+* Thumbnail cache is created in photo directory for faster page loads
+* Support for PNG, JPG, GIF, MP4, AVI and MOV
+* Automatic image rotation to correct orientation of jpegs with exif information
+* Gallery hierarchy breadcrumbs and with links to parent galleries and subgalleries
+* Multiple gallery views:  Top level marquee, thumbnails, browsing previous and next pictures.
 
 == Screenshots ==
 
@@ -49,19 +49,17 @@ Mark Reynolds http://markpreynolds.com
 == Dependencies ==
 
 * PHP GD lib on server. This is mostly standard these days.
-* Permalinks via Settings -> Permalinks -> Custom Structure -> /%category%/%postname%
+* Permalinks enabled: Settings -> Permalinks -> Custom Structure -> /%category%/%postname% <br>
   More info here: http://teamtutorials.com/web-development-tutorials/clean-url%E2%80%99s-with-wordpress 
 * Write permission to the photo directories. UnGallery creates a "thumb_cache" to greatly improve performance. 
 
-
 == Notes ==
 
-* Create a symlink called "pics" to your picture directory (recommended) or copy/move/create your photo directory tree to /wp-content/plugins/ungallery/pics/ 
+* In: /wp-content/plugins/ungallery/ either create a symlink called "pics" to your picture directory (recommended) or copy/move/create a directory called pics there.  Please note, if you back up the UnGallery plugin directory, adding or symlink'ing to many photos, will increase the volume of the backups.
 * To display a caption over a gallery, add a file named banner.txt to that directory with the desired text.
-* The top level directory is intended to have a larger marquee picture displayed, so only only one picture file should be placed in the top directory.
-* To mark a gallery hidden, edit the hidden.txt file. If the content of hidden.txt is: "hidden" for example then any directories you create named "hidden", will not be visible via gallery browsing.
-* The symlinking to or placing a directory of photos, within the WordPress install directories could effect backups of the WordPress file system.  If you archive the wp-content/plugins directory, be aware your gallery photos will be added to that routine.  If this is not desirable, adjust the backup script to exclude wp-content/plugins/ungallery/pics/.  I'll make the target dir configurable later and skip the need to symlink or place the gallery directories there.
-* If you'd like to modify the size of the large pic and the thumbnails displayed, edit ./ungallery/ungallery.php.  The place to do this is noted inline, near the top of the file.
+* The top level directory is intended to have a larger, marquee picture displayed, so only one picture file should be placed in the "/pics/" directory. There is no limit on pictures in the subdirectories.
+* To mark a gallery hidden, edit the /ungallery/hidden.txt file. If e.g., the content of hidden.txt is: "hidden", then any directories you create named "hidden", will not be visible via gallery browsing.  
+* If you'd like to modify the size of the marquee pic, browsing pic or the thumbnails, please edit /ungallery/ungallery.php.  The variables ($thumbW, $srcW, $topW) are noted near the top of the file.
 
 == To do ==
 

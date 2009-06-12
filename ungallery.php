@@ -25,7 +25,7 @@ function ungallery() {
 	$src = $_GET['src'];
 	$thumbW = 175;							//	Change this value to modify the thumbnail displayed
 	$srcW = 650;							//	Change this value to modify the large picture displayed
-	$topW = 650;							//	Change this value to modify the top level picture displayed
+	$topW = 750;							//	Change this value to modify the top level picture displayed
 	$w = $thumbW;
 
 	if (isset($src)) {		 				//	If we are browsing a gallery, get the gallery name from the src url
@@ -104,11 +104,11 @@ function ungallery() {
 		include ($pic_root.$gallery."/banner.txt");					//	We also display the caption from banner.txt
 		print "</h1>";
 	}
-
-	if (!isset($src) && isset($pic_array)) {							//	If we are not in browse view,
-		print '<table class="one-cell"><tr><td class="cell1">';			//	Begin the 1 cell table
+	print '<table class="one-cell"><tr>';							//	Begin the 1 cell table
+	if (!isset($src) && isset($pic_array)) {						//	If we are not in browse view,
+		print '<td class="cell1">';
 		$column = 0;
-		foreach ($pic_array as $filename) {								//  Use the pic_array to assign the links and img src
+		foreach ($pic_array as $filename) {							//  Use the pic_array to assign the links and img src
 			if(stristr($filename, ".JPG")) {
 				print '<a href="?src=pics/'.$gallery. "/" .$filename.'"><img src="'. $dir .'jpeg_rotate.php?src=pics/'.$gallery. "/". $filename.'&w=' .$w. '"></a>'; 				//  If it is a jpeg include the exif rotation logic
 		   	} else {
@@ -129,7 +129,6 @@ function ungallery() {
 
 																	//  Display the current/websize pic
 																	//  If it is a jpeg include the exif rotation logic
-		print '<table class="one-cell"><tr>';						//	Begin the WordPress Atahualpa 2 cell table
 		if(stristr($src, ".JPG")) print '<td class="cell1"><a href="'. $dir .'source.php?pic=' . $src . '"><img src="./'. $dir .'jpeg_rotate.php?src='. $src. '&w='. $srcW. '"></a></td><td class="cell2">';
 			else print '<td class="cell1"><a href="'. $dir .'source.php?pic=' . $src . '"><img src="./'. $dir .'thumb.php?src='. $src. '&w='. $srcW. '"></a></td><td class="cell2">';
 
