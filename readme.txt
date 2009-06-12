@@ -70,11 +70,6 @@ Mark Reynolds http://markpreynolds.com
 * Add caption creation to admin page
 * Add hidden text to admin page
 
-== Bugs ==
-
-* Empty picture directory messes up table formatting
-* Arriving at the gallery page via a WordPress search widget breaks url args
-
 == License ==
 
 The MIT License
