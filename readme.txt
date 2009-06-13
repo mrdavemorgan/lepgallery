@@ -11,7 +11,7 @@ Imports directories of pictures as a browsable WordPress gallery.
 
 UnGallery imports directories of pictures as a browsable WordPress gallery. 
 
-It's main value is no management at the gallery layer.  You can just point UnGallery at a directory hierarchy of photos, even thousands of them, and they are immediately displayed and browsable in your blog.  Any edits you make to the pictures or the organization of your directories are automatically current, on the next browser refresh.
+Its main value is no management at the gallery layer.  You can just point UnGallery at a directory hierarchy of photos, even thousands of them, and they are immediately displayed and browsable in your blog.  Any edits you make to the pictures or the organization of your directories are automatically current, on the next browser refresh.
 
 If you've ever had to reorganize where your photos are stored, remove a few or edit the red-eye of a dozen, you know how inconvenient it is to return to the gallery management UI to update everything.  With UnGallery, all add/remove/edit changes you make to your pictures are automatically rolled into the gallery view, in WordPress.
 
@@ -55,7 +55,7 @@ Mark Reynolds http://markpreynolds.com
 
 == Notes ==
 
-* In: /wp-content/plugins/ungallery/ either create a symlink called "pics" to your picture directory (recommended) or copy/move/create a directory called pics there.  Please note, if you back up the UnGallery plugin directory, adding or symlink'ing to many photos, will increase the volume of the backups.
+* In: ./wp-content/plugins/ungallery/ either create a symlink called "pics" to your picture directory (recommended) or copy/move/create a directory called pics there.  Please note, if you back up the UnGallery plugin directory, adding or symlink'ing to many photos, will increase the volume of the backups.
 * To display a caption over a gallery, add a file named banner.txt to that directory with the desired text.
 * The top level directory is intended to have a larger, marquee picture displayed, so only one picture file should be placed in the "/pics/" directory. There is no limit on pictures in the subdirectories.
 * To mark a gallery hidden, edit the /ungallery/hidden.txt file. If e.g., the content of hidden.txt is: "hidden", then any directories you create named "hidden", will not be visible via gallery browsing.  
