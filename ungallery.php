@@ -23,11 +23,16 @@ function ungallery() {
 	$hidden = file_get_contents($dir."hidden.txt");
 	$gallery = $_GET['gallerylink'];
 	$src = $_GET['src'];
-	$thumbW = 175;							//	Change this value to modify the thumbnail displayed
-	$srcW = 650;							//	Change this value to modify the large picture displayed
-	$topW = 750;							//	Change this value to modify the top level picture displayed
+	
+	//	These dimensions work well together in the default WP theme.  Of course the gallery looks better
+	// 	using larger pictures and a wider page.  If you increase your width or use a theme like like Atahualpa,
+	//	you can increase the numbers as suggested below in the comments. They work for width 1150px.
+	$thumbW = 110;		//	$thumbW = 175;	
+	$srcW = 340;		//	$srcW = 650;
+	$topW = 450;		//	$topW = 650;
+	$column = 4;		//	$column = 5
 	$w = $thumbW;
-
+	
 	if (isset($src)) {		 				//	If we are browsing a gallery, get the gallery name from the src url
 		$lastslash =  strrpos($src, "/");	// 	Trim the filename off the end of the src link
 		$gallery =  substr($src, 5, $lastslash - 5 );   
@@ -63,22 +68,21 @@ function ungallery() {
 	while ($filename = readdir($dp)) {
 		if (!is_dir($pic_root.$gallery. "/". $filename))  {  // If it's a file, begin
 				$pic_types = array("JPG", "jpg", "GIF", "gif", "PNG", "png"); 		
-				if (in_array(substr($filename, -3), $pic_types)) {
-					$pic_array[] = $filename;							// If it's a picture, add it to thumb array
-				} else {
+				if (in_array(substr($filename, -3), $pic_types)) $pic_array[] = $filename;							// If it's a picture, add it to thumb array
+				else {
 					$movie_types = array("AVI", "avi", "MOV", "mov", "MP3", "mp3", "MP4", "mp4");								
 					if (in_array(substr($filename, -3), $movie_types)) $movie_array[$filename] = size_readable(filesize($pic_root.$gallery. "/". $filename)); 	
 										// If it's a movie, add name and size to the movie array
 				}						
 		}
 	} 
-	if($pic_array) sort($pic_array);	// Display the zip file link
+	if($pic_array) sort($pic_array);  
 	if ($_SERVER["REQUEST_URI"]  !== "/gallery") print '  / <a href="./gallery?zip=' . $gallery . '" title="Download a zipped archive of all photos in this gallery">-zip-</a> /';
-	if($movie_array) {					// Display the movie items
+	if($movie_array) {					//print the movie items
 		print ' <br>Movies:&nbsp;&nbsp;';
 		foreach ($movie_array as $filename => $filesize) {
 			print  '
-				<a href="'.$dir.'source.php?movie=pics/'. substr($parentpath, 0, strlen($parentpath) -1).$subdir.'/'.$filename. '" title="Movies may take much longer to download.  This file size is '. $filesize .'">'	.$filename.'</a>&nbsp;&nbsp;/&nbsp;&nbsp;';
+				<a href="'.$dir.'pics/'. substr($parentpath, 0, strlen($parentpath) -1).$subdir.'/'.$filename. '" title="Movies may take much longer to download.  This file size is '. $filesize .'">'	.$filename.'</a>&nbsp;&nbsp;/&nbsp;&nbsp;';
 		}
 	}
 	closedir($dp);
@@ -98,24 +102,24 @@ function ungallery() {
 	}
 	closedir($dp);
 	print '</b><br>';
-	if ($gallery == "") $w = $topW;									//  Set size of top level gallery picture
-	if (file_exists($pic_root.$gallery."/banner.txt")) {
-		print '<div class="post-headline"><h1>'; 
-		include ($pic_root.$gallery."/banner.txt");					//	We also display the caption from banner.txt
-		print "</h1>";
-	}
-	print '<table class="one-cell"><tr>';							//	Begin the 1 cell table
-	if (!isset($src) && isset($pic_array)) {						//	If we are not in browse view,
-		print '<td class="cell1">';
-		$column = 0;
-		foreach ($pic_array as $filename) {							//  Use the pic_array to assign the links and img src
+
+	if (!isset($src) && isset($pic_array)) {							//	If we are not in browse view,
+		if ($gallery == "") $w = $topW;									//  Set size of top level gallery picture
+		print '<table class="one-cell"><tr><td class="cell1">';			//	Begin the WordPress Atahualpa 1 cell table
+		if (file_exists("pics/".$gallery."/banner.txt")) {
+			print '<div class="post-headline"><h1>'; 
+			include ("pics/".$gallery."/banner.txt");					//	We also display the caption from banner.txt
+			print "</h1>";
+		}
+		$column = $columns;
+		foreach ($pic_array as $filename) {								//  Use the pic_array to assign the links and img src
 			if(stristr($filename, ".JPG")) {
 				print '<a href="?src=pics/'.$gallery. "/" .$filename.'"><img src="'. $dir .'jpeg_rotate.php?src=pics/'.$gallery. "/". $filename.'&w=' .$w. '"></a>'; 				//  If it is a jpeg include the exif rotation logic
 		   	} else {
 				print '<a href="?src=pics/'.$gallery. "/" .$filename.'"><img src="'. $dir .'thumb.php?src=pics/'.$gallery. "/". $filename.'&w=' .$w. '"></a>';    
 			}
 			$column++;
-			if ( $column == 5 ) {
+			if ( $column == 4 ) {
 				print '<br>';
 				$column = 0;
 			}            	
@@ -129,6 +133,7 @@ function ungallery() {
 
 																	//  Display the current/websize pic
 																	//  If it is a jpeg include the exif rotation logic
+		print '<table class="one-cell"><tr>';						//	Begin the WordPress Atahualpa 2 cell table
 		if(stristr($src, ".JPG")) print '<td class="cell1"><a href="'. $dir .'source.php?pic=' . $src . '"><img src="./'. $dir .'jpeg_rotate.php?src='. $src. '&w='. $srcW. '"></a></td><td class="cell2">';
 			else print '<td class="cell1"><a href="'. $dir .'source.php?pic=' . $src . '"><img src="./'. $dir .'thumb.php?src='. $src. '&w='. $srcW. '"></a></td><td class="cell2">';
 
