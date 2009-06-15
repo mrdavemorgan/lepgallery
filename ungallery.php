@@ -30,7 +30,7 @@ function ungallery() {
 	$thumbW = 110;		//	$thumbW = 175;	
 	$srcW = 340;		//	$srcW = 650;
 	$topW = 450;		//	$topW = 650;
-	$column = 4;		//	$column = 5
+	$column = 4;		//	$column = 5;
 	$w = $thumbW;
 	
 	if (isset($src)) {		 				//	If we are browsing a gallery, get the gallery name from the src url
