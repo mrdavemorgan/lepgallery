@@ -2,7 +2,7 @@
 Contributors: mmond
 Tags: gallery
 Requires at least: 
-Tested up to: 2.7.1
+Tested up to: 2.8
 Stable tag: trunk
 
 Imports directories of pictures as a browsable WordPress gallery.  
@@ -55,11 +55,11 @@ Mark Reynolds http://markpreynolds.com
 
 == Notes ==
 
-* In: ./wp-content/plugins/ungallery/ either create a symlink called "pics" to your picture directory (recommended) or copy/move/create a directory called pics there.  Please note, if you back up the UnGallery plugin directory, adding or symlink'ing to many photos, will increase the volume of the backups.
+* In: ./wp-content/plugins/ungallery/ either create a symlink called "pics" to your picture directory (recommended) or copy/move/create a directory called pics there.  Please note, if you back up your WordPress install, including your plugins directory, be aware the gallery may be included.
 * To display a caption over a gallery, add a file named banner.txt to that directory with the desired text.
 * The top level directory is intended to have a larger, marquee picture displayed, so only one picture file should be placed in the "/pics/" directory. There is no limit on pictures in the subdirectories.
 * To mark a gallery hidden, edit the /ungallery/hidden.txt file. If e.g., the content of hidden.txt is: "hidden", then any directories you create named "hidden", will not be visible via gallery browsing.  
-* If you'd like to modify the size of the marquee pic, browsing pic or the thumbnails, please edit /ungallery/ungallery.php.  The variables ($thumbW, $srcW, $topW) are noted near the top of the file.
+* If you'd like to modify the size of the marquee pic, browsing pic or the thumbnails, please edit /ungallery/ungallery.php.  The options are noted near the top of the file.
 
 == To do ==
 
