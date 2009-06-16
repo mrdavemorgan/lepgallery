@@ -43,10 +43,11 @@ Mark Reynolds http://markpreynolds.com
 
 1. The UnGallery top level view.  A single "Marquee" picture is displayed and the links to the subdirectories/subgalleries.
 2. Selecting one of the subgallery links above displays the gallery thumbnail view of all JPGs, PNGs and GIFs in that directory.  A breadcrumb trail up to the top level of the galleries is displayed along with the subgalleries.  These are each generated automatically by reading the file system of your photo directories. The -zip- link provides a zip file of all photo originals in the current directory for convenient download.
-3. Clicking on a thumbnail displays the browsing view.  One picture is larger and the previous and next picture thumbnail links are displayed.  There are movie files in this directory, so links to view them are displayed also.  UnGallery's sizes are adjustable to fill larger page widths like on this site.
+3. Clicking on a thumbnail displays the browsing view.  One picture is larger and the previous and next picture thumbnail links are displayed.  There are movie files in this directory, so links to view them are displayed also.  UnGallery's sizes are adjustable to fill larger page widths as this site uses.
 
 == Dependencies ==
 
+* Unix/Linux on server.  The scripts parse directories using shell commands.  I'll investigate a Windows option.
 * PHP GD lib on server. This is mostly standard these days.
 * Permalinks enabled: Settings -> Permalinks -> Custom Structure -> /%category%/%postname% <br>
   More info here: http://teamtutorials.com/web-development-tutorials/clean-url%E2%80%99s-with-wordpress 
