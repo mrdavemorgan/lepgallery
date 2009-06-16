@@ -24,13 +24,13 @@ function ungallery() {
 	$gallery = $_GET['gallerylink'];
 	$src = $_GET['src'];
 	
-	//	These dimensions work well together in the default WP theme.  Of course the gallery looks better
-	// 	using larger pictures and a wider page.  If you increase your width or use a theme like like Atahualpa,
-	//	you can increase the numbers as suggested below in the comments. They work for width 1150px.
-	$thumbW = 110;		//	$thumbW = 175;	
-	$srcW = 340;		//	$srcW = 650;
-	$topW = 450;		//	$topW = 650;
-	$column = 4;		//	$column = 5;
+	//	These dimensions fit the default WP theme.  Of course a gallery looks better using larger pictures 
+	// 	and a wider page.  If you increase the width or use a theme like like Atahualpa, you can increase 
+	//	the default as suggested below in the comments. These work for page width 1150px.
+	$thumbW = 110;		//	This sets thumbnail size.  					$thumbW = 175;	
+	$srcW = 340;		//	This sets selected picture size.  			$srcW = 650;
+	$topW = 450;		//	This sets top gallery picture size.			$topW = 650;
+	$column = 4;		//	This sets the number of thumbnail colums.	$column = 5;
 	$w = $thumbW;
 	
 	if (isset($src)) {		 				//	If we are browsing a gallery, get the gallery name from the src url
