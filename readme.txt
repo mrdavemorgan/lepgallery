@@ -22,10 +22,9 @@ Mark Reynolds http://markpreynolds.com
 
 == Installation ==
 
-1. Upload the ungallery directory to your /wp-content/plugins/ directory. 
-1. Activate through the 'Plugins' menu in WordPress.
+1. Upload the ungallery directory to your /wp-content/plugins/ directory and activate on the Plugins menu in WordPress.
 1. Enable Permalinks: Settings -> Permalinks -> Custom Structure -> /%category%/%postname%
-1. Create a blank WordPress *Page* called "Gallery".
+1. Create a blank WordPress Page called "Gallery".
 1. Picture files go in the /pics/ subdirectory included or you can point to your own picture directory tree.  See Notes below.
 
 == Features ==
@@ -44,7 +43,7 @@ Mark Reynolds http://markpreynolds.com
 
 1. The UnGallery top level view.  A single picture is displayed as are the links to the subdirectories/subgalleries.
 2. Selecting one of the subgallery links above displays the gallery thumbnail view of all JPGs, PNG and GIFs in that directory.  A breadcrumb trail up to the top level of the galleries is displayed along with the subgalleries.  These are each generated automatically by reading the file system of your photo directories.
-3. Clicking on a thumbnail displays the browsing view.  One picture is larger and the previous and next picture thumbnail links are displayed.  There were movie files in this directory, so links to view those are displayed also.
+3. Clicking on a thumbnail displays the browsing view.  One picture is larger and the previous and next picture thumbnail links are displayed.  There were movie files in this directory, so links to view those are displayed also.  UnGallery's picture sizes are adjustable to fill larger page widths like on this site, using the Atahualpa theme.
 
 == Dependencies ==
 
@@ -60,15 +59,6 @@ Mark Reynolds http://markpreynolds.com
 * The top level directory is intended to have a larger, marquee picture displayed, so only one picture file should be placed in the "/pics/" directory. There is no limit on pictures in the subdirectories.
 * To mark a gallery hidden, edit the /ungallery/hidden.txt file. If e.g., the content of hidden.txt is: "hidden", then any directories you create named "hidden", will not be visible via gallery browsing.  
 * If you'd like to modify the size of the marquee pic, browsing pic or the thumbnails, please edit /ungallery/ungallery.php.  The options are noted near the top of the file.
-
-== To do ==
-
-* Make gallery directory target an admin page option
-* Make thumbnail caching optional
-* Allow URL's as gallery target
-* Add sizing options to admin page
-* Add caption creation to admin page
-* Add hidden text to admin page
 
 == License ==
 
