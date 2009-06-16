@@ -11,9 +11,9 @@ Imports directories of pictures as a browsable WordPress gallery.
 
 UnGallery imports directories of pictures as a browsable WordPress gallery. 
 
-Its main value is no management at the gallery layer.  You can just point UnGallery at a directory hierarchy of photos, even thousands of them, and they are immediately displayed and browsable in your blog.  Any edits you make to the pictures or the organization of your directories are automatically current, on the next browser refresh.
+Its main value is no management at the WordPress layer.  You can just point UnGallery at a directory hierarchy of photos, even thousands of them, and they are immediately displayed and browsable in your blog.  Any edits you make to the pictures or the organization of your directories are automatically current, on the next browser refresh.
 
-If you've ever had to reorganize where your photos are stored, remove a few or edit the red-eye of a dozen, you know how inconvenient it is to return to the gallery management UI to update everything.  With UnGallery, all add/remove/edit changes you make to your pictures are automatically rolled into the gallery view, in WordPress.
+If you've ever had to reorganize where your photos are stored, remove a few or edit the red-eye of a dozen, you know how inconvenient it is to return to the gallery management UI to update everything.  With UnGallery, all add/remove/edit changes you make to your pictures are automatically current in the WordPress UnGallery view.
 
 This plugin is still young, so there will be things to fix.  Feel free to use it, extend it or contact me with questions.
 Much of the script is taken from other published sources and noted inline.
@@ -41,9 +41,9 @@ Mark Reynolds http://markpreynolds.com
 
 == Screenshots ==
 
-1. The UnGallery top level view.  A single picture is displayed as are the links to the subdirectories/subgalleries.
-2. Selecting one of the subgallery links above displays the gallery thumbnail view of all JPGs, PNG and GIFs in that directory.  A breadcrumb trail up to the top level of the galleries is displayed along with the subgalleries.  These are each generated automatically by reading the file system of your photo directories.
-3. Clicking on a thumbnail displays the browsing view.  One picture is larger and the previous and next picture thumbnail links are displayed.  There were movie files in this directory, so links to view those are displayed also.  UnGallery's picture sizes are adjustable to fill larger page widths like on this site, using the Atahualpa theme.
+1. The UnGallery top level view.  A single "Marquee" picture is displayed and the links to the subdirectories/subgalleries.
+2. Selecting one of the subgallery links above displays the gallery thumbnail view of all JPGs, PNGs and GIFs in that directory.  A breadcrumb trail up to the top level of the galleries is displayed along with the subgalleries.  These are each generated automatically by reading the file system of your photo directories. The -zip- link provides a zip file of all photo originals in the current directory for convenient download.
+3. Clicking on a thumbnail displays the browsing view.  One picture is larger and the previous and next picture thumbnail links are displayed.  There are movie files in this directory, so links to view them are displayed also.  UnGallery's sizes are adjustable to fill larger page widths like on this site.
 
 == Dependencies ==
 
