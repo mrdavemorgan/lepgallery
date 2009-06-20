@@ -47,7 +47,7 @@ Mark Reynolds http://markpreynolds.com
 
 == Dependencies ==
 
-* Unix/Linux on server.  The scripts parse directories using shell commands.  I'll investigate a Windows option.
+* Unix/Linux on server for all features.  I am working on Windows support and it's partially complete. Copy files from ./ungallery/windows/* to ./ungallery/  
 * PHP GD lib on server. This is mostly standard these days.
 * Permalinks enabled: Settings -> Permalinks -> Custom Structure -> /%category%/%postname% <br>
   More info here: http://teamtutorials.com/web-development-tutorials/clean-url%E2%80%99s-with-wordpress 

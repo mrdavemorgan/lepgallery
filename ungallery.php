@@ -1,4 +1,4 @@
-<?
+<?php
 /*
 Plugin Name: UnGallery
 Plugin URI: http://markpreynolds.com/technology/wordpress-ungallery
@@ -26,9 +26,9 @@ function ungallery() {
 	
 	//	These dimensions fit the default WP theme.  Of course a gallery looks better using larger pictures 
 	// 	and a wider page.  If you increase the width or use a theme like like Atahualpa, you can increase 
-	//	the default as suggested below in the comments. These work for page width 1150px.
-	$thumbW = 110;		//	This sets thumbnail size.  					$thumbW = 175;	
-	$srcW = 340;		//	This sets selected picture size.  			$srcW = 650;
+	//	the defaults as suggested below in the comments. The comment suggestions fit page width 1150px.
+	$thumbW = 111;		//	This sets thumbnail size.  					$thumbW = 175;	
+	$srcW = 355;		//	This sets selected picture size.  			$srcW = 650;
 	$topW = 450;		//	This sets top gallery picture size.			$topW = 650;
 	$column = 4;		//	This sets the number of thumbnail colums.	$column = 5;
 	$w = $thumbW;
@@ -101,17 +101,19 @@ function ungallery() {
 		}
 	}
 	closedir($dp);
-	print '</b><br>';
-
+	print '<table><tr><td>';		//	Begin the 1 cell table
 	if (!isset($src) && isset($pic_array)) {							//	If we are not in browse view,
 		if ($gallery == "") $w = $topW;									//  Set size of top level gallery picture
-		print '<table class="one-cell"><tr><td class="cell1">';			//	Begin the WordPress Atahualpa 1 cell table
-		if (file_exists("pics/".$gallery."/banner.txt")) {
-			print '<div class="post-headline"><h1>'; 
-			include ("pics/".$gallery."/banner.txt");					//	We also display the caption from banner.txt
-			print "</h1>";
+		print '<div class="post-headline"><h2>'; 
+		if (file_exists($pic_root.$gallery."/banner.txt")) {
+			include ($pic_root.$gallery."/banner.txt");					//	We also display the caption from banner.txt
+		} else {
+			$lastslash =  strrpos($gallery, "/");
+			print substr($gallery, $lastslash + 1);
 		}
+		print "</h2></td></tr><tr>";									//	Close cell. Add a bit of space
 		$column = $columns;
+		print '<td>';
 		foreach ($pic_array as $filename) {								//  Use the pic_array to assign the links and img src
 			if(stristr($filename, ".JPG")) {
 				print '<a href="?src=pics/'.$gallery. "/" .$filename.'"><img src="'. $dir .'jpeg_rotate.php?src=pics/'.$gallery. "/". $filename.'&w=' .$w. '"></a>'; 				//  If it is a jpeg include the exif rotation logic
@@ -133,19 +135,18 @@ function ungallery() {
 
 																	//  Display the current/websize pic
 																	//  If it is a jpeg include the exif rotation logic
-		print '<table class="one-cell"><tr>';						//	Begin the WordPress Atahualpa 2 cell table
-		if(stristr($src, ".JPG")) print '<td class="cell1"><a href="'. $dir .'source.php?pic=' . $src . '"><img src="./'. $dir .'jpeg_rotate.php?src='. $src. '&w='. $srcW. '"></a></td><td class="cell2">';
-			else print '<td class="cell1"><a href="'. $dir .'source.php?pic=' . $src . '"><img src="./'. $dir .'thumb.php?src='. $src. '&w='. $srcW. '"></a></td><td class="cell2">';
+		if(stristr($src, ".JPG")) print '<td class="cell1"><a href="'. $dir .'source.php?pic=' . $src . '"><img src="'. $dir .'jpeg_rotate.php?src='. $src. '&w='. $srcW. '"></a></td><td class="cell2">';
+			else print '<td class="cell1"><a href="'. $dir .'source.php?pic=' . $src . '"><img src="'. $dir .'thumb.php?src='. $src. '&w='. $srcW. '"></a></td><td class="cell2">';
 
 		if ($before_filename) {										// Display the before thumb, if it exists
 																	//  If it is a jpeg include the exif rotation logic
-			if(stristr($before_filename, ".JPG")) print '<a href="?src=pics/' . $gallery."/".$before_filename .'" title="Previous Gallery Picture"><img src="'. $dir .'jpeg_rotate.php?src=pics/' .$gallery."/".$before_filename .'"></a>';
-			else print '<a href="?src=pics/' . $gallery."/".$before_filename .'" title="Previous Gallery Picture"><img src="'. $dir .'thumb.php?src=pics/' .$gallery."/".$before_filename .'"></a>';
+			if(stristr($before_filename, ".JPG")) print '<a href="?src=pics/' . $gallery."/".$before_filename .'" title="Previous Gallery Picture"><img src="'. $dir .'jpeg_rotate.php?src=pics/' .$gallery."/".$before_filename .'&w='. $w .'"></a>';
+			else print '<a href="?src=pics/' . $gallery."/".$before_filename .'" title="Previous Gallery Picture"><img src="'. $dir .'thumb.php?src=pics/' .$gallery."/".$before_filename .'&w='. $w .'"></a>';
 		}
 	print "<br><br><br><br>";
 		if ($after_filename) {										// Display the after thumb, if it exists
-			if(stristr($after_filename, ".JPG")) print '<a href="?src=pics/' . $gallery."/".$after_filename .'" title="Next Gallery Picture"><img src="'. $dir .'jpeg_rotate.php?src=pics/' .$gallery."/".$after_filename .'"></a>';		
-			else print '<a href="?src=pics/' . $gallery."/".$after_filename .'" title="Next Gallery Picture"><img src="'. $dir .'thumb.php?src=pics/' .$gallery."/".$after_filename .'"></a>';
+			if(stristr($after_filename, ".JPG")) print '<a href="?src=pics/' . $gallery."/".$after_filename .'" title="Next Gallery Picture"><img src="'. $dir .'jpeg_rotate.php?src=pics/' .$gallery."/".$after_filename .'&w='. $w .'"></a>';		
+			else print '<a href="?src=pics/' . $gallery."/".$after_filename .'" title="Next Gallery Picture"><img src="'. $dir .'thumb.php?src=pics/' .$gallery."/".$after_filename .'&w='. $w .'"></a>';
 		}
 	}
 	}
