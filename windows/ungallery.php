@@ -37,7 +37,7 @@ function ungallery() {
 		$lastslash =  strrpos($src, "/");	// 	Trim the filename off the end of the src link
 		$gallery =  substr($src, 5, $lastslash - 5 );   
 	}
-
+	
 	//	Is the following line needed any longer?
 	//  consider ".." in path an attempt to read dirs outside gallery, so redirect to gallery root
 	if (strstr($gallery, "..")) $gallery = "";
@@ -47,7 +47,7 @@ function ungallery() {
 	} else {   	//  If $gallerylink is set and not "" then....
 	
 		//  Build the full gallery path into an array
-		$gallerypath =  explode("\\", $gallery);
+		$gallerypath =  explode("/", $gallery);	
 	
 		//  Render the Up directory links
 		print '<a href="./gallery">Top</a>';
@@ -60,9 +60,9 @@ function ungallery() {
 				//  In that case render the current gallery name, but don't hyperlink
 				print " / $level";
 			}
-			$parentpath = $parentpath . "\\";
+			$parentpath = $parentpath . "/";
 		}
-	}	
+	}
 										// Create the arrays with the dir's media files
 	$win_gallery_path =  str_replace("/", "\\", $gallery);	
 	$dp = opendir($pic_root.$win_gallery_path);
