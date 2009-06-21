@@ -25,7 +25,7 @@ Mark Reynolds http://markpreynolds.com
 1. Upload the ungallery directory to your /wp-content/plugins/ directory and activate on the Plugins menu in WordPress.
 1. Enable Permalinks: Settings -> Permalinks -> Custom Structure -> /%category%/%postname%
 1. Create a blank WordPress Page called "Gallery".
-1. For your pictures, create a directory or symlink in the ./plugins/ungallery/ directory called "pics".  See Notes below.
+1. For your pictures, create a directory or symlink in the ./plugins/ungallery/ directory called "pics".  See readme for more detail.
 1. Basic support for UnGallery on MS Windows is completed. After downloading, copy files from plugins/ungallery/windows/ to plugins/ungallery.
 
 == Features ==

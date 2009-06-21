@@ -78,8 +78,8 @@ function ungallery() {
 		}
 	} 
 	if($pic_array) sort($pic_array);  
-	//  The zip file is created but not linking properly for download, on Windows
-	//if ($_SERVER["REQUEST_URI"]  !== "/gallery") print '  / <a href="./gallery?zip=' . $gallery . '" title="Download a zipped archive of all photos in this gallery">-zip-</a> /';
+	//  Create zip archive of the picture files in the current directory
+	if ($_SERVER["REQUEST_URI"]  !== "/gallery") print '  / <a href="./gallery?zip=' . $gallery . '" title="Download a zipped archive of all photos in this gallery">-zip-</a> /';
 	if($movie_array) {					//print the movie items
 		print ' <br>Movies:&nbsp;&nbsp;';
 		foreach ($movie_array as $filename => $filesize) {
