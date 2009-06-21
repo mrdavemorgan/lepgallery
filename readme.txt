@@ -26,6 +26,7 @@ Mark Reynolds http://markpreynolds.com
 1. Enable Permalinks: Settings -> Permalinks -> Custom Structure -> /%category%/%postname%
 1. Create a blank WordPress Page called "Gallery".
 1. Picture files go in the /pics/ subdirectory included or you can point to your own picture directory tree.  See Notes below.
+1. Basic support for UnGallery on MS Windows is completed. The zip feature is not available yet. Copy files from plugins/ungallery/windows to plugins/ungallery.
 
 == Features ==
 
@@ -47,8 +48,6 @@ Mark Reynolds http://markpreynolds.com
 
 == Dependencies ==
 
-* Unix/Linux on server for all features.  I am working on Windows support and it's partially complete. Copy files from ./ungallery/windows/* to ./ungallery/  
-* PHP GD lib on server. This is mostly standard these days.
 * Permalinks enabled: Settings -> Permalinks -> Custom Structure -> /%category%/%postname% <br>
   More info here: http://teamtutorials.com/web-development-tutorials/clean-url%E2%80%99s-with-wordpress 
 * Write permission to the photo directories. UnGallery creates a "thumb_cache" to greatly improve performance. 
