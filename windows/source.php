@@ -3,7 +3,6 @@
 //	Build the content type link based on file type
 
 if ($_GET['zip']) {
-
 	$filename = str_replace("/", "\\", $_GET['zip']);
 	$len = filesize($filename);
 	$lastslash =  strrpos($filename, "\\");
