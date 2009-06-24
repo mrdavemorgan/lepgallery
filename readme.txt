@@ -25,8 +25,8 @@ Mark Reynolds http://markpreynolds.com
 1. Upload to /wp-content/plugins/ and activate on the Plugins menu in WordPress.
 1. Enable Permalinks: Settings -> Permalinks -> Custom Structure -> /%category%/%postname%
 1. Create a blank WordPress Page called "Gallery".
-1. For your pictures, create a directory or symlink in the ./plugins/ungallery/ directory called "pics".  See readme for more detail.
-1. For WordPress running on a Windows server:  after downloading, copy files from plugins/ungallery/windows/ to plugins/ungallery.
+1. Create a directory or symlink called "pics" in plugins/ungallery/ to contain your pictures.  See readme for more detail.
+1. For WordPress running on a Windows server:  after downloading, copy files from plugins/ungallery/windows/ to plugins/ungallery/.
 
 == Features ==
 
