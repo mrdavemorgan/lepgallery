@@ -27,10 +27,10 @@ function ungallery() {
 	//	These dimensions fit the default WP theme.  Of course a gallery looks better using larger pictures 
 	// 	and a wider page.  If you increase the width or use a theme like like Atahualpa, you can increase 
 	//	the defaults as suggested below in the comments. The comment suggestions fit page width 1150px.
-	$thumbW = 110;		//	This sets thumbnail size.  					$thumbW = 175;	
+	$thumbW = 110;		//	This sets thumbnail size.  					$thumbW = 175;
 	$srcW = 340;		//	This sets selected picture size.  			$srcW = 650;
 	$topW = 450;		//	This sets top gallery picture size.			$topW = 650;
-	$column = 4;		//	This sets the number of thumbnail colums.	$column = 5;
+	$columns = 4;		//	This sets the number of thumbnail columns.	$column = 5;
 	$w = $thumbW;
 	
 	if (isset($src)) {		 				//	If we are browsing a gallery, get the gallery name from the src url
@@ -103,9 +103,7 @@ function ungallery() {
 		}
 	}
 	closedir($dp);
-
-
-
+	
 	print '<table><tr><td>';		//	Begin the 1 cell table
 	if (!isset($src) && isset($pic_array)) {							//	If we are not in browse view,
 		if ($gallery == "") $w = $topW;									//  Set size of top level gallery picture
@@ -117,10 +115,7 @@ function ungallery() {
 			print substr($gallery, $lastslash);
 		}
 		print "</h2>";									//	Close cell. Add a bit of space
-
-
-		
-		$column = $columns;
+		$column = 0;
 		foreach ($pic_array as $filename) {								//  Use the pic_array to assign the links and img src
 			if(stristr($filename, ".JPG")) {
 				print '<a href="?src=pics/'.$gallery. "/" .$filename.'"><img src="'. $dir .'thumb.php?src=pics/'.$gallery. "/". $filename.'&w=' .$w. '"></a>'; 				//  If it is a jpeg include the exif rotation logic
@@ -128,7 +123,7 @@ function ungallery() {
 				print '<a href="?src=pics/'.$gallery. "/" .$filename.'"><img src="'. $dir .'thumb.php?src=pics/'.$gallery. "/". $filename.'&w=' .$w. '"></a>';    
 			}
 			$column++;
-			if ( $column == 4 ) {
+			if ( $column == $columns ) {
 				print '<br>';
 				$column = 0;
 			}            	

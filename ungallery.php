@@ -27,10 +27,10 @@ function ungallery() {
 	//	These dimensions fit the default WP theme.  Of course a gallery looks better using larger pictures 
 	// 	and a wider page.  If you increase the width or use a theme like like Atahualpa, you can increase 
 	//	the defaults as suggested below in the comments. The comment suggestions fit page width 1150px.
-	$thumbW = 111;		//	This sets thumbnail size.  					$thumbW = 175;	
-	$srcW = 355;		//	This sets selected picture size.  			$srcW = 650;
-	$topW = 450;		//	This sets top gallery picture size.			$topW = 650;
-	$column = 4;		//	This sets the number of thumbnail colums.	$column = 5;
+	$thumbW = 175;		//	This sets thumbnail size.  					$thumbW = 175;
+	$srcW = 650;		//	This sets selected picture size.  			$srcW = 650;
+	$topW = 650;		//	This sets top gallery picture size.			$topW = 650;
+	$columns = 5;		//	This sets the number of thumbnail columns.	$column = 5;
 	$w = $thumbW;
 	
 	if (isset($src)) {		 				//	If we are browsing a gallery, get the gallery name from the src url
@@ -73,7 +73,7 @@ function ungallery() {
 					$movie_types = array("AVI", "avi", "MOV", "mov", "MP3", "mp3", "MP4", "mp4");								
 					if (in_array(substr($filename, -3), $movie_types)) $movie_array[$filename] = size_readable(filesize($pic_root.$gallery. "/". $filename)); 	
 										// If it's a movie, add name and size to the movie array
-				}						
+				}
 		}
 	} 
 	if($pic_array) sort($pic_array);  
@@ -82,7 +82,7 @@ function ungallery() {
 		print ' <br>Movies:&nbsp;&nbsp;';
 		foreach ($movie_array as $filename => $filesize) {
 			print  '
-				<a href="'.$dir.'pics/'. substr($parentpath, 0, strlen($parentpath) -1).$subdir.'/'.$filename. '" title="Movies may take much longer to download.  This file size is '. $filesize .'">'	.$filename.'</a>&nbsp;&nbsp;/&nbsp;&nbsp;';
+				<a href="'. $dir .'source.php?movie=pics/'. substr($parentpath, 0, strlen($parentpath) -1).$subdir.'/'.$filename. '" title="Movies may take much longer to download.  This file size is '. $filesize .'">'	.$filename.'</a>&nbsp;&nbsp;/&nbsp;&nbsp;';
 		}
 	}
 	closedir($dp);
@@ -101,9 +101,9 @@ function ungallery() {
 		}
 	}
 	closedir($dp);
-	print '<table><tr><td>';		//	Begin the 1 cell table
+	print '<table><tr><td>';			//	Begin the 1 cell table
 	if (!isset($src) && isset($pic_array)) {							//	If we are not in browse view,
-		if ($gallery == "") $w = $topW;									//  Set size of top level gallery picture
+		if ($gallery == "") $w = $topW;									//	Set size of top level gallery picture
 		print '<div class="post-headline"><h2>'; 
 		if (file_exists($pic_root.$gallery."/banner.txt")) {
 			include ($pic_root.$gallery."/banner.txt");					//	We also display the caption from banner.txt
@@ -112,7 +112,7 @@ function ungallery() {
 			print substr($gallery, $lastslash + 1);
 		}
 		print "</h2></td></tr><tr>";									//	Close cell. Add a bit of space
-		$column = $columns;
+		$column = 0;
 		print '<td>';
 		foreach ($pic_array as $filename) {								//  Use the pic_array to assign the links and img src
 			if(stristr($filename, ".JPG")) {
@@ -121,18 +121,17 @@ function ungallery() {
 				print '<a href="?src=pics/'.$gallery. "/" .$filename.'"><img src="'. $dir .'thumb.php?src=pics/'.$gallery. "/". $filename.'&w=' .$w. '"></a>';    
 			}
 			$column++;
-			if ( $column == 4 ) {
+			if ( $column == $columns ) {
 				print '<br>';
 				$column = 0;
-			}            	
-		}	
+			}
+		}
 	} else {														// Render the browsing version, link to original, last/next picture, and link to parent gallery
 	if (isset($src)) {
 		if (!strstr($src, "pics/")) die;     						//  If "pics" is not in path it may be an attempt to read files outside gallery, so redirect to gallery root
 		$filename = substr($src, $lastslash + 1);
 		$before_filename = $pic_array[array_search($filename, $pic_array) - 1 ];
 		$after_filename = $pic_array[array_search($filename, $pic_array) + 1 ];
-
 																	//  Display the current/websize pic
 																	//  If it is a jpeg include the exif rotation logic
 		if(stristr($src, ".JPG")) print '<td class="cell1"><a href="'. $dir .'source.php?pic=' . $src . '"><img src="'. $dir .'jpeg_rotate.php?src='. $src. '&w='. $srcW. '"></a></td><td class="cell2">';
