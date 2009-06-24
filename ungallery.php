@@ -27,10 +27,10 @@ function ungallery() {
 	//	These dimensions fit the default WP theme.  Of course a gallery looks better using larger pictures 
 	// 	and a wider page.  If you increase the width or use a theme like like Atahualpa, you can increase 
 	//	the defaults as suggested below in the comments. The comment suggestions fit page width 1150px.
-	$thumbW = 175;		//	This sets thumbnail size.  					$thumbW = 175;
-	$srcW = 650;		//	This sets selected picture size.  			$srcW = 650;
-	$topW = 650;		//	This sets top gallery picture size.			$topW = 650;
-	$columns = 5;		//	This sets the number of thumbnail columns.	$column = 5;
+	$thumbW = 110;		//	This sets thumbnail size.  					$thumbW = 175;
+	$srcW = 340;		//	This sets selected picture size.  			$srcW = 650;
+	$topW = 450;		//	This sets top gallery picture size.			$topW = 650;
+	$columns = 4;		//	This sets the number of thumbnail columns.	$column = 5;
 	$w = $thumbW;
 	
 	if (isset($src)) {		 				//	If we are browsing a gallery, get the gallery name from the src url
