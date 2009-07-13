@@ -23,7 +23,9 @@ function ungallery() {
 	$hidden = file_get_contents($dir."hidden.txt");
 	$gallery = $_GET['gallerylink'];
 	$src = $_GET['src'];
-	
+	if(function_exists('exif_read_data')) $rotatable = "jpeg_rotate.php";
+		else $rotatable = "thumb.php";
+		
 	//	These dimensions fit the default WP theme.  Of course a gallery looks better using larger pictures 
 	// 	and a wider page.  If you increase the width or use a theme like like Atahualpa, you can increase 
 	//	the defaults as suggested below in the comments. The comment suggestions fit page width 1150px.
@@ -118,7 +120,7 @@ function ungallery() {
 		$column = 0;
 		foreach ($pic_array as $filename) {								//  Use the pic_array to assign the links and img src
 			if(stristr($filename, ".JPG")) {
-				print '<a href="?src=pics/'.$gallery. "/" .$filename.'"><img src="'. $dir .'thumb.php?src=pics/'.$gallery. "/". $filename.'&w=' .$w. '"></a>'; 				//  If it is a jpeg include the exif rotation logic
+				print '<a href="?src=pics/'.$gallery. "/" .$filename.'"><img src="'. $dir . $rotatable . '?src=pics/'.$gallery. "/". $filename.'&w=' .$w. '"></a>'; 				//  If it is a jpeg include the exif rotation logic
 		   	} else {
 				print '<a href="?src=pics/'.$gallery. "/" .$filename.'"><img src="'. $dir .'thumb.php?src=pics/'.$gallery. "/". $filename.'&w=' .$w. '"></a>';    
 			}
@@ -138,17 +140,17 @@ function ungallery() {
 																	//  Display the current/websize pic
 																	//  If it is a jpeg include the exif rotation logic
 		print '<table class="one-cell"><tr>';						//	Begin the WordPress Atahualpa 2 cell table
-		if(stristr($src, ".JPG")) print '<td class="cell1"><a href="'. $dir .'source.php?pic=' . $src . '"><img src="'. $dir .'jpeg_rotate.php?src='. $src. '&w='. $srcW. '"></a></td><td class="cell2">';
+		if(stristr($src, ".JPG")) print '<td class="cell1"><a href="'. $dir .'source.php?pic=' . $src . '"><img src="'. $dir . $rotatable . '?src='. $src. '&w='. $srcW. '"></a></td><td class="cell2">';
 			else print '<td class="cell1"><a href="'. $dir .'source.php?pic=' . $src . '"><img src="'. $dir .'thumb.php?src='. $src. '&w='. $srcW. '"></a></td><td class="cell2">';
 
 		if ($before_filename) {										// Display the before thumb, if it exists
 																	//  If it is a jpeg include the exif rotation logic
-			if(stristr($before_filename, ".JPG")) print '<a href="?src=pics/' . $gallery."/".$before_filename .'" title="Previous Gallery Picture"><img src="'. $dir .'jpeg_rotate.php?src=pics/' .$gallery."/".$before_filename .'&w='. $w .'"></a>';
+			if(stristr($before_filename, ".JPG")) print '<a href="?src=pics/' . $gallery."/".$before_filename .'" title="Previous Gallery Picture"><img src="'. $dir . $rotatable . '?src=pics/' .$gallery."/".$before_filename .'&w='. $w .'"></a>';
 			else print '<a href="?src=pics/' . $gallery."/".$before_filename .'" title="Previous Gallery Picture"><img src="'. $dir .'thumb.php?src=pics/' .$gallery."/".$before_filename .'&w='. $w .'"></a>';
 		}
 	print "<br><br><br><br>";
 		if ($after_filename) {										// Display the after thumb, if it exists
-			if(stristr($after_filename, ".JPG")) print '<a href="?src=pics/' . $gallery."/".$after_filename .'" title="Next Gallery Picture"><img src="'. $dir .'jpeg_rotate.php?src=pics/' .$gallery."/".$after_filename .'&w='. $w .'"></a>';
+			if(stristr($after_filename, ".JPG")) print '<a href="?src=pics/' . $gallery."/".$after_filename .'" title="Next Gallery Picture"><img src="'. $dir . $rotatable . '?src=pics/' .$gallery."/".$after_filename .'&w='. $w .'"></a>';
 			else print '<a href="?src=pics/' . $gallery."/".$after_filename .'" title="Next Gallery Picture"><img src="'. $dir .'thumb.php?src=pics/' .$gallery."/".$after_filename .'&w='. $w .'"></a>';
 		}
 	}
