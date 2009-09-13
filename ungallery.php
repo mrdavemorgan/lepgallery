@@ -51,20 +51,15 @@ function ungallery() {
 		//  Build the full gallery path into an array
 		$gallerypath =  explode("/", $gallery);
 	
-		//  Render the Up directory links
+		//  Render the Up/Current directory links
 		print '<a href="./gallery">Top</a>';
 		foreach ($gallerypath as $key => $level) {
 			$parentpath = $parentpath . $level ;
-			//  Unless it is the current directory
-			if ($key < count($gallerypath) - 1) {
-				print ' / <a href="gallery?gallerylink='. $parentpath .'" >'. $level .'</a>';
-			}  else {
-				//  In that case render the current gallery name, but don't hyperlink
-				print " / $level";
-			}
+			print ' / <a href="gallery?gallerylink='. $parentpath .'" >'. $level .'</a>';
 			$parentpath = $parentpath . "/";
 		}
-	}	
+	}
+
 										// Create the arrays with the dir's media files
 	$dp = opendir($pic_root.$gallery);
 	while ($filename = readdir($dp)) {
