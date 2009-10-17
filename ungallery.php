@@ -106,7 +106,8 @@ function ungallery() {
 			include ($pic_root.$gallery."/banner.txt");					//	We also display the caption from banner.txt
 		} else {
 			$lastslash =  strrpos($gallery, "/");
-			print substr($gallery, $lastslash + 1);
+			if (strpos($gallery, "/")) print substr($gallery, $lastslash + 1);
+			else print $gallery;
 		}
 		print "</h2></td></tr><tr>";									//	Close cell. Add a bit of space
 		$column = 0;
