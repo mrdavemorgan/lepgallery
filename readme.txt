@@ -5,7 +5,7 @@ Requires at least:
 Tested up to: 2.8
 Stable tag: trunk
 
-Imports directories of pictures as a browsable WordPress gallery.  
+Publish existing picture directories as a WordPress gallery.  
 
 == Description ==
 
