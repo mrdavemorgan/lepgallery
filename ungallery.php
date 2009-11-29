@@ -8,13 +8,21 @@ Description: Imports directories of pictures as a browsable WordPress gallery.
 */
 
 if (strpos($_SERVER["REQUEST_URI"], "gallery?zip")) {
+	// If the zip link is active, render the archive information page and links
 	add_filter('the_content', "zip");
+}	elseif (strpos($_SERVER["REQUEST_URI"], "gallery?hidden")) {
+	// If the hidden link is active, render the hidden links page
+	add_filter('the_content', "hidden");
 }	elseif (strpos($_SERVER["REQUEST_URI"], "/gallery") === 0) {
 	add_filter('the_content', "ungallery");
 }
 
 function zip() {
 	include ("zip.php");
+}
+
+function hidden() {
+	include ("hidden.php");
 }
 
 function ungallery() {	
@@ -73,9 +81,14 @@ function ungallery() {
 				}
 		}
 	} 
-	if($pic_array) sort($pic_array);  
-	if ($_SERVER["REQUEST_URI"]  !== "/gallery") print '  / <a href="./gallery?zip=' . $gallery . '" title="Download a zipped archive of all photos in this gallery">-zip-</a> /';
-	if($movie_array) {					//print the movie items
+	// If we are viewing a gallery, arrange the thumbs
+	if($pic_array) sort($pic_array);	
+	// Render the zip link, unless we are at the top level
+	if ($_SERVER["REQUEST_URI"]  !== "/gallery") print '  / <a href="./gallery?zip=' . $gallery . '" title="Download a zipped archive of all photos in this gallery">-zip-</a> /';	
+	// If this gallery is a hidden gallery, render a link to all hidden galleries
+	if (substr($_SERVER["REQUEST_URI"], -7)  == $hidden) print ' <a href="./gallery?hidden" title="View all '. $hidden .' galleries">-All '. $hidden .' -</a> /';	
+	//print the movie items
+	if($movie_array) {					
 		print ' <br>Movies:&nbsp;&nbsp;';
 		foreach ($movie_array as $filename => $filesize) {
 			print  '
