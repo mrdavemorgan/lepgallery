@@ -2,18 +2,16 @@
 /*
 Plugin Name: UnGallery
 Plugin URI: http://markpreynolds.com/technology/wordpress-ungallery
-Version: 0.8
+Version: 0.9
 Author: Mark Reynolds
-Description: Imports directories of pictures as a browsable WordPress gallery.
+Description: Displays directories of photos as a browsable WordPress gallery.
 */
 
-if (strpos($_SERVER["REQUEST_URI"], "gallery?zip")) {
-	// If the zip link is active, render the archive information page and links
+if (strpos($_SERVER["REQUEST_URI"], "gallery?zip")) {				// If the zip flag is active, display the archive information page and links
 	add_filter('the_content', "zip");
-}	elseif (strpos($_SERVER["REQUEST_URI"], "gallery?hidden")) {
-	// If the hidden link is active, render the hidden links page
-	add_filter('the_content', "hidden");
-}	elseif (strpos($_SERVER["REQUEST_URI"], "/gallery") === 0) {
+}	elseif (strpos($_SERVER["REQUEST_URI"], "gallery?hidden")) {	// If the hidden flag is active, display the hidden links page
+	add_filter('the_content', "hidden");	
+}	elseif (strpos($_SERVER["REQUEST_URI"], "/gallery") === 0) {	// Otherwise display the main gallery
 	add_filter('the_content', "ungallery");
 }
 
@@ -34,21 +32,22 @@ function ungallery() {
 	if(function_exists('exif_read_data')) $rotatable = "jpeg_rotate.php";
 		else $rotatable = "thumb.php";
 	
-	//	These dimensions fit the default WP theme.  Of course a gallery looks better using larger pictures 
-	// 	and a wider page.  If you increase the width or use a theme like like Atahualpa, you can increase 
-	//	the defaults as suggested below in the comments. The comment suggestions fit page width 1150px.
-	$thumbW = 110;		//	This sets thumbnail size.  					$thumbW = 175;
-	$srcW = 340;		//	This sets selected picture size.  			$srcW = 650;
-	$topW = 450;		//	This sets top gallery picture size.			$topW = 650;
-	$columns = 4;		//	This sets the number of thumbnail columns.	$column = 5;
-	$w = $thumbW;
+//	This section sets the size and layout of the gallery.  The default dimensions are to fit the page size
+//	WordPress ships with.  You may want to use larger pictures and a wider page.  If you increase page width
+//	or use a theme like like Atahualpa, you can increase the defaults as suggested below in the comments. 
+//	For example the commented dimensions fit page width 1150px, which I use at MarkPReynolds.com.
+$thumbW = 110;		//	175		This sets thumbnail size.  					
+$srcW = 340;		//	650		This sets selected picture size.  			
+//$topW = 450;		//	650		This sets top level, single pic size.  If you do not use a single picture 
+					//			at the top of your gallery tree, comment this line out.
+
+$columns = 4;		//	5		This sets the number of thumbnail columns.	
+$w = $thumbW;
 	
 	if (isset($src)) {		 				//	If we are browsing a gallery, get the gallery name from the src url
 		$lastslash =  strrpos($src, "/");	// 	Trim the filename off the end of the src link
 		$gallery =  substr($src, 5, $lastslash - 5 );   
 	}
-
-	//	Is the following line needed any longer?
 	//  consider ".." in path an attempt to read dirs outside gallery, so redirect to gallery root
 	if (strstr($gallery, "..")) $gallery = "";
 
@@ -73,32 +72,33 @@ function ungallery() {
 	while ($filename = readdir($dp)) {
 		if (!is_dir($pic_root.$gallery. "/". $filename))  {  // If it's a file, begin
 				$pic_types = array("JPG", "jpg", "GIF", "gif", "PNG", "png"); 		
-				if (in_array(substr($filename, -3), $pic_types)) $pic_array[] = $filename;							// If it's a picture, add it to thumb array
+				if (in_array(substr($filename, -3), $pic_types)) $pic_array[] = $filename;		// If it's a picture, add it to thumb array
 				else {
 					$movie_types = array("AVI", "avi", "MOV", "mov", "MP3", "mp3", "MP4", "mp4");								
-					if (in_array(substr($filename, -3), $movie_types)) $movie_array[$filename] = size_readable(filesize($pic_root.$gallery. "/". $filename)); 	
-										// If it's a movie, add name and size to the movie array
+					if (in_array(substr($filename, -3), $movie_types)) $movie_array[$filename] = size_readable(filesize($pic_root.$gallery. "/". $filename));		// If it's a movie, add name and size to the movie array
 				}
 		}
 	} 
 	// If we are viewing a gallery, arrange the thumbs
 	if($pic_array) sort($pic_array);	
-	// Render the zip link, unless we are at the top level
+	// Unless we are at the top level, display the zip link
 	if ($_SERVER["REQUEST_URI"]  !== "/gallery") print '  / <a href="./gallery?zip=' . $gallery . '" title="Download a zipped archive of all photos in this gallery">-zip-</a> /';	
-	// If this gallery is a hidden gallery, render a link to all hidden galleries
+
+	// If this gallery is a hidden gallery, display a link to a list of all hidden galleries
 	if (substr($_SERVER["REQUEST_URI"], -7)  == $hidden) print ' <a href="./gallery?hidden" title="View all '. $hidden .' galleries">-All '. $hidden .' -</a> /';	
-	//print the movie items
+
+	// Display the movie links
 	if($movie_array) {					
 		print ' <br>Movies:&nbsp;&nbsp;';
 		foreach ($movie_array as $filename => $filesize) {
 			print  '
-				<a href="'. $dir .'source.php?movie=pics/'. substr($parentpath, 0, strlen($parentpath) -1).$subdir.'/'.$filename. '" title="Movies may take much longer to download.  This file size is '. $filesize .'">'	.$filename.'</a>&nbsp;&nbsp;/&nbsp;&nbsp;';
+				<a href="gallery?src=pics/'. substr($parentpath, 0, strlen($parentpath) -1).$subdir.'/'.$filename. '" title="This movie file size is '. $filesize .'">'	.$filename.'</a>&nbsp;&nbsp;/&nbsp;&nbsp;';
 		}
 	}
 	closedir($dp);
 	print '&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;Sub Galleries&nbsp;:&nbsp;&nbsp;';
 
-	$dp = opendir($pic_root.$gallery);	//  Render the Subdirectory links
+	$dp = opendir($pic_root.$gallery);	//  Display the Subdirectory links
 	while ($subdir = readdir($dp)) {	//  If it is a subdir and not set as hidden, enter it into the array
 		if (is_dir($pic_root.$gallery. "/". $subdir) && $subdir !="thumb_cache" && $subdir != "." && $subdir != ".." && !strstr($subdir, $hidden)) {
 			$subdirs[] = $subdir;
@@ -111,7 +111,8 @@ function ungallery() {
 		}
 	}
 	closedir($dp);
-	print '<table><tr><td>';			//	Begin the 1 cell table
+	print '
+	<table><tr>';			//	Begin the 1 cell table
 	if (!isset($src) && isset($pic_array)) {							//	If we are not in browse view,
 		if ($gallery == "") $w = $topW;									//	Set size of top level gallery picture
 		print '<div class="post-headline"><h2>'; 
@@ -138,29 +139,40 @@ function ungallery() {
 			}
 		}
 	} else {														// Render the browsing version, link to original, last/next picture, and link to parent gallery
-	if (isset($src)) {
+	if (isset($src) && substr($src, -3) !== "MP4") {
 		if (!strstr($src, "pics/")) die;     						//  If "pics" is not in path it may be an attempt to read files outside gallery, so redirect to gallery root
 		$filename = substr($src, $lastslash + 1);
 		$before_filename = $pic_array[array_search($filename, $pic_array) - 1 ];
 		$after_filename = $pic_array[array_search($filename, $pic_array) + 1 ];
 																	//  Display the current/websize pic
 																	//  If it is a jpeg include the exif rotation logic
-		if(stristr($src, ".JPG")) print '<td class="cell1"><a href="'. $dir .'source.php?pic=' . $src . '"><img src="'. $dir . $rotatable . '?src='. $src. '&w='. $srcW. '"></a></td><td class="cell2">';
-			else print '<td class="cell1"><a href="'. $dir .'source.php?pic=' . $src . '"><img src="'. $dir .'thumb.php?src='. $src. '&w='. $srcW. '"></a></td><td class="cell2">';
+		if(stristr($src, ".JPG")) print '
+		<td rowspan="2" style="vertical-align:middle;"><a href="'. $dir .'source.php?pic=' . $src . '"><img src="'. $dir . $rotatable . '?src='. $src. '&w='. $srcW. '"></a></td>
+		<td>';
+			else print '
+			<td rowspan=2><a href="'. $dir .'source.php?pic=' . $src . '"><img src="'. $dir .'thumb.php?src='. $src. '&w='. $srcW. '"></a></td>
+			<td valign="center">';
 
 		if ($before_filename) {										// Display the before thumb, if it exists
 																	//  If it is a jpeg include the exif rotation logic
 			if(stristr($before_filename, ".JPG")) print '<a href="?src=pics/' . $gallery."/".$before_filename .'" title="Previous Gallery Picture"><img src="'. $dir . $rotatable . '?src=pics/' .$gallery."/".$before_filename .'&w='. $w .'"></a>';
 			else print '<a href="?src=pics/' . $gallery."/".$before_filename .'" title="Previous Gallery Picture"><img src="'. $dir .'thumb.php?src=pics/' .$gallery."/".$before_filename .'&w='. $w .'"></a>';
 		}
-	print "<br><br><br><br>";
+	print "</td>
+	</tr>
+	<tr>
+	<td>
+	";
 		if ($after_filename) {										// Display the after thumb, if it exists
-			if(stristr($after_filename, ".JPG")) print '<a href="?src=pics/' . $gallery."/".$after_filename .'" title="Next Gallery Picture"><img src="'. $dir . $rotatable . '?src=pics/' .$gallery."/".$after_filename .'&w='. $w .'"></a>';		
-			else print '<a href="?src=pics/' . $gallery."/".$after_filename .'" title="Next Gallery Picture"><img src="'. $dir .'thumb.php?src=pics/' .$gallery."/".$after_filename .'&w='. $w .'"></a>';
+			if(stristr($after_filename, ".JPG")) print '	<a href="?src=pics/' . $gallery."/".$after_filename .'" title="Next Gallery Picture"><img src="'. $dir . $rotatable . '?src=pics/' .$gallery."/".$after_filename .'&w='. $w .'"></a>';		
+			else print '	<a href="?src=pics/' . $gallery."/".$after_filename .'" title="Next Gallery Picture"><img src="'. $dir .'thumb.php?src=pics/' .$gallery."/".$after_filename .'&w='. $w .'"></a>';
 		}
 	}
+	else print '
+	<embed src="http://'. $_SERVER["SERVER_NAME"] .'/wp-content/plugins/ungallery/source.php?movie='. $src  .'" type="application/quicktime" wmode="transparent" width="440" height="380" autoplay="true" controller="true"></embed></object>';
 	}
-	print "</td></tr></table>";
+	print "</td>
+	</tr></table>";
 }
 function size_readable ($size, $retstring = null) {
         // adapted from code at http://aidanlister.com/repos/v/function.size_readable.php
