@@ -13,7 +13,7 @@ UnGallery displays directories of pictures as a browsable WordPress gallery.
 
 The advantage of UnGallery is there is there is no administration required in WordPress.  You just point the plugin to a directory of photos, even thousands of them organized into many subdirectories, and they are immediately viewable via an existing WordPress site.  Any uploads, deletions, or other changes you make to your photos and directories are automatically reflected in WordPress.
 
-If you've ever had to manage your photos after publishing them, you know how inconvenient it is to return to a web tool to correct the new location, change the thumbnails, etc.   With UnGallery, you can move entire galleries, remove a dozen red-eyes, rename an event or individual picture and these changes are automatically live in WordPress.
+If you've ever had to manage your photos after publishing them, you know how inconvenient it is to return to a web tool to correct the new location, change the thumbnails, etc.   With UnGallery, you can rearrange entire galleries, edit a dozen party pic red-eyes, rename an event or individual picture and any of these changes are automatically live in WordPress.
 
 Mark Reynolds http://markpreynolds.com
 
@@ -52,17 +52,16 @@ Mark Reynolds http://markpreynolds.com
 
 == Dependencies ==
 
-* Permalinks enabled: Settings -> Permalinks -> Custom Structure -> /%category%/%postname% <br>
-  More info here: http://teamtutorials.com/web-development-tutorials/clean-url%E2%80%99s-with-wordpress 
-* Write permission to the photo directories. UnGallery creates a "thumb_cache" to improve performance. 
+* Permalinks enabled: Settings -> Permalinks -> Custom Structure -> /%category%/%postname% 
+* Write permission to the photo directories. UnGallery creates a "thumb_cache" directory in each gallery to improve performance. 
 
 == Notes ==
 
 * In: ./wp-content/plugins/ungallery/ either create a symlink called "pics" to your picture directory (recommended) or copy/move/create a directory called pics there.  Please note, if you back up your WordPress install, including your plugins directory, be aware your gallery may be included via the symlink.
-* To display a caption over a gallery, add a file named banner.txt to that directory with the desired text.
-* The top level directory is intended to have a larger, marquee picture displayed, so only one picture file should be placed in the "/pics/" directory. There is no limit on pictures in the subdirectories.
+* To display a caption over a gallery, add a file named banner.txt to that directory with the desired text.  The file can include plain text or html.
+* The top level directory is intended to have a larger, marquee picture displayed, so only one picture file should be placed in the "/pics/" directory. There is no limit on pictures in the subdirectories.  This can be enabled/disabled in by updating the settings section at the top of ungallery.php.
 * To mark a gallery hidden, edit the /ungallery/hidden.txt file. If e.g., the content of hidden.txt is: "hidden", then any directories you create named "hidden", will not be visible via gallery browsing.  
-* If you'd like to modify the size of the marquee pic, browsing pic or the thumbnails, please edit /ungallery/ungallery.php.  The options are noted near the top of the file.
+* If you'd like to modify the size of the marquee picture, browsing picture or the thumbnails, please edit /ungallery/ungallery.php.  The options are noted near the top of the file.
 
 == License ==
 

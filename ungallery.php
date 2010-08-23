@@ -36,8 +36,8 @@ function ungallery() {
 //	WordPress ships with.  You may want to use larger pictures and a wider page.  If you increase page width
 //	or use a theme like like Atahualpa, you can increase the defaults as suggested below in the comments. 
 //	For example the commented dimensions fit page width 1150px, which I use at MarkPReynolds.com.
-$thumbW = 110;		//	175		This sets thumbnail size.  					
-$srcW = 340;		//	650		This sets selected picture size.  			
+$thumbW = 140;		//	175		This sets thumbnail size.  					
+$srcW = 475;		//	650		This sets selected picture size.  			
 //$topW = 450;		//	650		This sets top level, single pic size.  If you do not use a single picture 
 					//			at the top of your gallery tree, comment this line out.
 
