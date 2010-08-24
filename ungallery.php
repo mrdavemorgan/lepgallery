@@ -2,10 +2,11 @@
 /*
 Plugin Name: UnGallery
 Plugin URI: http://markpreynolds.com/technology/wordpress-ungallery
-Version: 0.9
+Version: 0.9.1
 Author: Mark Reynolds
 Description: Displays directories of photos as a browsable WordPress gallery.
 */
+
 
 if (strpos($_SERVER["REQUEST_URI"], "gallery?zip")) {				// If the zip flag is active, display the archive information page and links
 	add_filter('the_content', "zip");
@@ -23,7 +24,8 @@ function hidden() {
 	include ("hidden.php");
 }
 
-function ungallery() {	
+function ungallery() {
+	$blogURI = get_bloginfo('url') . "/";	
 	$dir = "wp-content/plugins/ungallery/";
 	$pic_root = $dir."pics/";
 	$hidden = file_get_contents($dir."hidden.txt");
@@ -36,7 +38,7 @@ function ungallery() {
 //	WordPress ships with.  You may want to use larger pictures and a wider page.  If you increase page width
 //	or use a theme like like Atahualpa, you can increase the defaults as suggested below in the comments. 
 //	For example the commented dimensions fit page width 1150px, which I use at MarkPReynolds.com.
-$thumbW = 140;		//	175		This sets thumbnail size.  					
+$thumbW = 135;		//	175		This sets thumbnail size.  					
 $srcW = 475;		//	650		This sets selected picture size.  			
 //$topW = 450;		//	650		This sets top level, single pic size.  If you do not use a single picture 
 					//			at the top of your gallery tree, comment this line out.
@@ -112,7 +114,7 @@ $w = $thumbW;
 	}
 	closedir($dp);
 	print '
-	<table><tr>';			//	Begin the 1 cell table
+	<table width="100%"><tr>';			//	Begin the table
 	if (!isset($src) && isset($pic_array)) {							//	If we are not in browse view,
 		if ($gallery == "") $w = $topW;									//	Set size of top level gallery picture
 		print '<div class="post-headline"><h2>'; 
@@ -128,9 +130,9 @@ $w = $thumbW;
 		print '<td>';
 		foreach ($pic_array as $filename) {								//  Use the pic_array to assign the links and img src
 			if(stristr($filename, ".JPG")) {
-				print '<a href="?src=pics/'.$gallery. "/" .$filename.'"><img src="'. $dir . $rotatable . '?src=pics/'.$gallery. "/". $filename.'&w=' .$w. '"></a>'; 				//  If it is a jpeg include the exif rotation logic
+				print '<a href="?src=pics/'.$gallery. "/" .$filename.'"><img src="'. $blogURI . $dir . $rotatable . '?src=pics/'.$gallery. "/". $filename.'&w=' .$w. '"></a>'; 				//  If it is a jpeg include the exif rotation logic
 		   	} else {
-				print '<a href="?src=pics/'.$gallery. "/" .$filename.'"><img src="'. $dir .'thumb.php?src=pics/'.$gallery. "/". $filename.'&w=' .$w. '"></a>';    
+				print '<a href="?src=pics/'.$gallery. "/" .$filename.'"><img src="'. $blogURI . $dir .'thumb.php?src=pics/'.$gallery. "/". $filename.'&w=' .$w. '"></a>';    
 			}
 			$column++;
 			if ( $column == $columns ) {
@@ -147,16 +149,16 @@ $w = $thumbW;
 																	//  Display the current/websize pic
 																	//  If it is a jpeg include the exif rotation logic
 		if(stristr($src, ".JPG")) print '
-		<td rowspan="2" style="vertical-align:middle;"><a href="'. $dir .'source.php?pic=' . $src . '"><img src="'. $dir . $rotatable . '?src='. $src. '&w='. $srcW. '"></a></td>
+		<td rowspan="2" style="vertical-align:middle;"><a href="'. $dir .'source.php?pic=' . $src . '"><img src="'. $blogURI . $dir . $rotatable . '?src='. $src. '&w='. $srcW. '"></a></td>
 		<td>';
 			else print '
-			<td rowspan=2><a href="'. $dir .'source.php?pic=' . $src . '"><img src="'. $dir .'thumb.php?src='. $src. '&w='. $srcW. '"></a></td>
+			<td rowspan=2><a href="'. $dir .'source.php?pic=' . $src . '"><img src="'. $blogURI . $dir .'thumb.php?src='. $src. '&w='. $srcW. '"></a></td>
 			<td valign="center">';
 
 		if ($before_filename) {										// Display the before thumb, if it exists
 																	//  If it is a jpeg include the exif rotation logic
-			if(stristr($before_filename, ".JPG")) print '<a href="?src=pics/' . $gallery."/".$before_filename .'" title="Previous Gallery Picture"><img src="'. $dir . $rotatable . '?src=pics/' .$gallery."/".$before_filename .'&w='. $w .'"></a>';
-			else print '<a href="?src=pics/' . $gallery."/".$before_filename .'" title="Previous Gallery Picture"><img src="'. $dir .'thumb.php?src=pics/' .$gallery."/".$before_filename .'&w='. $w .'"></a>';
+			if(stristr($before_filename, ".JPG")) print '<a href="?src=pics/' . $gallery."/".$before_filename .'" title="Previous Gallery Picture"><img src="'. $blogURI . $dir . $rotatable . '?src=pics/' .$gallery."/".$before_filename .'&w='. $w .'"></a>';
+			else print '<a href="?src=pics/' . $gallery."/".$before_filename .'" title="Previous Gallery Picture"><img src="'. $blogURI . $dir .'thumb.php?src=pics/' .$gallery."/".$before_filename .'&w='. $w .'"></a>';
 		}
 	print "</td>
 	</tr>
@@ -164,8 +166,8 @@ $w = $thumbW;
 	<td>
 	";
 		if ($after_filename) {										// Display the after thumb, if it exists
-			if(stristr($after_filename, ".JPG")) print '	<a href="?src=pics/' . $gallery."/".$after_filename .'" title="Next Gallery Picture"><img src="'. $dir . $rotatable . '?src=pics/' .$gallery."/".$after_filename .'&w='. $w .'"></a>';		
-			else print '	<a href="?src=pics/' . $gallery."/".$after_filename .'" title="Next Gallery Picture"><img src="'. $dir .'thumb.php?src=pics/' .$gallery."/".$after_filename .'&w='. $w .'"></a>';
+			if(stristr($after_filename, ".JPG")) print '	<a href="?src=pics/' . $gallery."/".$after_filename .'" title="Next Gallery Picture"><img src="'. $blogURI . $dir . $rotatable . '?src=pics/' .$gallery."/".$after_filename .'&w='. $w .'"></a>';		
+			else print '	<a href="?src=pics/' . $gallery."/".$after_filename .'" title="Next Gallery Picture"><img src="'. $blogURI . $dir .'thumb.php?src=pics/' .$gallery."/".$after_filename .'&w='. $w .'"></a>';
 		}
 	}
 	else print '
