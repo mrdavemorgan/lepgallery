@@ -76,7 +76,7 @@ $w = $thumbW;
 				$pic_types = array("JPG", "jpg", "GIF", "gif", "PNG", "png"); 		
 				if (in_array(substr($filename, -3), $pic_types)) $pic_array[] = $filename;		// If it's a picture, add it to thumb array
 				else {
-					$movie_types = array("AVI", "avi", "MOV", "mov", "MP3", "mp3", "MP4", "mp4");								
+					$movie_types = array("MP4", "mp4");								
 					if (in_array(substr($filename, -3), $movie_types)) $movie_array[$filename] = size_readable(filesize($pic_root.$gallery. "/". $filename));		// If it's a movie, add name and size to the movie array
 				}
 		}
@@ -84,7 +84,7 @@ $w = $thumbW;
 	// If we are viewing a gallery, arrange the thumbs
 	if($pic_array) sort($pic_array);	
 	// Unless we are at the top level, display the zip link
-	if ($_SERVER["REQUEST_URI"]  !== "/gallery") print '  / <a href="./gallery?zip=' . $gallery . '" title="Download a zipped archive of all photos in this gallery">-zip-</a> /';	
+	if ($_SERVER["REQUEST_URI"]  !== "/gallery") print '  / <a href="'. $blogURI .'/gallery?zip=' . $gallery . '" title="Download a zipped archive of all photos in this gallery">-zip-</a> /';	
 
 	// If this gallery is a hidden gallery, display a link to a list of all hidden galleries
 	if (substr($_SERVER["REQUEST_URI"], -7)  == $hidden) print ' <a href="./gallery?hidden" title="View all '. $hidden .' galleries">-All '. $hidden .' -</a> /';	
@@ -149,10 +149,10 @@ $w = $thumbW;
 																	//  Display the current/websize pic
 																	//  If it is a jpeg include the exif rotation logic
 		if(stristr($src, ".JPG")) print '
-		<td rowspan="2" style="vertical-align:middle;"><a href="'. $dir .'source.php?pic=' . $src . '"><img src="'. $blogURI . $dir . $rotatable . '?src='. $src. '&w='. $srcW. '"></a></td>
+		<td rowspan="2" style="vertical-align:middle;"><a href="'. $blogURI . $dir .'source.php?pic=' . $src . '"><img src="'. $blogURI . $dir . $rotatable . '?src='. $src. '&w='. $srcW. '"></a></td>
 		<td>';
 			else print '
-			<td rowspan=2><a href="'. $dir .'source.php?pic=' . $src . '"><img src="'. $blogURI . $dir .'thumb.php?src='. $src. '&w='. $srcW. '"></a></td>
+			<td rowspan=2><a href="'. $blogURI . $dir .'source.php?pic=' . $src . '"><img src="'. $blogURI . $dir .'thumb.php?src='. $src. '&w='. $srcW. '"></a></td>
 			<td valign="center">';
 
 		if ($before_filename) {										// Display the before thumb, if it exists

@@ -19,7 +19,7 @@ foreach ($pic_array as $filename) {
 $output = `zip -u -j $dir/pics.zip $media_files`;
 
 print "<pre>$output</pre>";
-print 'Complete. The file can be downloaded <a href="./wp-content/plugins/ungallery/source.php?zip=pics/' . $_GET['zip'] . '/pics.zip">here</a>';
-print  '<br><br>You can return to the gallery <a href="./gallery?gallerylink=' . $_GET['zip'] .'">here.</a>';
+print 'Complete. The file can be downloaded <a href="'. $blogURI .'/wp-content/plugins/ungallery/source.php?zip=pics/' . $_GET['zip'] . '/pics.zip">here</a>';
+print  '<br><br>You can return to the gallery <a href="'. $blogURI .'/gallery?gallerylink=' . $_GET['zip'] .'">here.</a>';
 
 ?>
