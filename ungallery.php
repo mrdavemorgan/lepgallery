@@ -76,7 +76,7 @@ $w = $thumbW;
 				$pic_types = array("JPG", "jpg", "GIF", "gif", "PNG", "png"); 		
 				if (in_array(substr($filename, -3), $pic_types)) $pic_array[] = $filename;		// If it's a picture, add it to thumb array
 				else {
-					$movie_types = array("MP4", "mp4");								
+					$movie_types = array("MP4");								
 					if (in_array(substr($filename, -3), $movie_types)) $movie_array[$filename] = size_readable(filesize($pic_root.$gallery. "/". $filename));		// If it's a movie, add name and size to the movie array
 				}
 		}
