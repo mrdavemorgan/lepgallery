@@ -53,6 +53,7 @@ Mark Reynolds http://markpreynolds.com
 * Added hardening code and replaced relative links with absolute links
  = 0.9.2 =
 * Added top-level gallery logic to toggle marquee and zip display behavior
+* Added support for custom WordPress and Site addresses
 
 == Dependencies ==
 
