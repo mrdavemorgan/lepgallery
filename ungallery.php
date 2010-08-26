@@ -7,16 +7,16 @@ Author: Mark Reynolds
 Description: Displays directories of photos as a browsable WordPress gallery.
 */
 
-
 if (strpos($_SERVER["REQUEST_URI"], "gallery?zip")) {				// If the zip flag is active, display the archive information page and links
 	add_filter('the_content', "zip");
 }	elseif (strpos($_SERVER["REQUEST_URI"], "gallery?hidden")) {	// If the hidden flag is active, display the hidden links page
 	add_filter('the_content', "hidden");	
-}	elseif (strpos($_SERVER["REQUEST_URI"], "/gallery") === 0) {	// Otherwise display the main gallery
+}	elseif (strstr($_SERVER["REQUEST_URI"], "/gallery")) {	// Otherwise display the main gallery
 	add_filter('the_content', "ungallery");
 }
 
 function zip() {
+	$blogURI = get_bloginfo('url') . "/";	
 	include ("zip.php");
 }
 
