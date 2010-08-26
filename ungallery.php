@@ -2,7 +2,7 @@
 /*
 Plugin Name: UnGallery
 Plugin URI: http://markpreynolds.com/technology/wordpress-ungallery
-Version: 0.9.2
+Version: 0.9.3
 Author: Mark Reynolds
 Description: Displays directories of photos as a browsable WordPress gallery.
 */

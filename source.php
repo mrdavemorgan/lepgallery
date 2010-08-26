@@ -8,8 +8,8 @@ if ($_GET['zip']) {
 	$lastslash =  strrpos($filename, "/");
 	$name =  substr($filename, $lastslash + 1);
 	
-	header('Content-type: application/x-zip-compressed');
-	header('Content-Length: $len');
+	header("Content-type: application/x-zip-compressed;\r\n");
+	header("Content-Length: $len;\r\n");
 	header('Content-Disposition: attachment; filename="' . $name . '"');  // Create a download stream link
 	readfile($filename);	
 }
