@@ -35,11 +35,11 @@ Mark Reynolds http://markpreynolds.com
 * MP4 movies embedded and played within the WordPress site.
 * Image rotation support for orientation of jpegs with exif data
 * Gallery hierarchy breadcrumb links
-* Multiple gallery views:  Top level marquee, thumbnails, browsing previous and next pictures.
+* Multiple gallery views:  Top level marquee (optional), thumbnails, browsing previous and next pictures.
 
 == Screenshots ==
 
-1. The UnGallery top level view.  A the highest level of the gallery, a single "Marquee" picture is displayed and the links to the subdirectories/subgalleries.
+1. The UnGallery top level "Marquee" view.  Optionally, the highest level of the gallery displays a single picture is displayed prominently as are the links to the subdirectories/subgalleries.  The top level gallery can be set to display this way or as thumbnails like the subdirectories.  Uncomment the marquee setting line near the top of ungallery.php to toggle this option.
 2. Selecting one of the subgallery links above displays the gallery thumbnail view of all JPGs, PNGs and GIFs in that directory.  A breadcrumb trail up to the top level of the galleries is displayed along with the subgalleries.  These are each generated automatically by reading the file system of your photo directories. The -zip- link provides a zip file of all photo originals in the current directory for convenient download.
 3. Clicking on a thumbnail displays the browsing view.  One picture is larger and the previous and next picture thumbnail links are displayed.  There are movie files in this directory, so links to view them are displayed also.  UnGallery's sizes are adjustable to fill larger page widths as this site uses.
 
@@ -49,6 +49,10 @@ Mark Reynolds http://markpreynolds.com
 * MP4's are now embedded and integrated into the WP site frame.  Support for older movie formats is depricated.
 * Current directory breadcrumb link added.  This allows returning to the thumbnail list from the web-size browse view.
 * Compatibility for WP 3.0's default twentyten theme that broke UnGallery's browse view.
+= 0.9.1 =
+* Added hardening code and replaced relative links with absolute links
+ = 0.9.2 =
+* Added top-level gallery logic to toggle marquee and zip display behavior
 
 == Dependencies ==
 
