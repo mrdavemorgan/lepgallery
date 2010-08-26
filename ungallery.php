@@ -38,13 +38,13 @@ function ungallery() {
 //	WordPress ships with.  You may want to use larger pictures and a wider page.  If you increase page width
 //	or use a theme like like Atahualpa, you can increase the defaults as suggested below in the comments. 
 //	For example the commented dimensions fit page width 1150px, which I use at MarkPReynolds.com.
+	
+//$marquee = "yes";	//	To display a single picture, large at the top of your gallery tree, uncomment this line.
 $thumbW = 135;		//	175		This sets thumbnail size.  					
-$srcW = 475;		//	650		This sets selected picture size.  			
-//$topW = 450;		//	650		This sets top level, single pic size.  If you do not use a single picture 
-					//			at the top of your gallery tree, comment this line out.
-
+$srcW = 475;		//	650		This sets browsed-to and top level marquee (if set) picture size.  			
 $columns = 4;		//	5		This sets the number of thumbnail columns.	
 $w = $thumbW;
+
 	
 	if (isset($src)) {		 				//	If we are browsing a gallery, get the gallery name from the src url
 		$lastslash =  strrpos($src, "/");	// 	Trim the filename off the end of the src link
@@ -83,8 +83,9 @@ $w = $thumbW;
 	} 
 	// If we are viewing a gallery, arrange the thumbs
 	if($pic_array) sort($pic_array);	
-	// Unless we are at the top level, display the zip link
+	// Unless we are at the top level and marquee is set, display the zip link
 	if ($_SERVER["REQUEST_URI"]  !== "/gallery") print '  / <a href="'. $blogURI .'/gallery?zip=' . $gallery . '" title="Download a zipped archive of all photos in this gallery">-zip-</a> /';	
+	elseif ($marquee !== "yes") print '  / <a href="'. $blogURI .'/gallery?zip=' . $gallery . '" title="Download a zipped archive of all photos in this gallery">-zip-</a> /';	
 
 	// If this gallery is a hidden gallery, display a link to a list of all hidden galleries
 	if (substr($_SERVER["REQUEST_URI"], -7)  == $hidden) print ' <a href="./gallery?hidden" title="View all '. $hidden .' galleries">-All '. $hidden .' -</a> /';	
@@ -116,7 +117,8 @@ $w = $thumbW;
 	print '
 	<table width="100%"><tr>';			//	Begin the table
 	if (!isset($src) && isset($pic_array)) {							//	If we are not in browse view,
-		if ($gallery == "") $w = $topW;									//	Set size of top level gallery picture
+		if ($marquee == "yes" && $gallery == "") $w = $srcW;			//	Set size of marquee picture
+			else $w = $thumbW;
 		print '<div class="post-headline"><h2>'; 
 		if (file_exists($pic_root.$gallery."/banner.txt")) {
 			include ($pic_root.$gallery."/banner.txt");					//	We also display the caption from banner.txt
