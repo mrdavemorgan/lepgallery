@@ -7,22 +7,6 @@ Author: Mark Reynolds
 Description: Displays directories of photos as a browsable WordPress gallery.
 */
 
-if (strpos($_SERVER["REQUEST_URI"], "gallery?zip")) {				// If the zip flag is active, display the archive information page and links
-	add_filter('the_content', "zip");
-}	elseif (strpos($_SERVER["REQUEST_URI"], "gallery?hidden")) {	// If the hidden flag is active, display the hidden links page
-	add_filter('the_content', "hidden");	
-}	elseif (strstr($_SERVER["REQUEST_URI"], "/gallery")) {	// Otherwise display the main gallery
-	add_filter('the_content', "ungallery");
-}
-
-function zip() {
-	$blogURI = get_bloginfo('url') . "/";	
-	include ("zip.php");
-}
-
-function hidden() {
-	include ("hidden.php");
-}
 
 function ungallery() {
 	$blogURI = get_bloginfo('url') . "/";	
@@ -76,7 +60,7 @@ $w = $thumbW;
 				$pic_types = array("JPG", "jpg", "GIF", "gif", "PNG", "png"); 		
 				if (in_array(substr($filename, -3), $pic_types)) $pic_array[] = $filename;		// If it's a picture, add it to thumb array
 				else {
-					$movie_types = array("MP4");								
+					$movie_types = array("MP4", "mp4");								
 					if (in_array(substr($filename, -3), $movie_types)) $movie_array[$filename] = size_readable(filesize($pic_root.$gallery. "/". $filename));		// If it's a movie, add name and size to the movie array
 				}
 		}
@@ -143,7 +127,7 @@ $w = $thumbW;
 			}
 		}
 	} else {														// Render the browsing version, link to original, last/next picture, and link to parent gallery
-	if (isset($src) && substr($src, -3) !== "MP4") {
+	if (isset($src) && substr($src, -3) !== "MP4" && substr($src, -3) !== "mp4") {
 		if (!strstr($src, "pics/")) die;     						//  If "pics" is not in path it may be an attempt to read files outside gallery, so redirect to gallery root
 		$filename = substr($src, $lastslash + 1);
 		$before_filename = $pic_array[array_search($filename, $pic_array) - 1 ];
@@ -172,8 +156,13 @@ $w = $thumbW;
 			else print '	<a href="?src=pics/' . $gallery."/".$after_filename .'" title="Next Gallery Picture"><img src="'. $blogURI . $dir .'thumb.php?src=pics/' .$gallery."/".$after_filename .'&w='. $w .'"></a>';
 		}
 	}
-	else print '
-	<embed src="http://'. $_SERVER["SERVER_NAME"] .'/wp-content/plugins/ungallery/source.php?movie='. $src  .'" type="application/quicktime" wmode="transparent" width="440" height="380" autoplay="true" controller="true"></embed></object>';
+	else print '<td>
+<OBJECT CLASSID="clsid:02BF25D5-8C17-4B23-BC80-D3488ABDDC6B" CODEBASE="http://www.apple.com/qtactivex/qtplugin.cab" width="440" height="380" ><br />
+<PARAM NAME="src" VALUE="wp-content/plugins/ungallery/source.php?movie='. $src  .'" ><br />
+<PARAM NAME="controller" VALUE="true" ><br />
+<EMBED SRC="wp-content/plugins/ungallery/source.php?movie='. $src  .'" TYPE="image/x-macpaint" PLUGINSPAGE="http://www.apple.com/quicktime/download" AUTOPLAY="true" width="440" height="380" ><br />
+</EMBED><br />
+</OBJECT>';
 	}
 	print "</td>
 	</tr></table>";
@@ -189,5 +178,22 @@ function size_readable ($size, $retstring = null) {
         }
         if ($sizestring == $sizes[0]) { $retstring = '%01d %s'; } // Bytes aren't normally fractional
         return sprintf($retstring, $size, $sizestring);
+}
+
+if (strpos($_SERVER["REQUEST_URI"], "gallery?zip")) {				// If the zip flag is active, display the archive information page and links
+	add_filter('the_content', "zip");
+}	elseif (strpos($_SERVER["REQUEST_URI"], "gallery?hidden")) {	// If the hidden flag is active, display the hidden links page
+	add_filter('the_content', "hidden");	
+}	elseif (strstr($_SERVER["REQUEST_URI"], "/gallery")) {	// Otherwise display the main gallery
+	add_filter('the_content', "ungallery");
+}
+
+function zip() {
+	$blogURI = get_bloginfo('url') . "/";	
+	include ("zip.php");
+}
+
+function hidden() {
+	include ("hidden.php");
 }
 ?>
