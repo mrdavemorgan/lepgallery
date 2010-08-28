@@ -126,8 +126,8 @@ $w = $thumbW;
 				$column = 0;
 			}
 		}
-	} else {														// Render the browsing version, link to original, last/next picture, and link to parent gallery
-	if (isset($src) && substr($src, -3) !== "MP4" && substr($src, -3) !== "mp4") {
+	} else {														//  Render the browsing version, link to original, last/next picture, and link to parent gallery
+	if (isset($src) && !in_array(substr($src, -3), $movie_types)) { //  If we are in broswing mode and the source is not a movie
 		if (!strstr($src, "pics/")) die;     						//  If "pics" is not in path it may be an attempt to read files outside gallery, so redirect to gallery root
 		$filename = substr($src, $lastslash + 1);
 		$before_filename = $pic_array[array_search($filename, $pic_array) - 1 ];
@@ -155,17 +155,19 @@ $w = $thumbW;
 			if(stristr($after_filename, ".JPG")) print '	<a href="?src=pics/' . $gallery."/".$after_filename .'" title="Next Gallery Picture"><img src="'. $blogURI . $dir . $rotatable . '?src=pics/' .$gallery."/".$after_filename .'&w='. $w .'"></a>';		
 			else print '	<a href="?src=pics/' . $gallery."/".$after_filename .'" title="Next Gallery Picture"><img src="'. $blogURI . $dir .'thumb.php?src=pics/' .$gallery."/".$after_filename .'&w='. $w .'"></a>';
 		}
-	}
-	else print '<td>
+	} elseif (($movie_array) && (in_array(substr($src, -3), $movie_types))) print '<td>
 <OBJECT CLASSID="clsid:02BF25D5-8C17-4B23-BC80-D3488ABDDC6B" CODEBASE="http://www.apple.com/qtactivex/qtplugin.cab" width="440" height="380" ><br />
 <PARAM NAME="src" VALUE="wp-content/plugins/ungallery/source.php?movie='. $src  .'" ><br />
 <PARAM NAME="controller" VALUE="true" ><br />
 <EMBED SRC="wp-content/plugins/ungallery/source.php?movie='. $src  .'" TYPE="image/x-macpaint" PLUGINSPAGE="http://www.apple.com/quicktime/download" AUTOPLAY="true" width="440" height="380" ><br />
 </EMBED><br />
-</OBJECT>';
+</OBJECT>';															// If the source is a movie, play it
+	else print "<br><br>"; 
 	}
-	print "</td>
-	</tr></table>";
+	print "
+	</td>
+	</tr>
+	</table>";
 }
 function size_readable ($size, $retstring = null) {
         // adapted from code at http://aidanlister.com/repos/v/function.size_readable.php
