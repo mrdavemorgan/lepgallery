@@ -56,6 +56,10 @@ Mark Reynolds http://markpreynolds.com
 * Added support for custom WordPress and Site addresses
 = 0.9.3 =
 * Fixed issue with IE downloading zip archives of images
+= 0.9.4 =
+* Fixed issue with some browsers not playing mp4
+* Fixed case sensitivity problem with .mp4/MP4
+* Fixed erroneously reporting plugin download needed for directories with no image files.
 
 == Dependencies ==
 
