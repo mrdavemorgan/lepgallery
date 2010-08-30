@@ -2,12 +2,12 @@
 /*
 Plugin Name: UnGallery
 Plugin URI: http://markpreynolds.com/technology/wordpress-ungallery
-Version: 0.9.5
 Author: Mark Reynolds
 Description: Displays directories of photos as a browsable WordPress gallery.
 */
 
 function ungallery() {
+	//  Removing version line above to disable automatic plugin update.  (Version: 0.9.6)
 	//	This section sets the size and layout of the gallery.  The default dimensions are to fit the page size
 	//	WordPress ships with.  You may want to use larger pictures and a wider page.  If you increase page width
 	//	or use a theme like like Atahualpa, you can increase the defaults as suggested below in the comments. 

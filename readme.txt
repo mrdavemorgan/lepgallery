@@ -63,6 +63,8 @@ Mark Reynolds http://markpreynolds.com
 = 0.9.5 =
 * You no longer need to call the gallery: "gallery".  Any name can be used.
 * Fixed issue with extra character in hidden.txt causing mismatch
+= 0.9.6 =
+* Versioning removed to disable automatic updates
 
 == Dependencies ==
 
