@@ -5,7 +5,7 @@ Requires at least:
 Tested up to: 3.0
 Stable tag: trunk
 
-Publish external picture directories in WordPress.  
+Publish external image directories as gallery in WordPress.  
 
 == Description ==
 
@@ -21,16 +21,16 @@ Mark Reynolds http://markpreynolds.com
 
 1. Upload to /wp-content/plugins/ and activate on the Plugins menu in WordPress.
 1. Enable Permalinks: Settings -> Permalinks -> Custom Structure -> /%category%/%postname%
-1. Create a blank WordPress Page called "Gallery".
+1. Create a blank WordPress Page called "Gallery" or see notes on customizing the gallery name.
 1. Create a directory or symlink called "pics" in plugins/ungallery/ to contain your pictures. 
-1. WordPress running on a Windows server has limited support, due to the low percentage of installations (~ 5%).  After downloading, copy files from plugins/ungallery/windows/ to plugins/ungallery/.  (UnGallery v.8 is tested up to WordPress 2.8)
+1. WordPress running on a Windows server has limited support.  After downloading, copy files from plugins/ungallery/windows/ to plugins/ungallery/.  (UnGallery v.8 is tested up to WordPress 2.8)
 
 == Features ==
 
 * Unlimited depth, breadth, and number of photos in library. My gallery has about 6,000 pictures and movies.
 * Photos are managed outside of WordPress.  Simply update a picture directory and UnGallery sees changes immediately.
 * Default and configurable gallery titles
-* Hidden, private galleries
+* Hidden galleries
 * Caching for faster page loads
 * MP4 movies embedded and played within the WordPress site.
 * Image rotation support for orientation of jpegs with exif data
@@ -51,7 +51,7 @@ Mark Reynolds http://markpreynolds.com
 * Compatibility for WP 3.0's default twentyten theme that broke UnGallery's browse view.
 = 0.9.1 =
 * Added hardening code and replaced relative links with absolute links
- = 0.9.2 =
+= 0.9.2 =
 * Added top-level gallery logic to toggle marquee and zip display behavior
 * Added support for custom WordPress and Site addresses
 = 0.9.3 =
@@ -60,6 +60,9 @@ Mark Reynolds http://markpreynolds.com
 * Fixed issue with some browsers not playing mp4
 * Fixed case sensitivity problem with .mp4/MP4
 * Fixed erroneously reporting plugin download needed for directories with no image files.
+= 0.9.5 =
+* You no longer need to call the gallery: "gallery".  Any name can be used.
+* Fixed issue with extra character in hidden.txt causing mismatch
 
 == Dependencies ==
 
@@ -69,10 +72,11 @@ Mark Reynolds http://markpreynolds.com
 == Notes ==
 
 * In: ./wp-content/plugins/ungallery/ either create a symlink called "pics" to your picture directory (recommended) or copy/move/create a directory called pics there.  Please note, if you back up your WordPress install, including your plugins directory, be aware your gallery may be included via the symlink.
-* To display a caption over a gallery, add a file named banner.txt to that directory with the desired text.  The file can include plain text or html.
+* To display a caption over a gallery, add a file named banner.txt to that directory with the desired text.  The file can include plain text or html. If no banner.txt is found, the name of the directory used.
 * The top level directory is intended to have a larger, marquee picture displayed, so only one picture file should be placed in the "/pics/" directory. There is no limit on pictures in the subdirectories.  This can be enabled/disabled in by updating the settings section at the top of ungallery.php.
 * To mark a gallery hidden, edit the /ungallery/hidden.txt file. If e.g., the content of hidden.txt is: "hidden", then any directories you create named "hidden", will not be visible via gallery browsing.  
 * If you'd like to modify the size of the marquee picture, browsing picture or the thumbnails, please edit /ungallery/ungallery.php.  The options are noted near the top of the file.
+* To customize the gallery name that appears in the URL, update the $gallery = "gallery"; at the top of ungallery.php and create a blank WordPress of the same name.
 
 == License ==
 
