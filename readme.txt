@@ -5,7 +5,7 @@ Requires at least:
 Tested up to: 3.0
 Stable tag: trunk
 
-** Please do not auto-update UnGallery from 0.9.x to 1.x ** Publish external image directories in WordPress.  
+Publish external image directories in WordPress.  
 
 == Description ==
 
