@@ -1,11 +1,4 @@
 <?php
-/*
-Plugin Name: Menu Test
-Plugin URI: http://codex.wordpress.org/Adding_Administration_Menus
-Description: Menu Test
-Author: Codex authors
-Author URI: http://example.com
-*/
 
 // Hook for adding admin menus
 add_action('admin_menu', 'mt_add_pages');
@@ -141,9 +134,9 @@ function mt_settings_page() {
 <form name="form1" method="post" action="">
 <input type="hidden" name="<?php echo $hidden_field_name; ?>" value="Y">
 
-<p><?php _e("Gallery URL string:", 'gallery' ); ?> 
+<p><?php _e("Gallery permalink:", 'gallery' ); ?> 
 <input type="text" name="<?php echo $gallery_data_field_name; ?>" value="<?php echo $gallery_val; ?>" size="20">
-Default: gallery 
+Default: gallery (usually the lower case version of your gallery name)
 </p>
 
 <p><?php _e("Path to image directory:", 'images_path' ); ?> 

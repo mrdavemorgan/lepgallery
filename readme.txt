@@ -2,7 +2,7 @@
 Contributors: mmond
 Tags: gallery, ungallery, pictures, movies, mp4, jpg, png, galleries, photos, browse, images
 Requires at least: 
-Tested up to: 3.0
+Tested up to: 3.0.3
 Stable tag: trunk
 
 Publish external image directories in WordPress.  
@@ -11,7 +11,7 @@ Publish external image directories in WordPress.
 
 UnGallery displays directories of pictures as a browsable WordPress gallery. 
 
-The advantage of UnGallery is there is there is no administration required in WordPress.  You just point the plugin to a directory of photos, even thousands of them organized into many subdirectories, and they are immediately viewable via an existing WordPress site.  Any uploads, deletions, or other changes you make to your photos and directories are automatically reflected in WordPress.
+The advantage of UnGallery is there is there is no gallery management required in WordPress.  You just point the plugin to a directory of photos, even thousands of them organized into subdirectories, and they are immediately viewable via an existing WordPress site.  Any uploads, deletions, or edits you make to your photos and directories are automatically reflected in WordPress.
 
 If you've ever had to manage your photos after publishing them, you know how inconvenient it is to return to a web tool to correct the new location, change the thumbnails, etc.   With UnGallery, you can reorganize entire galleries, edit a dozen party pic red-eyes, rename an event or remove individual photos and each of these changes is automatically live in WordPress.
 
@@ -23,7 +23,6 @@ Mark Reynolds http://markpreynolds.com
 1. Enable Permalinks: Settings -> Permalinks -> Custom Structure -> /%category%/%postname%
 1. Create a blank WordPress Page called "Gallery" or choose a different name for your gallery.
 1. Enter the path to your directory of images on the UnGallery configuration. 
-1. WordPress running on a Windows server is not supported at this time.  
 
 == Features ==
 
@@ -69,7 +68,9 @@ Mark Reynolds http://markpreynolds.com
 * Due to WP plugin automatic updates deleting and replacing the plugin directory, your images (and any other valuable user data) should **not** be stored in the plugin directory
 * Versioning readded, plugin updates reactivated
 * WordPress Plugin menu screen replaces configuration files
-
+= 1.0 =
+* Administration menus auto-populate with default values when blank
+* Instructions updated for new configuration
 
 
 == Dependencies ==
@@ -79,12 +80,12 @@ Mark Reynolds http://markpreynolds.com
 
 == Notes ==
 
-* In: ./wp-content/plugins/ungallery/ either create a symlink called "pics" to your picture directory (recommended) or copy/move/create a directory called pics there.  Please note, if you back up your WordPress install, including your plugins directory, be aware your gallery may be included via the symlink.
+* WordPress running on a Windows server is not supported at this time.  
 * To display a caption over a gallery, add a file named banner.txt to that directory with the desired text.  The file can include plain text or html. If no banner.txt is found, the name of the directory used.
-* The top level directory is intended to have a larger, marquee picture displayed, so only one picture file should be placed in the "/pics/" directory. There is no limit on pictures in the subdirectories.  This can be enabled/disabled in by updating the settings section at the top of ungallery.php.
-* To mark a gallery hidden, edit the /ungallery/hidden.txt file. If e.g., the content of hidden.txt is: "hidden", then any directories you create named "hidden", will not be visible via gallery browsing.  
-* If you'd like to modify the size of the marquee picture, browsing picture or the thumbnails, please edit /ungallery/ungallery.php.  The options are noted near the top of the file.
-* To customize the gallery name that appears in the URL, update the $gallery = "gallery"; at the top of ungallery.php and create a blank WordPress of the same name.
+* The top level directory can optionally be used for a larger, marquee picture displayed.  If chosen, load one picture file to the top level directory.  This can be enabled/disabled using the UnGallery administration page.
+* To mark a gallery hidden, enter a name for hidden galleries on the UnGallery administration page. Any directories you create named "hidden", will not be visible via normal gallery browsing. A direct link may be sent to provide access to hidden galleries.  
+* All image sizes including thumbnails, selected image view, movies, marquee, and column layout are customizable.
+
 
 == License ==
 
