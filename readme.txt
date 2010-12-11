@@ -1,11 +1,11 @@
 === UnGallery ===
 Contributors: mmond
-Tags: gallery, ungallery, pictures, movies, mp4, jpg, png, galleries, photos, browse
+Tags: gallery, ungallery, pictures, movies, mp4, jpg, png, galleries, photos, browse, images
 Requires at least: 
 Tested up to: 3.0
 Stable tag: trunk
 
-Publish external image directories as gallery in WordPress.  
+** Please do not auto-update UnGallery from 0.9.x to 1.x ** Publish external image directories in WordPress.  
 
 == Description ==
 
@@ -13,7 +13,7 @@ UnGallery displays directories of pictures as a browsable WordPress gallery.
 
 The advantage of UnGallery is there is there is no administration required in WordPress.  You just point the plugin to a directory of photos, even thousands of them organized into many subdirectories, and they are immediately viewable via an existing WordPress site.  Any uploads, deletions, or other changes you make to your photos and directories are automatically reflected in WordPress.
 
-If you've ever had to manage your photos after publishing them, you know how inconvenient it is to return to a web tool to correct the new location, change the thumbnails, etc.   With UnGallery, you can rearrange entire galleries, edit a dozen party pic red-eyes, rename an event or individual picture and any of these changes are automatically live in WordPress.
+If you've ever had to manage your photos after publishing them, you know how inconvenient it is to return to a web tool to correct the new location, change the thumbnails, etc.   With UnGallery, you can reorganize entire galleries, edit a dozen party pic red-eyes, rename an event or remove individual photos and each of these changes is automatically live in WordPress.
 
 Mark Reynolds http://markpreynolds.com
 
@@ -21,8 +21,8 @@ Mark Reynolds http://markpreynolds.com
 
 1. Upload to /wp-content/plugins/ and activate on the Plugins menu in WordPress.
 1. Enable Permalinks: Settings -> Permalinks -> Custom Structure -> /%category%/%postname%
-1. Create a blank WordPress Page called "Gallery" or see notes on customizing the gallery name.
-1. Create a directory or symlink called "pics" in plugins/ungallery/ to contain your pictures. 
+1. Create a blank WordPress Page called "Gallery" or choose a different name for your gallery.
+1. Enter the path to your directory of images on the UnGallery configuration. 
 1. WordPress running on a Windows server has limited support.  After downloading, copy files from plugins/ungallery/windows/ to plugins/ungallery/.  (UnGallery v.8 is tested up to WordPress 2.8)
 
 == Features ==
@@ -46,7 +46,7 @@ Mark Reynolds http://markpreynolds.com
 == Changelog ==
 
 = 0.9 =
-* MP4's are now embedded and integrated into the WP site frame.  Support for older movie formats is depricated.
+* MP4's are now embedded and integrated into the WP site frame.  Support for older movie formats is deprecated.
 * Current directory breadcrumb link added.  This allows returning to the thumbnail list from the web-size browse view.
 * Compatibility for WP 3.0's default twentyten theme that broke UnGallery's browse view.
 = 0.9.1 =
@@ -65,11 +65,17 @@ Mark Reynolds http://markpreynolds.com
 * Fixed issue with extra character in hidden.txt causing mismatch
 = 0.9.6 =
 * Versioning removed to disable automatic updates
+= 0.9.9 =
+* Due to WP plugin automatic updates deleting and replacing the plugin directory, your images (and any other valuable user data) should **not** be stored in the plugin directory
+* Versioning readded, plugin updates reactivated
+* WordPress Plugin menu screen replaces configuration files
+
+
 
 == Dependencies ==
 
 * Permalinks enabled: Settings -> Permalinks -> Custom Structure -> /%category%/%postname% 
-* Write permission to the photo directories. UnGallery creates a "thumb_cache" directory in each gallery to improve performance. 
+* Write permission to the photo directories. UnGallery creates a "thumb_cache" directory in each gallery to improve performance. This may become an optional configuration in the future.
 
 == Notes ==
 

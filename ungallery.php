@@ -3,38 +3,44 @@
 Plugin Name: UnGallery
 Plugin URI: http://markpreynolds.com/technology/wordpress-ungallery
 Author: Mark Reynolds
+Version: 0.9.9
 Description: Displays directories of photos as a browsable WordPress gallery.
 */
 
-function ungallery() {
-	//	Removing version line above to disable automatic plugin update.  (Version would be: 0.9.6)
-	//	This section sets the size and layout of the gallery.  The default dimensions are to fit the page size
-	//	WordPress ships with.  You may want to use larger pictures and a wider page.  If you increase page width
-	//	or use a theme like like Atahualpa, you can increase the defaults as suggested below in the comments. 
-	//	For example the commented dimensions fit page width 1150px, which I use at MarkPReynolds.com.
+include("configuration_menu.php");
+$gallery = get_option( 'gallery' );
 
-	$gallery = "gallery";
-	$thumbW = 135;		//	175		This sets thumbnail size.  					
-	$srcW = 475;		//	650		This sets browsed-to and top level marquee (if set) picture size.  			
-	$columns = 4;		//	5		This sets the number of thumbnail columns.	
-	//	$marquee = "yes";	//	To display a single picture, large at the top of your gallery tree, uncomment this line.
+function ungallery() {
+
+	//	Load the configuration data from the database
+	$gallery = get_option( 'gallery' );
+	$pic_root = get_option( 'images_path' );
+	$hidden = get_option( 'hidden' );
+	$columns = get_option( 'columns' );
+	$marquee = get_option( 'marquee' );
+	$marquee_size = get_option( 'marquee_size' );
+	$thumbW = get_option( 'thumbnail' );
+	$srcW = get_option( 'browse_view' );
+	$movie_height = get_option( 'movie_height' );
+	$movie_width = get_option( 'movie_width' );
 
 	$w = $thumbW;
 	$blogURI = get_bloginfo('url') . "/";	
 	$dir = "wp-content/plugins/ungallery/";
-	$pic_root = $dir."pics/";
-	$hidden = file_get_contents($dir."hidden.txt");
 	$gallerylink = $_GET['gallerylink'];
 	$src = $_GET['src'];
+	$movie_types = array();
+
 	if(function_exists('exif_read_data')) $rotatable = "jpeg_rotate.php";
 		else $rotatable = "thumb.php";
 
-	if (isset($src)) {		 				//	If we are browsing a gallery, get the gallery name from the src url
-		$lastslash =  strrpos($src, "/");	// 	Trim the filename off the end of the src link
-		$gallerylink =  substr($src, 5, $lastslash - 5 );   
+	//	If we are browsing a gallery, gallerylink is not set so derive it from src in URL
+	if (isset($src)) {
+		$lastslash =  strrpos($src, "/");	
+		$gallerylink = substr($src, strlen($pic_root));		// 	Trim the path off root and above
+		$length = strrpos($gallerylink, "/"); 		// 	Find length of gallery in string
+		$gallerylink = substr($gallerylink, 0, $length);	// 	Trim the filename off the end
 	}
-	//  consider ".." in path an attempt to read dirs outside gallery, so redirect to gallery root
-	if (strstr($gallerylink, "..")) $gallerylink = "";
 
 	if ($gallerylink == "") {
 		$gallerylink =  "";
@@ -53,7 +59,7 @@ function ungallery() {
 	}
 
 										// Create the arrays with the dir's media files
-	$dp = opendir($pic_root.$gallerylink);
+	$dp = opendir( $pic_root.$gallerylink);
 	while ($filename = readdir($dp)) {
 		if (!is_dir($pic_root.$gallerylink. "/". $filename))  {  // If it's a file, begin
 				$pic_types = array("JPG", "jpg", "GIF", "gif", "PNG", "png"); 		
@@ -70,15 +76,12 @@ function ungallery() {
 	if ($_SERVER["REQUEST_URI"]  !== "/".$gallery) print '  / <a href="'. $blogURI . $gallery .'?zip=' . $gallerylink . '" title="Download a zipped archive of all photos in this gallery">-zip-</a> /';	
 	elseif ($marquee !== "yes") print '  / <a href="'. $blogURI . $gallery .'?zip=' . $gallerylink . '" title="Download a zipped archive of all photos in this gallery">-zip-</a> /';	
 
-	// If this gallery is a hidden gallery, display a link to a list of all hidden galleries
-	if (substr($_SERVER["REQUEST_URI"], -7)  == $hidden) print ' <a href="./'. $gallery .'?hidden" title="View all '. $hidden .' galleries">-All '. $hidden .' -</a> /';	
-
 	// Display the movie links
 	if($movie_array) {					
 		print ' <br>Movies:&nbsp;&nbsp;';
 		foreach ($movie_array as $filename => $filesize) {
 			print  '
-				<a href="'. $gallery .'?src=pics/'. substr($parentpath, 0, strlen($parentpath) -1).$subdir.'/'.$filename. '" title="This movie file size is '. $filesize .'">'	.$filename.'</a>&nbsp;&nbsp;/&nbsp;&nbsp;';
+				<a href="'. $gallery .'?src='. $pic_root . substr($parentpath, 0, strlen($parentpath) -1).$subdir.'/'.$filename. '" title="This movie file size is '. $filesize .'">'	.$filename.'</a>&nbsp;&nbsp;/&nbsp;&nbsp;';
 		}
 	}
 	closedir($dp);
@@ -115,9 +118,9 @@ function ungallery() {
 		print '<td>';
 		foreach ($pic_array as $filename) {								//  Use the pic_array to assign the links and img src
 			if(stristr($filename, ".JPG")) {
-				print '<a href="?src=pics/'.$gallerylink. "/" .$filename.'"><img src="'. $blogURI . $dir . $rotatable . '?src=pics/'.$gallerylink. "/". $filename.'&w=' .$w. '"></a>'; 				//  If it is a jpeg include the exif rotation logic
+				print '<a href="?src='. $pic_root . $gallerylink. "/" .$filename.'"><img src="'. $blogURI . $dir . $rotatable . '?src='. $pic_root . $gallerylink. "/". $filename.'&w=' .$w. '"></a>'; 				//  If it is a jpeg include the exif rotation logic
 		   	} else {
-				print '<a href="?src=pics/'.$gallerylink. "/" .$filename.'"><img src="'. $blogURI . $dir .'thumb.php?src=pics/'.$gallerylink. "/". $filename.'&w=' .$w. '"></a>';    
+				print '<a href="?src='. $pic_root . $gallerylink. "/" .$filename.'"><img src="'. $blogURI . $dir .'thumb.php?src='. $pic_root . $gallerylink. "/". $filename.'&w=' .$w. '"></a>';    
 			}
 			$column++;
 			if ( $column == $columns ) {
@@ -127,7 +130,7 @@ function ungallery() {
 		}
 	} else {														//  Render the browsing version, link to original, last/next picture, and link to parent gallery
 	if (isset($src) && !in_array(substr($src, -3), $movie_types)) { //  If we are in broswing mode and the source is not a movie
-		if (!strstr($src, "pics/")) die;     						//  If "pics" is not in path it may be an attempt to read files outside gallery, so redirect to gallery root
+		if (!strstr($src, $pic_root)) die;     						//  If root dir is not in path it may be an attempt to read files outside gallery
 		$filename = substr($src, $lastslash + 1);
 		$before_filename = $pic_array[array_search($filename, $pic_array) - 1 ];
 		$after_filename = $pic_array[array_search($filename, $pic_array) + 1 ];
@@ -142,8 +145,8 @@ function ungallery() {
 
 		if ($before_filename) {										// Display the before thumb, if it exists
 																	//  If it is a jpeg include the exif rotation logic
-			if(stristr($before_filename, ".JPG")) print '<a href="?src=pics/' . $gallerylink."/".$before_filename .'" title="Previous Gallery Picture"><img src="'. $blogURI . $dir . $rotatable . '?src=pics/' .$gallerylink."/".$before_filename .'&w='. $w .'"></a>';
-			else print '<a href="?src=pics/' . $gallerylink."/".$before_filename .'" title="Previous Gallery Picture"><img src="'. $blogURI . $dir .'thumb.php?src=pics/' .$gallerylink."/".$before_filename .'&w='. $w .'"></a>';
+			if(stristr($before_filename, ".JPG")) print '<a href="?src='. $pic_root . $gallerylink."/".$before_filename .'" title="Previous Gallery Picture"><img src="'. $blogURI . $dir . $rotatable . '?src='. $pic_root . $gallerylink."/".$before_filename .'&w='. $w .'"></a>';
+			else print '<a href="?src='. $pic_root . $gallerylink."/".$before_filename .'" title="Previous Gallery Picture"><img src="'. $blogURI . $dir .'thumb.php?src='. $pic_root . $gallerylink."/".$before_filename .'&w='. $w .'"></a>';
 		}
 	print "</td>
 	</tr>
@@ -151,14 +154,14 @@ function ungallery() {
 	<td>
 	";
 		if ($after_filename) {										// Display the after thumb, if it exists
-			if(stristr($after_filename, ".JPG")) print '	<a href="?src=pics/' . $gallerylink."/".$after_filename .'" title="Next Gallery Picture"><img src="'. $blogURI . $dir . $rotatable . '?src=pics/' .$gallerylink."/".$after_filename .'&w='. $w .'"></a>';		
-			else print '	<a href="?src=pics/' . $gallerylink."/".$after_filename .'" title="Next Gallery Picture"><img src="'. $blogURI . $dir .'thumb.php?src=pics/' .$gallerylink."/".$after_filename .'&w='. $w .'"></a>';
+			if(stristr($after_filename, ".JPG")) print '	<a href="?src='. $pic_root . $gallerylink."/".$after_filename .'" title="Next Gallery Picture"><img src="'. $blogURI . $dir . $rotatable . '?src='. $pic_root . $gallerylink."/".$after_filename .'&w='. $w .'"></a>';		
+			else print '	<a href="?src='. $pic_root . $gallerylink."/".$after_filename .'" title="Next Gallery Picture"><img src="'. $blogURI . $dir .'thumb.php?src='. $pic_root . $gallerylink."/".$after_filename .'&w='. $w .'"></a>';
 		}
 	} elseif (($movie_array) && (in_array(substr($src, -3), $movie_types))) print '<td>
-<OBJECT CLASSID="clsid:02BF25D5-8C17-4B23-BC80-D3488ABDDC6B" CODEBASE="http://www.apple.com/qtactivex/qtplugin.cab" width="440" height="380" ><br />
+<OBJECT CLASSID="clsid:02BF25D5-8C17-4B23-BC80-D3488ABDDC6B" CODEBASE="http://www.apple.com/qtactivex/qtplugin.cab" width="'. $movie_width .'" height="'. $movie_height .'" ><br />
 <PARAM NAME="src" VALUE="wp-content/plugins/ungallery/source.php?movie='. $src  .'" ><br />
 <PARAM NAME="controller" VALUE="true" ><br />
-<EMBED SRC="wp-content/plugins/ungallery/source.php?movie='. $src  .'" TYPE="image/x-macpaint" PLUGINSPAGE="http://www.apple.com/quicktime/download" AUTOPLAY="true" width="440" height="380" ><br />
+<EMBED SRC="wp-content/plugins/ungallery/source.php?movie='. $src  .'" TYPE="image/x-macpaint" PLUGINSPAGE="http://www.apple.com/quicktime/download" AUTOPLAY="true" width="'. $movie_width .'" height="'. $movie_height .'" ><br />
 </EMBED><br />
 </OBJECT>';															// If the source is a movie, play it
 	else print "<br><br>"; 
