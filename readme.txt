@@ -23,7 +23,7 @@ Mark Reynolds http://markpreynolds.com
 1. Enable Permalinks: Settings -> Permalinks -> Custom Structure -> /%category%/%postname%
 1. Create a blank WordPress Page called "Gallery" or choose a different name for your gallery.
 1. Enter the path to your directory of images on the UnGallery configuration. 
-1. WordPress running on a Windows server has limited support.  After downloading, copy files from plugins/ungallery/windows/ to plugins/ungallery/.  (UnGallery v.8 is tested up to WordPress 2.8)
+1. WordPress running on a Windows server is not supported at this time.  
 
 == Features ==
 
