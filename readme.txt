@@ -9,7 +9,7 @@ Publish external image directories in WordPress.
 
 == Description ==
 
-UnGallery displays directories of pictures as a browsable WordPress gallery. 
+UnGallery displays directories of images as a browsable WordPress gallery. 
 
 The advantage of UnGallery is there is there is no gallery management required in WordPress.  You just point the plugin to a directory of photos, even thousands of them organized into subdirectories, and they are immediately viewable via an existing WordPress site.  Any uploads, deletions, or edits you make to your photos and directories are automatically reflected in WordPress.
 
@@ -21,8 +21,8 @@ Mark Reynolds http://markpreynolds.com
 
 1. Upload to /wp-content/plugins/ and activate on the Plugins menu in WordPress.
 1. Enable Permalinks: Settings -> Permalinks -> Custom Structure -> /%category%/%postname%
-1. Create a blank WordPress Page called "Gallery" or choose a different name for your gallery.
-1. Enter the path to your directory of images on the UnGallery configuration. 
+1. Create a blank WordPress Page, for example: "Gallery".
+1. Enter the path to your directory of images on the UnGallery administration menu. 
 
 == Features ==
 
