@@ -103,7 +103,7 @@ function ungallery() {
 	print '
 	<table width="100%"><tr>';			//	Begin the table
 	if (!isset($src) && isset($pic_array)) {							//	If we are not in browse view,
-		if ($marquee == "yes" && $gallerylink == "") $w = $srcW;			//	Set size of marquee picture
+		if ($marquee == "yes" && $gallerylink == "") $w = $marquee_size	;			//	Set size of marquee picture
 			else $w = $thumbW;
 		print '<div class="post-headline"><h2>'; 
 		if (file_exists($pic_root.$gallerylink."/banner.txt")) {

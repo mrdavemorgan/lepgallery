@@ -79,6 +79,17 @@ function mt_settings_page() {
     $movie_height_val = get_option( $movie_height_name );
     $movie_width_val = get_option( $movie_width_name );
 
+    // Apply defaults to form if db field is blank 
+    if ($gallery_val == "") $gallery_val = "gallery";
+    if ($columns_val == "") $columns_val = "4";
+    if ($thumbnail_val == "") $thumbnail_val = "145";
+    if ($browse_view_val == "") $browse_view_val = "440";
+    if ($marquee_val == "") $marquee_val = "no";
+    if ($movie_height_val == "") $movie_height_val = "495";
+    if ($movie_width_val == "") $movie_width_val = "640";
+    if ($marquee_size_val == "") $marquee_size_val = "700";
+
+
     // See if the user has posted us some information
     // If they did, this hidden field will be set to 'Y'
     if( isset($_POST[ $hidden_field_name ]) && $_POST[ $hidden_field_name ] == 'Y' ) {
@@ -132,39 +143,50 @@ function mt_settings_page() {
 
 <p><?php _e("Gallery URL string:", 'gallery' ); ?> 
 <input type="text" name="<?php echo $gallery_data_field_name; ?>" value="<?php echo $gallery_val; ?>" size="20">
+Default: gallery 
 </p>
 
 <p><?php _e("Path to image directory:", 'images_path' ); ?> 
 <input type="text" name="<?php echo $path_data_field_name; ?>" value="<?php echo $path_val; ?>" size="50">
+Example: /path/to/images/
 </p>
 
 <p><?php _e("Name used for hidden galleries:", 'hidden' ); ?> 
 <input type="text" name="<?php echo $hidden_data_field_name; ?>" value="<?php echo $hidden_val; ?>" size="20">
+Example: hidden
 </p><hr />
 
 <h3>Layout Settings</h3>
 <p><?php _e("Number of thumbnail columns:", 'columns' ); ?> 
 <input type="text" name="<?php echo $columns_data_field_name; ?>" value="<?php echo $columns_val; ?>" size="20">
+Default: 4
 </p>
 
 <p><?php _e("Thumbnail width in pixels:", 'thumbnail' ); ?> 
 <input type="text" name="<?php echo $thumbnail_data_field_name; ?>" value="<?php echo $thumbnail_val; ?>" size="20">
+Default: 145
 </p>
 
-<p><?php _e("Browsing view picture width in pixels:", 'browse_view' ); ?> 
+<p><?php _e("Selected picture width in pixels:", 'browse_view' ); ?> 
 <input type="text" name="<?php echo $browse_view_data_field_name; ?>" value="<?php echo $browse_view_val; ?>" size="20">
+Default: 440
 </p>
 
 <p><?php _e("Movie player height in pixels:", 'movie_height' ); ?> 
 <input type="text" name="<?php echo $movie_height_data_field_name; ?>" value="<?php echo $movie_height_val; ?>" size="20">
+Example: 490
+<p></p>
 <?php _e("Movie player width in pixels:", 'movie_width' ); ?> 
 <input type="text" name="<?php echo $movie_width_data_field_name; ?>" value="<?php echo $movie_width_val; ?>" size="20">
+Example: 640
 </p>
 
-<?php _e("Use a marquee picture at the top level?:", 'marquee' ); ?> 
+<p><?php _e("Use a marquee picture at the top level?:", 'marquee' ); ?> 
 <input type="text" name="<?php echo $marquee_data_field_name; ?>" value="<?php echo $marquee_val; ?>" size="20">
-<?php _e("Marquee width in pixels:", 'marquee_size' ); ?> 
+Default: no  ("yes" for a single larger photo at the top level)<p></p>
+<?php _e("Marquee view picture width in pixels:", 'marquee_size' ); ?> 
 <input type="text" name="<?php echo $marquee_size_data_field_name; ?>" value="<?php echo $marquee_size_val; ?>" size="20">
+Example: 640
 </p><hr />
 
 <p class="submit">
