@@ -38,9 +38,9 @@ Mark Reynolds http://markpreynolds.com
 
 == Screenshots ==
 
-1. The UnGallery top level "Marquee" view.  Optionally, the highest level of the gallery displays a single picture is displayed prominently as are the links to the subdirectories/subgalleries.  The top level gallery can be set to display this way or as thumbnails like the subdirectories.  Uncomment the marquee setting line near the top of ungallery.php to toggle this option.
-2. Selecting one of the subgallery links above displays the gallery thumbnail view of all JPGs, PNGs and GIFs in that directory.  A breadcrumb trail up to the top level of the galleries is displayed along with the subgalleries.  These are each generated automatically by reading the file system of your photo directories. The -zip- link provides a zip file of all photo originals in the current directory for convenient download.
-3. Clicking on a thumbnail displays the browsing view.  One picture is larger and the previous and next picture thumbnail links are displayed.  There are movie files in this directory, so links to view them are displayed also.  UnGallery's sizes are adjustable to fill larger page widths as this site uses.
+1. The UnGallery top level view.  The highest level of the gallery can display a single larger, picture or a views of thumbnails as the subdirectories/subgalleries do.  This is configurable via the UnGallery administration page.
+2. Selecting one of the subgallery links displays the thumbnail gallery view of all JPGs, PNGs and GIFs in the directory.  A breadcrumb trail back to the top level of the galleries is displayed along with the new subgalleries.  The -zip- link builds an archive of all images in the current directory for convenient download.
+3. Clicking on a thumbnail displays the larger browsing view along with previous and next thumbnails.  There are movie files in this directory, so links to these are displayed also.  All UnGallery's published sizes are adjustable to fill larger page widths as this site uses.
 
 == Changelog ==
 
@@ -80,11 +80,12 @@ Mark Reynolds http://markpreynolds.com
 
 == Notes ==
 
-* WordPress running on a Windows server is not supported at this time.  
+* All image sizes including thumbnails, selected image view, movies, marquee, and column layout are customizable.
 * To display a caption over a gallery, add a file named banner.txt to that directory with the desired text.  The file can include plain text or html. If no banner.txt is found, the name of the directory used.
 * The top level directory can optionally be used for a larger, marquee picture displayed.  If chosen, load one picture file to the top level directory.  This can be enabled/disabled using the UnGallery administration page.
 * To mark a gallery hidden, enter a name for hidden galleries on the UnGallery administration page. Any directories you create named "hidden", will not be visible via normal gallery browsing. A direct link may be sent to provide access to hidden galleries.  
-* All image sizes including thumbnails, selected image view, movies, marquee, and column layout are customizable.
+* You can include UnGallery images in other areas of your WordPress site or other sites by embedding the URL from UnGallery into the external site.
+* WordPress running on a Windows server is not supported at this time.  
 
 
 == License ==
