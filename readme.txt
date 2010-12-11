@@ -22,7 +22,7 @@ Mark Reynolds http://markpreynolds.com
 1. Upload to /wp-content/plugins/ and activate on the Plugins menu in WordPress.
 1. Enable Permalinks: Settings -> Permalinks -> Custom Structure -> /%category%/%postname%
 1. Create a blank WordPress Page, for example: "Gallery".
-1. Enter the path to your directory of images on the UnGallery administration menu. 
+1. Enter the path to your directory of images on the UnGallery administration menu under Settings. 
 
 == Features ==
 
