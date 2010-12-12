@@ -15,14 +15,16 @@ The advantage of UnGallery is there is there is no gallery management required i
 
 If you've ever had to reorganize galleries after publishing them, you know how inconvenient it is to return to a web tool to correct the paths, relink the thumbnails, updated titles, etc.   With UnGallery, you can restructure entire galleries, edit a dozen party pic red-eyes, rename an event or remove individual photos and each of these changes is automatically live in WordPress.
 
+[Introduction and installation screencast](http://markpreynolds.com/technology/wordpress-ungallery/")
+
 Mark Reynolds http://markpreynolds.com
 
 == Installation ==
 
-1. Upload to /wp-content/plugins/ and activate on the Plugins menu in WordPress.
+1. Upload to ./wp-content/plugins/ and activate on the Plugins menu.
 1. Enable Permalinks: Settings -> Permalinks -> Custom Structure -> /%category%/%postname%
 1. Create a blank WordPress Page, for example: "Gallery".
-1. Enter the path to your directory of images on the UnGallery administration menu under Settings / UnGallery Settings. 
+1. Enter the path to your directory of images on the UnGallery administration menu under Settings / UnGallery. 
 
 == Features ==
 
@@ -74,6 +76,7 @@ Mark Reynolds http://markpreynolds.com
 = 1.0.1 =
 * Version format updated
 * Hidden gallery field added to those auto-populated if blank
+* Introduction and installation screencast 
 
 
 == Dependencies ==
