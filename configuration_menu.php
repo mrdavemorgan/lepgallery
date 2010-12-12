@@ -6,7 +6,7 @@ add_action('admin_menu', 'mt_add_pages');
 // action function for above hook
 function mt_add_pages() {
     // Add a new submenu under Settings:
-    add_options_page(__('UnGallery Settings','ungallery_menu'), __('UnGallery Settings','ungallery_menu'), 'manage_options', 'ungallerysettings', 'mt_settings_page');
+    add_options_page(__('UnGallery','ungallery_menu'), __('UnGallery','ungallery_menu'), 'manage_options', 'ungallerysettings', 'mt_settings_page');
 }
 
 // mt_settings_page() displays the page content for the Test settings submenu
