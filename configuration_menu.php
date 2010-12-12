@@ -75,6 +75,7 @@ function mt_settings_page() {
     // Apply defaults to form if db field is blank 
     if ($gallery_val == "") $gallery_val = "gallery";
     if ($columns_val == "") $columns_val = "4";
+    if ($hidden_val == "") $hidden_val = "hidden";
     if ($thumbnail_val == "") $thumbnail_val = "145";
     if ($browse_view_val == "") $browse_view_val = "440";
     if ($marquee_val == "") $marquee_val = "no";

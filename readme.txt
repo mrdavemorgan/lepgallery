@@ -13,7 +13,7 @@ UnGallery displays directories of images as a browsable WordPress gallery.
 
 The advantage of UnGallery is there is there is no gallery management required in WordPress.  You just point the plugin to a directory of photos, even thousands of them organized into subdirectories, and they are immediately viewable via an existing WordPress site.  Any uploads, deletions, or edits you make to your photos and directories are automatically reflected in WordPress.
 
-If you've ever had to manage your photos after publishing them, you know how inconvenient it is to return to a web tool to correct the new location, change the thumbnails, etc.   With UnGallery, you can reorganize entire galleries, edit a dozen party pic red-eyes, rename an event or remove individual photos and each of these changes is automatically live in WordPress.
+If you've ever had to reorganize galleries after publishing them, you know how inconvenient it is to return to a web tool to correct the paths, relink the thumbnails, updated titles, etc.   With UnGallery, you can restructure entire galleries, edit a dozen party pic red-eyes, rename an event or remove individual photos and each of these changes is automatically live in WordPress.
 
 Mark Reynolds http://markpreynolds.com
 
@@ -22,7 +22,7 @@ Mark Reynolds http://markpreynolds.com
 1. Upload to /wp-content/plugins/ and activate on the Plugins menu in WordPress.
 1. Enable Permalinks: Settings -> Permalinks -> Custom Structure -> /%category%/%postname%
 1. Create a blank WordPress Page, for example: "Gallery".
-1. Enter the path to your directory of images on the UnGallery administration menu under Settings. 
+1. Enter the path to your directory of images on the UnGallery administration menu under Settings / UnGallery Settings. 
 
 == Features ==
 
