@@ -3,7 +3,7 @@
 Plugin Name: UnGallery
 Plugin URI: http://markpreynolds.com/technology/wordpress-ungallery
 Author: Mark Reynolds
-Version: 1.0.0
+Version: 1.0.1
 Description: Publish image directories as a browsable WordPress gallery.
 */
 

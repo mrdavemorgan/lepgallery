@@ -71,6 +71,9 @@ Mark Reynolds http://markpreynolds.com
 = 1.0 =
 * Administration menus auto-populate with default values when blank
 * Instructions updated for new configuration
+= 1.0.1 =
+* Version format updated
+* Hidden gallery field added to those auto-populated if blank
 
 
 == Dependencies ==
