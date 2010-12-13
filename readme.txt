@@ -15,7 +15,7 @@ The advantage of UnGallery is there is there is no gallery management required i
 
 If you've ever had to reorganize galleries after publishing them, you know how inconvenient it is to return to a web tool to correct the paths, relink the thumbnails, updated titles, etc.   With UnGallery, you can restructure entire galleries, edit a dozen party pic red-eyes, rename an event or remove individual photos and each of these changes is automatically live in WordPress.
 
-[Introduction and installation screencast](http://markpreynolds.com/technology/wordpress-ungallery/")
+[Introduction and installation screencast](http://markpreynolds.com/technology/wordpress-ungallery)
 
 Mark Reynolds http://markpreynolds.com
 
