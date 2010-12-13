@@ -16,10 +16,15 @@ function mt_settings_page() {
     if (!current_user_can('manage_options'))
     {
       wp_die( __('You do not have sufficient permissions to access this page.') );
-    }
+    }	
+
 	// form hidden variable
 	$hidden_field_name = 'mt_submit_hidden';
     
+    // variables for the version field  
+    $version_name = 'version';
+    $version_data_field_name = 'version';
+
     // variables for the gallery URL string field 
     $gallery_name = 'gallery';
     $gallery_data_field_name = 'gallery';
@@ -61,6 +66,7 @@ function mt_settings_page() {
     $movie_width_data_field_name = 'movie_width';
 
     // Read in existing option value from database
+    $version_val = get_option( $version_name );
     $gallery_val = get_option( $gallery_name );
     $path_val = get_option( $path_name );
     $hidden_val = get_option( $hidden_name );
@@ -100,6 +106,7 @@ function mt_settings_page() {
         $movie_width_val = $_POST[ $movie_width_data_field_name ];
 
         // Save the posted value in the database
+        update_option( $version_name, $version_val );
         update_option( $gallery_name, $gallery_val );
         update_option( $path_name, $path_val );
         update_option( $hidden_name, $hidden_val );
@@ -131,7 +138,9 @@ function mt_settings_page() {
     
     ?>
 
-<h3>General Settings</h3>
+<h3>General Settings</h3>	
+Gallery version: <input type="text" readonly name="<?php echo $version_data_field_name; ?>" value="<?php echo $version_val; ?>" size="20">
+
 <form name="form1" method="post" action="">
 <input type="hidden" name="<?php echo $hidden_field_name; ?>" value="Y">
 

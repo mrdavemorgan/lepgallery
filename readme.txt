@@ -77,7 +77,8 @@ Mark Reynolds http://markpreynolds.com
 * Version format updated
 * Hidden gallery field added to those auto-populated if blank
 * Introduction and installation screencast 
-
+= 1.0.2 =
+* Version number is displayed on admin menu page and noted in html
 
 == Dependencies ==
 

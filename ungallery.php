@@ -3,9 +3,13 @@
 Plugin Name: UnGallery
 Plugin URI: http://markpreynolds.com/technology/wordpress-ungallery
 Author: Mark Reynolds
-Version: 1.0.1
-Description: Publish image directories as a browsable WordPress gallery.
+Version: 1.0.2
+Description: Publish directories of images as a browsable WordPress gallery.
 */
+
+//	Set the version as above and pass to administration menu
+$version_val = "1.0.2";
+update_option( "version", $version_val );
 
 include("configuration_menu.php");
 $gallery = get_option( 'gallery' );
@@ -14,6 +18,7 @@ function ungallery() {
 
 	//	Load the configuration data from the database
 	$gallery = get_option( 'gallery' );
+	$version = get_option( 'version' );
 	$pic_root = get_option( 'images_path' );
 	$hidden = get_option( 'hidden' );
 	$columns = get_option( 'columns' );
@@ -23,6 +28,9 @@ function ungallery() {
 	$srcW = get_option( 'browse_view' );
 	$movie_height = get_option( 'movie_height' );
 	$movie_width = get_option( 'movie_width' );
+	
+	//	Provide the version of UnGallery
+	print "<!-- UnGallery version: ". $version ." -->";
 
 	$w = $thumbW;
 	$blogURI = get_bloginfo('url') . "/";	
