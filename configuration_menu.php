@@ -139,19 +139,25 @@ function mt_settings_page() {
     ?>
 
 <h3>General Settings</h3>	
-Gallery version: <input type="text" readonly name="<?php echo $version_data_field_name; ?>" value="<?php echo $version_val; ?>" size="20">
-
 <form name="form1" method="post" action="">
 <input type="hidden" name="<?php echo $hidden_field_name; ?>" value="Y">
 
-<p><?php _e("Gallery permalink:", 'gallery' ); ?> 
-<input type="text" name="<?php echo $gallery_data_field_name; ?>" value="<?php echo $gallery_val; ?>" size="20">
-Default: gallery (usually the lower case version of your gallery name)
-</p>
+Gallery version: <input type="text" readonly name="<?php echo $version_data_field_name; ?>" value="<?php echo $version_val; ?>" size="20">
 
 <p><?php _e("Path to image directory:", 'images_path' ); ?> 
-<input type="text" name="<?php echo $path_data_field_name; ?>" value="<?php echo $path_val; ?>" size="50">
-Example: /path/to/images/
+<input type="text" name="<?php echo $path_data_field_name; ?>" value="<?php echo $path_val; ?>" size="30"> 	<br>
+<br>
+Because many WordPress environments are different here are a few additional path tips: <br>
+	<br>
+	&nbsp;1. It needs to be the absolute path from the root like: /home/users/your_domain/wordpress/images/ and not relative to your website like: ../images/<br>
+	&nbsp;2. The trailing slash/ is required. <br>
+	&nbsp;3. You can find the full path to a directory on a linux system, by typing 'pwd' at the command prompt.  <br>
+	&nbsp;4. On your server, this page's path is: <b><?php print `pwd`?>/ </b><br>
+</p>
+
+<p><?php _e("Gallery permalink:", 'gallery' ); ?> 
+<input type="text" name="<?php echo $gallery_data_field_name; ?>" value="<?php echo $gallery_val; ?>" size="20">
+Default: gallery (the lower case name of the page you created)
 </p>
 
 <p><?php _e("Name used for hidden galleries:", 'hidden' ); ?> 

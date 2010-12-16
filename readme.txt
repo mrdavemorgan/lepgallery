@@ -82,6 +82,9 @@ Mark Reynolds http://markpreynolds.com
 = 1.0.3 =
 * Consolidated thumbnail creation files in preparation to update that library
 * Fixed a regression in zip file download
+= 1.0.4 =
+* First integrated support tips/tool added (pwd)
+
 
 == Dependencies ==
 
