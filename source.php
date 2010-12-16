@@ -5,10 +5,12 @@
 if ($_GET['zip']) {
 	$filename = $_GET['zip'];
 	$len = filesize($filename);
+	$lastslash =  strrpos($filename, "/");
+	$name =  substr($filename, $lastslash + 1);
 	
-	header("Content-type: application/x-zip-compressed;\r\n");
-	header("Content-Length: $len;\r\n");
-	header('Content-Disposition: attachment; filename="pics.zip');  // Create a download stream link
+	header('Content-type: application/x-zip-compressed');
+	header('Content-Length: $len');
+	header('Content-Disposition: attachment; filename="' . $name . '"');  // Create a download stream link
 	readfile($filename);	
 }
 

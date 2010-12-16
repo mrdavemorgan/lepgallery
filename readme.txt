@@ -79,6 +79,9 @@ Mark Reynolds http://markpreynolds.com
 * Introduction and installation screencast 
 = 1.0.2 =
 * Version number is displayed on admin menu page and noted in html
+= 1.0.3 =
+* Consolidated thumbnail creation files in preparation to update that library
+* Fixed a regression in zip file download
 
 == Dependencies ==
 

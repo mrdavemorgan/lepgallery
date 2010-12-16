@@ -74,6 +74,9 @@ else
 		$thumb = makeErrorImg("File not found - " . basename($srcFile));
 	}
 }
+// Rotate jpeg using exif information
+if(function_exists('exif_read_data') && stristr($srcFile, ".jpg")) include("rotate.php");
+$thumb = imagerotate($thumb, $rotation, 0);
 
 header('Content-type: image/jpeg');
 @imagejpeg($thumb);

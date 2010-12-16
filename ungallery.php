@@ -3,12 +3,12 @@
 Plugin Name: UnGallery
 Plugin URI: http://markpreynolds.com/technology/wordpress-ungallery
 Author: Mark Reynolds
-Version: 1.0.2
+Version: 1.0.3
 Description: Publish directories of images as a browsable WordPress gallery.
 */
 
 //	Set the version as above and pass to administration menu
-$version_val = "1.0.2";
+$version_val = "1.0.3";
 update_option( "version", $version_val );
 
 include("configuration_menu.php");
@@ -38,9 +38,6 @@ function ungallery() {
 	$gallerylink = $_GET['gallerylink'];
 	$src = $_GET['src'];
 	$movie_types = array();
-
-	if(function_exists('exif_read_data')) $rotatable = "jpeg_rotate.php";
-		else $rotatable = "thumb.php";
 
 	//	If we are browsing a gallery, gallerylink is not set so derive it from src in URL
 	if (isset($src)) {
@@ -125,11 +122,7 @@ function ungallery() {
 		$column = 0;
 		print '<td>';
 		foreach ($pic_array as $filename) {								//  Use the pic_array to assign the links and img src
-			if(stristr($filename, ".JPG")) {
-				print '<a href="?src='. $pic_root . $gallerylink. "/" .$filename.'"><img src="'. $blogURI . $dir . $rotatable . '?src='. $pic_root . $gallerylink. "/". $filename.'&w=' .$w. '"></a>'; 				//  If it is a jpeg include the exif rotation logic
-		   	} else {
-				print '<a href="?src='. $pic_root . $gallerylink. "/" .$filename.'"><img src="'. $blogURI . $dir .'thumb.php?src='. $pic_root . $gallerylink. "/". $filename.'&w=' .$w. '"></a>';    
-			}
+			print '<a href="?src='. $pic_root . $gallerylink. "/" .$filename.'"><img src="'. $blogURI . $dir . 'thumb.php?src='. $pic_root . $gallerylink. "/". $filename.'&w=' .$w. '"></a>'; 
 			$column++;
 			if ( $column == $columns ) {
 				print '<br>';
@@ -138,23 +131,16 @@ function ungallery() {
 		}
 	} else {														//  Render the browsing version, link to original, last/next picture, and link to parent gallery
 	if (isset($src) && !in_array(substr($src, -3), $movie_types)) { //  If we are in broswing mode and the source is not a movie
-		if (!strstr($src, $pic_root)) die;     						//  If root dir is not in path it may be an attempt to read files outside gallery
 		$filename = substr($src, $lastslash + 1);
 		$before_filename = $pic_array[array_search($filename, $pic_array) - 1 ];
 		$after_filename = $pic_array[array_search($filename, $pic_array) + 1 ];
 																	//  Display the current/websize pic
-																	//  If it is a jpeg include the exif rotation logic
-		if(stristr($src, ".JPG")) print '
-		<td rowspan="2" style="vertical-align:middle;"><a href="'. $blogURI . $dir .'source.php?pic=' . $src . '"><img src="'. $blogURI . $dir . $rotatable . '?src='. $src. '&w='. $srcW. '"></a></td>
-		<td>';
-			else print '
-			<td rowspan=2><a href="'. $blogURI . $dir .'source.php?pic=' . $src . '"><img src="'. $blogURI . $dir .'thumb.php?src='. $src. '&w='. $srcW. '"></a></td>
-			<td valign="center">';
-
+		print '
+		<td rowspan="2" style="vertical-align:middle;"><a href="'. $blogURI . $dir .'source.php?pic=' . $src . '"><img src="'. $blogURI . $dir . 'thumb.php?src='. $src. '&w='. $srcW. '"></a></td>
+		<td valign="center">';
+			
 		if ($before_filename) {										// Display the before thumb, if it exists
-																	//  If it is a jpeg include the exif rotation logic
-			if(stristr($before_filename, ".JPG")) print '<a href="?src='. $pic_root . $gallerylink."/".$before_filename .'" title="Previous Gallery Picture"><img src="'. $blogURI . $dir . $rotatable . '?src='. $pic_root . $gallerylink."/".$before_filename .'&w='. $w .'"></a>';
-			else print '<a href="?src='. $pic_root . $gallerylink."/".$before_filename .'" title="Previous Gallery Picture"><img src="'. $blogURI . $dir .'thumb.php?src='. $pic_root . $gallerylink."/".$before_filename .'&w='. $w .'"></a>';
+			print '<a href="?src='. $pic_root . $gallerylink."/".$before_filename .'" title="Previous Gallery Picture"><img src="'. $blogURI . $dir .'thumb.php?src='. $pic_root . $gallerylink."/".$before_filename .'&w='. $w .'"></a>';
 		}
 	print "</td>
 	</tr>
@@ -162,8 +148,7 @@ function ungallery() {
 	<td>
 	";
 		if ($after_filename) {										// Display the after thumb, if it exists
-			if(stristr($after_filename, ".JPG")) print '	<a href="?src='. $pic_root . $gallerylink."/".$after_filename .'" title="Next Gallery Picture"><img src="'. $blogURI . $dir . $rotatable . '?src='. $pic_root . $gallerylink."/".$after_filename .'&w='. $w .'"></a>';		
-			else print '	<a href="?src='. $pic_root . $gallerylink."/".$after_filename .'" title="Next Gallery Picture"><img src="'. $blogURI . $dir .'thumb.php?src='. $pic_root . $gallerylink."/".$after_filename .'&w='. $w .'"></a>';
+			print '	<a href="?src='. $pic_root . $gallerylink."/".$after_filename .'" title="Next Gallery Picture"><img src="'. $blogURI . $dir .'thumb.php?src='. $pic_root . $gallerylink."/".$after_filename .'&w='. $w .'"></a>';
 		}
 	} elseif (($movie_array) && (in_array(substr($src, -3), $movie_types))) print '<td>
 <OBJECT CLASSID="clsid:02BF25D5-8C17-4B23-BC80-D3488ABDDC6B" CODEBASE="http://www.apple.com/qtactivex/qtplugin.cab" width="'. $movie_width .'" height="'. $movie_height .'" ><br />
