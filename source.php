@@ -14,6 +14,7 @@ if ($_GET['zip']) {
 	readfile($filename);	
 }
 
+//  To be deprecated when phpThumb issue with full size is resolved
 if ($_GET['pic']) {
 	$filename = $_GET['pic'];
 	$len = filesize($filename);

@@ -25,6 +25,10 @@ function mt_settings_page() {
     $version_name = 'version';
     $version_data_field_name = 'version';
 
+    // variables for the version field  
+    $version_name = 'version';
+    $version_data_field_name = 'version';
+
     // variables for the gallery URL string field 
     $gallery_name = 'gallery';
     $gallery_data_field_name = 'gallery';
@@ -135,8 +139,8 @@ function mt_settings_page() {
     echo "<h2>" . __( 'UnGallery Plugin Settings', 'images_path' ) . "</h2>";
 
     // settings form
-    
-    ?>
+
+?>
 
 <h3>General Settings</h3>	
 <form name="form1" method="post" action="">
@@ -147,23 +151,15 @@ Gallery version: <input type="text" readonly name="<?php echo $version_data_fiel
 <p><?php _e("Path to image directory:", 'images_path' ); ?> 
 <input type="text" name="<?php echo $path_data_field_name; ?>" value="<?php echo $path_val; ?>" size="30"> 	<br>
 <br>
-Because many WordPress environments are different here are a few additional path tips: <br>
+Because hosting environments differ here are a few path tips: <br>
 	<br>
-	&nbsp;1. It needs to be the absolute path from the root like: /home/users/your_domain/wordpress/images/ and not relative to your website like: ../images/<br>
+	&nbsp;1. Use the absolute path from the root like: /home/users/your_domain/images/ not relative to your website like: ../images/<br>
 	&nbsp;2. The trailing slash/ is required. <br>
 	&nbsp;3. You can find the full path to a directory on a linux system, by typing 'pwd' at the command prompt.  <br>
-	&nbsp;4. On your server, this page's path is: <b><?php print `pwd`?>/ </b><br>
+	&nbsp;4. On your server, this path to this admin page is: <b><?php print `pwd`?>/ </b><br>
 </p>
 
-<p><?php _e("Gallery permalink:", 'gallery' ); ?> 
-<input type="text" name="<?php echo $gallery_data_field_name; ?>" value="<?php echo $gallery_val; ?>" size="20">
-Default: gallery (the lower case name of the page you created)
-</p>
-
-<p><?php _e("Name used for hidden galleries:", 'hidden' ); ?> 
-<input type="text" name="<?php echo $hidden_data_field_name; ?>" value="<?php echo $hidden_val; ?>" size="20">
-Example: hidden
-</p><hr />
+<hr />
 
 <h3>Layout Settings</h3>
 <p><?php _e("Number of thumbnail columns:", 'columns' ); ?> 
@@ -197,6 +193,13 @@ Default: no  ("yes" for a single larger photo at the top level)<p></p>
 <input type="text" name="<?php echo $marquee_size_data_field_name; ?>" value="<?php echo $marquee_size_val; ?>" size="20">
 Example: 640
 </p><hr />
+
+<h3>Advanced Options</h3>
+
+<p><?php _e("Name used for hidden galleries:", 'hidden' ); ?> 
+<input type="text" name="<?php echo $hidden_data_field_name; ?>" value="<?php echo $hidden_val; ?>" size="20">
+Example: hidden
+</p>
 
 <p class="submit">
 <input type="submit" name="Submit" class="button-primary" value="<?php esc_attr_e('Save Changes') ?>" />

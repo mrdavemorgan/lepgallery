@@ -84,7 +84,9 @@ Mark Reynolds http://markpreynolds.com
 * Fixed a regression in zip file download
 = 1.0.4 =
 * First integrated support tips/tool added (pwd)
-
+= 1.1.0 =
+* Upgraded the thumbnail library to phpThumb which enables many new imaging options.
+* Caching no longer writes to image directories. Cache dir is ./<WordPress installation/wp-content/cache/ is created
 
 == Dependencies ==
 

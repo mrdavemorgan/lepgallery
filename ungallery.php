@@ -3,12 +3,12 @@
 Plugin Name: UnGallery
 Plugin URI: http://markpreynolds.com/technology/wordpress-ungallery
 Author: Mark Reynolds
-Version: 1.0.4
+Version: 1.1.0
 Description: Publish directories of images as a browsable WordPress gallery.
 */
 
 //	Set the version as above and pass to administration menu
-$version_val = "1.0.4";
+$version_val = "1.1.0";
 update_option( "version", $version_val );
 
 include("configuration_menu.php");
@@ -122,7 +122,7 @@ function ungallery() {
 		$column = 0;
 		print '<td>';
 		foreach ($pic_array as $filename) {								//  Use the pic_array to assign the links and img src
-			print '<a href="?src='. $pic_root . $gallerylink. "/" .$filename.'"><img src="'. $blogURI . $dir . 'thumb.php?src='. $pic_root . $gallerylink. "/". $filename.'&w=' .$w. '"></a>'; 
+			print '<a href="?src='. $pic_root . $gallerylink. "/" .$filename.'"><img src="'. $blogURI . $dir . 'phpthumb/phpThumb.php?ar=x&src='. $pic_root . $gallerylink. "/". $filename.'&w=' .$w. '"></a>'; 
 			$column++;
 			if ( $column == $columns ) {
 				print '<br>';
@@ -136,11 +136,11 @@ function ungallery() {
 		$after_filename = $pic_array[array_search($filename, $pic_array) + 1 ];
 																	//  Display the current/websize pic
 		print '
-		<td rowspan="2" style="vertical-align:middle;"><a href="'. $blogURI . $dir .'source.php?pic=' . $src . '"><img src="'. $blogURI . $dir . 'thumb.php?src='. $src. '&w='. $srcW. '"></a></td>
+		<td rowspan="2" style="vertical-align:middle;"><a href="'. $blogURI . $dir .'source.php?pic=' . $src . '"><img src="'. $blogURI . $dir . 'phpthumb/phpThumb.php?ar=x&src='. $src. '&w='. $srcW. '"></a></td>
 		<td valign="center">';
 			
 		if ($before_filename) {										// Display the before thumb, if it exists
-			print '<a href="?src='. $pic_root . $gallerylink."/".$before_filename .'" title="Previous Gallery Picture"><img src="'. $blogURI . $dir .'thumb.php?src='. $pic_root . $gallerylink."/".$before_filename .'&w='. $w .'"></a>';
+			print '<a href="?src='. $pic_root . $gallerylink."/".$before_filename .'" title="Previous Gallery Picture"><img src="'. $blogURI . $dir .'phpthumb/phpThumb.php?ar=x&src='. $pic_root . $gallerylink."/".$before_filename .'&w='. $w .'"></a>';
 		}
 	print "</td>
 	</tr>
@@ -148,7 +148,7 @@ function ungallery() {
 	<td>
 	";
 		if ($after_filename) {										// Display the after thumb, if it exists
-			print '	<a href="?src='. $pic_root . $gallerylink."/".$after_filename .'" title="Next Gallery Picture"><img src="'. $blogURI . $dir .'thumb.php?src='. $pic_root . $gallerylink."/".$after_filename .'&w='. $w .'"></a>';
+			print '	<a href="?src='. $pic_root . $gallerylink."/".$after_filename .'" title="Next Gallery Picture"><img src="'. $blogURI . $dir .'phpthumb/phpThumb.php?ar=x&src='. $pic_root . $gallerylink."/".$after_filename .'&w='. $w .'"></a>';
 		}
 	} elseif (($movie_array) && (in_array(substr($src, -3), $movie_types))) print '<td>
 <OBJECT CLASSID="clsid:02BF25D5-8C17-4B23-BC80-D3488ABDDC6B" CODEBASE="http://www.apple.com/qtactivex/qtplugin.cab" width="'. $movie_width .'" height="'. $movie_height .'" ><br />
