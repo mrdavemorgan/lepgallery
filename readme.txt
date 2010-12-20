@@ -31,7 +31,7 @@ Mark Reynolds http://markpreynolds.com
 * Unlimited depth, breadth, and number of photos in library. My gallery has about 6,000 pictures and movies.
 * Photos are managed outside of WordPress.  Simply update a picture directory and UnGallery sees changes immediately.
 * Default and configurable gallery titles
-* Hidden galleries
+* Galleries can be set to hidden.  These do not display in browsing, with access provided via direct link.
 * Caching for faster page loads
 * MP4 movies embedded and played within the WordPress site.
 * Image rotation support for orientation of jpegs with exif data
@@ -90,6 +90,9 @@ Mark Reynolds http://markpreynolds.com
 = 1.1.1 =
 * Oops.  Forgot to svn add the phpThumb script subdirectory.
 * Also, some version number increments do not trigger automatic update and flag as recent on wp.org
+= 1.1.2 =
+* Admin menu file was incomplete, causing serious bug when not using gallery name: 'gallery'
+
 
 == Dependencies ==
 

@@ -1,5 +1,11 @@
 <?php
 
+// Create cache directory at ./<WordPress install dir>/wp-content/cache/
+if (!is_dir("../wp-content/cache/")) {
+	print `mkdir ../wp-content/cache/`;
+	print `chmod 644 ../wp-content/cache/`;
+}
+
 // Hook for adding admin menus
 add_action('admin_menu', 'mt_add_pages');
 
@@ -147,6 +153,11 @@ function mt_settings_page() {
 <input type="hidden" name="<?php echo $hidden_field_name; ?>" value="Y">
 
 Gallery version: <input type="text" readonly name="<?php echo $version_data_field_name; ?>" value="<?php echo $version_val; ?>" size="20">
+
+<p><?php _e("Gallery permalink:", 'gallery' ); ?> 
+<input type="text" name="<?php echo $gallery_data_field_name; ?>" value="<?php echo $gallery_val; ?>" size="20">
+Default: gallery (the lower case name of the page you created)
+</p>
 
 <p><?php _e("Path to image directory:", 'images_path' ); ?> 
 <input type="text" name="<?php echo $path_data_field_name; ?>" value="<?php echo $path_val; ?>" size="30"> 	<br>
