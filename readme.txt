@@ -86,7 +86,7 @@ Mark Reynolds http://markpreynolds.com
 * First integrated support tips/tool added (pwd)
 = 1.1.0 =
 * Upgraded the thumbnail library to phpThumb which enables many new imaging options.
-* Caching no longer writes to image directories. Cache dir is ./<WordPress installation/wp-content/cache/ is created
+* Caching no longer writes to image directories. Cache dir is ./WordPress installation/wp-content/cache/ is created
 = 1.1.1 =
 * Oops.  Forgot to svn add the phpThumb script subdirectory.
 * Also, some version number increments do not trigger automatic update and flag as recent on wp.org
