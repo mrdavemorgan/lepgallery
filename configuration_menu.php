@@ -1,11 +1,5 @@
 <?php
 
-// Create cache directory at ./<WordPress install dir>/wp-content/cache/
-if (!is_dir("../wp-content/cache/")) {
-	print `mkdir ../wp-content/cache/`;
-	print `chmod 644 ../wp-content/cache/`;
-}
-
 // Hook for adding admin menus
 add_action('admin_menu', 'mt_add_pages');
 
@@ -17,6 +11,12 @@ function mt_add_pages() {
 
 // mt_settings_page() displays the page content for the Test settings submenu
 function mt_settings_page() {
+	
+	// Create cache directory at ./<WordPress install dir>/wp-content/cache/
+	if (!is_dir($_SERVER['DOCUMENT_ROOT']."/wp-content/cache/")) {
+		mkdir($_SERVER['DOCUMENT_ROOT']."/wp-content/cache/");
+		chmod($_SERVER['DOCUMENT_ROOT']."/wp-content/cache/", 0700);
+	}
 
     //must check that the user has the required capability 
     if (!current_user_can('manage_options'))
@@ -167,7 +167,7 @@ Because hosting environments differ here are a few path tips: <br>
 	&nbsp;1. Use the absolute path from the root like: /home/users/your_domain/images/ not relative to your website like: ../images/<br>
 	&nbsp;2. The trailing slash/ is required. <br>
 	&nbsp;3. You can find the full path to a directory on a linux system, by typing 'pwd' at the command prompt.  <br>
-	&nbsp;4. On your server, this path to this admin page is: <b><?php print `pwd`?>/ </b><br>
+	&nbsp;4. On your server, this path to this admin page is: <b><?php print getcwd() ?>/ </b><br>
 </p>
 
 <hr />

@@ -92,7 +92,8 @@ Mark Reynolds http://markpreynolds.com
 * Also, some version number increments do not trigger automatic update and flag as recent on wp.org
 = 1.1.2 =
 * Admin menu file was incomplete, causing serious bug when not using gallery name: 'gallery'
-
+= 1.1.3 =
+* Changed the create cache directory code to use PHP function vs. exec php which is not allowed on some hosters
 
 == Dependencies ==
 
