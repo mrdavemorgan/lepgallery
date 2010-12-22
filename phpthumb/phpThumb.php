@@ -35,9 +35,13 @@ $phpThumb = new phpThumb();
 $phpThumb->DebugTimingMessage('phpThumb.php start', __FILE__, __LINE__, $starttime);
 $phpThumb->SetParameter('config_error_die_on_error', true);
 
+/*	Commenting out the set_time_limit call which fails in safe mode
+	This is probably better handled via: if( !ini_get('safe_mode') ){ 
+	but I want to be sure it does not run and 60 secs is unlikely for my use.
+
 if (!phpthumb_functions::FunctionIsDisabled('set_time_limit')) {
 	set_time_limit(60);  // shouldn't take nearly this long in most cases, but with many filters and/or a slow server...
-}
+}	*/
 
 // phpThumbDebug[0] used to be here, but may reveal too much
 // info when high_security_mode should be enabled (not set yet)

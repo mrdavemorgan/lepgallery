@@ -94,6 +94,9 @@ Mark Reynolds http://markpreynolds.com
 * Admin menu file was incomplete, causing serious bug when not using gallery name: 'gallery'
 = 1.1.3 =
 * Changed the create cache directory code to use PHP function vs. exec php which is not allowed on some hosters
+= 1.1.4 =
+* phpThumb calls set_time_limit which is not supported in safe.  Disabled for now, potential conditional for later.
+* Removed cache limits
 
 == Dependencies ==
 
