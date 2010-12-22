@@ -97,11 +97,13 @@ Mark Reynolds http://markpreynolds.com
 = 1.1.4 =
 * phpThumb calls set_time_limit which is not supported in safe.  Disabled for now, potential conditional for later.
 * Removed cache limits
+= 1.1.5 =
+* phpThumb is apparently no longer supported and so did not support php 5.3.  Others have extended the code though and this patch fixes UnGallery running on a php 5.3 server.
 
 == Dependencies ==
 
+* Linux on the WordPress server
 * Permalinks enabled: Settings -> Permalinks -> Custom Structure -> /%category%/%postname% 
-* Write permission to the photo directories. UnGallery creates a "thumb_cache" directory in each gallery to improve performance. This may become an optional configuration in the future.
 
 == Notes ==
 
@@ -110,8 +112,6 @@ Mark Reynolds http://markpreynolds.com
 * The top level directory can optionally be used for a larger, marquee picture displayed.  If chosen, load one picture file to the top level directory.  This can be enabled/disabled using the UnGallery administration page.
 * To mark a gallery hidden, enter a name for hidden galleries on the UnGallery administration page. Any directories you create named "hidden", will not be visible via normal gallery browsing. A direct link may be sent to provide access to hidden galleries.  
 * You can include UnGallery images in other areas of your WordPress site or other sites by embedding the URL from UnGallery into the external site.
-* WordPress running on a Windows server is not supported at this time.  
-
 
 == License ==
 
