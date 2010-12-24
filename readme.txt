@@ -99,6 +99,9 @@ Mark Reynolds http://markpreynolds.com
 * Removed cache limits
 = 1.1.5 =
 * phpThumb is apparently no longer supported and so did not support php 5.3.  Others have extended the code though and this patch fixes UnGallery running on a php 5.3 server.
+= 1.2.0 =
+* BMP's now supported
+* phpThumb library handles the original pic and autorotation
 
 == Dependencies ==
 

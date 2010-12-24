@@ -14,7 +14,7 @@ if ($_GET['zip']) {
 	readfile($filename);	
 }
 
-//  To be deprecated when phpThumb issue with full size is resolved
+/*  Deprecated, handled by phpThumb lib
 if ($_GET['pic']) {
 	$filename = $_GET['pic'];
 	$len = filesize($filename);
@@ -26,7 +26,7 @@ if ($_GET['pic']) {
 	header("Content-Transfer-Encoding: binary;\r\n");
 	header('Content-Disposition: inline; filename="'.$name.'"');	//  Render the photo inline.
 	readfile($filename);
-} 
+} */
 
 if ($_GET['movie']) {
 	$filename = $_GET['movie'];

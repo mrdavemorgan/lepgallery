@@ -3,12 +3,12 @@
 Plugin Name: UnGallery
 Plugin URI: http://markpreynolds.com/technology/wordpress-ungallery
 Author: Mark Reynolds
-Version: 1.1.5
+Version: 1.2.0
 Description: Publish directories of images as a browsable WordPress gallery.
 */
 
 //	Set the version as above and pass to administration menu
-$version_val = "1.1.5";
+$version_val = "1.2.0";
 update_option( "version", $version_val );
 
 include("configuration_menu.php");
@@ -67,7 +67,7 @@ function ungallery() {
 	$dp = opendir( $pic_root.$gallerylink);
 	while ($filename = readdir($dp)) {
 		if (!is_dir($pic_root.$gallerylink. "/". $filename))  {  // If it's a file, begin
-				$pic_types = array("JPG", "jpg", "GIF", "gif", "PNG", "png"); 		
+				$pic_types = array("JPG", "jpg", "GIF", "gif", "PNG", "png", "BMP", "bmp"); 		
 				if (in_array(substr($filename, -3), $pic_types)) $pic_array[] = $filename;		// If it's a picture, add it to thumb array
 				else {
 					$movie_types = array("MP4", "mp4");								
@@ -136,7 +136,7 @@ function ungallery() {
 		$after_filename = $pic_array[array_search($filename, $pic_array) + 1 ];
 																	//  Display the current/websize pic
 		print '
-		<td rowspan="2" style="vertical-align:middle;"><a href="'. $blogURI . $dir .'source.php?pic=' . $src . '"><img src="'. $blogURI . $dir . 'phpthumb/phpThumb.php?ar=x&src='. $src. '&w='. $srcW. '"></a></td>
+		<td rowspan="2" style="vertical-align:middle;"><a href="'. $blogURI . $dir .'phpthumb/phpThumb.php?ar=x&src=' . $src . '"><img src="'. $blogURI . $dir . 'phpthumb/phpThumb.php?ar=x&src='. $src. '&w='. $srcW. '"></a></td>
 		<td valign="center">';
 			
 		if ($before_filename) {										// Display the before thumb, if it exists
