@@ -3,12 +3,12 @@
 Plugin Name: UnGallery
 Plugin URI: http://markpreynolds.com/technology/wordpress-ungallery
 Author: Mark Reynolds
-Version: 1.2.0
+Version: 1.3.0
 Description: Publish directories of images as a browsable WordPress gallery.
 */
 
 //	Set the version as above and pass to administration menu
-$version_val = "1.2.0";
+$version_val = "1.3.0";
 update_option( "version", $version_val );
 
 include("configuration_menu.php");
@@ -110,15 +110,15 @@ function ungallery() {
 	if (!isset($src) && isset($pic_array)) {							//	If we are not in browse view,
 		if ($marquee == "yes" && $gallerylink == "") $w = $marquee_size	;			//	Set size of marquee picture
 			else $w = $thumbW;
-		print '<div class="post-headline"><h2>'; 
+		print '<td align="center"><div class="post-headline">'; 
 		if (file_exists($pic_root.$gallerylink."/banner.txt")) {
 			include ($pic_root.$gallerylink."/banner.txt");					//	We also display the caption from banner.txt
 		} else {
 			$lastslash =  strrpos($gallerylink, "/");
-			if (strpos($gallerylink, "/")) print substr($gallerylink, $lastslash + 1);
-			else print $gallerylink;
+			if (strpos($gallerylink, "/")) print "<h2>" . substr($gallerylink, $lastslash + 1) ."</h2>";
+			else print "<h2>" . $gallerylink . "</h2>";
 		}
-		print "</h2></td></tr><tr>";									//	Close cell. Add a bit of space
+		print "</td></tr><tr>";									//	Close cell. Add a bit of space
 		$column = 0;
 		print '<td>';
 		foreach ($pic_array as $filename) {								//  Use the pic_array to assign the links and img src
@@ -129,7 +129,7 @@ function ungallery() {
 				$column = 0;
 			}
 		}
-	} else {														//  Render the browsing version, link to original, last/next picture, and link to parent gallery
+	} else {	//  Render the browsing version, link to original, last/next picture, and link to parent gallery
 	if (isset($src) && !in_array(substr($src, -3), $movie_types)) { //  If we are in broswing mode and the source is not a movie
 		$filename = substr($src, $lastslash + 1);
 		$before_filename = $pic_array[array_search($filename, $pic_array) - 1 ];

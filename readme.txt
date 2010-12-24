@@ -102,6 +102,9 @@ Mark Reynolds http://markpreynolds.com
 = 1.2.0 =
 * BMP's now supported
 * phpThumb library handles the original pic and autorotation
+= 1.3.0 =
+* Gallery titles are centered (unless your theme forces justify)
+* Banner file handling updates, sample banner.txt included.
 
 == Dependencies ==
 
