@@ -105,6 +105,9 @@ Mark Reynolds http://markpreynolds.com
 = 1.3.0 =
 * Gallery titles are centered (unless your theme forces justify)
 * Banner file handling updates, sample banner.txt included.
+= 1.3.1 =
+* Gallery images are centered (unless your theme forces justify)
+* Started tagging releases
 
 == Dependencies ==
 
