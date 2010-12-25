@@ -1,0 +1,6 @@
+<h2>Gallery Banner Sample</h2>
+
+<font size="3">Place a file named banner.txt in any gallery directory and UnGallery will add its content here. <a href="/" title="Return to UnGallery Home">Links</a>, fonts, and <i>other</i> <u>HTML</u> <strong>tags</strong> are allowed.  This file is provided as a sample in the ./plugins/ungallery/ directory.
+
+</font><br>
+
