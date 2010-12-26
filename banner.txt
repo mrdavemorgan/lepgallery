@@ -1,6 +1,6 @@
-<h2>Gallery Banner Sample</h2>
+<h2>Gallery Titles Can Differ From Directory Names</h2>
 
-<font size="3">Place a file named banner.txt in any gallery directory and UnGallery will add its content here. <a href="/" title="Return to UnGallery Home">Links</a>, fonts, and <i>other</i> <u>HTML</u> <strong>tags</strong> are allowed.  This file is provided as a sample in the ./plugins/ungallery/ directory.
+<p style="text-align: left;">Place a file named banner.txt in any gallery directory and UnGallery will add its content here.  If no file is the name of the directory is used. <a href="/" title="Return to UnGallery Home">Links</a>, fonts, and <i>other</i> <u>HTML</u> <strong>tags</strong> are allowed. </p>
 
-</font><br>
+<p style="text-align: left;">An example banner.txt file is provided with UnGallery in the ./plugins/ungallery/ directory.</p>
 

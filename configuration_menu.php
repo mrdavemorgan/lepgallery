@@ -47,10 +47,6 @@ function mt_settings_page() {
     $hidden_name = 'hidden';
     $hidden_data_field_name = 'hidden';
 
-    // variables for the columns field  
-    $columns_name = 'columns';
-    $columns_data_field_name = 'columns';
-
     // variables for the marquee field  
     $marquee_name = 'marquee';
     $marquee_data_field_name = 'marquee';
@@ -80,7 +76,6 @@ function mt_settings_page() {
     $gallery_val = get_option( $gallery_name );
     $path_val = get_option( $path_name );
     $hidden_val = get_option( $hidden_name );
-    $columns_val = get_option( $columns_name );
     $marquee_val = get_option( $marquee_name );
     $marquee_size_val = get_option( $marquee_size_name );
     $thumbnail_val = get_option( $thumbnail_name );
@@ -90,7 +85,6 @@ function mt_settings_page() {
 
     // Apply defaults to form if db field is blank 
     if ($gallery_val == "") $gallery_val = "gallery";
-    if ($columns_val == "") $columns_val = "4";
     if ($hidden_val == "") $hidden_val = "hidden";
     if ($thumbnail_val == "") $thumbnail_val = "145";
     if ($browse_view_val == "") $browse_view_val = "440";
@@ -107,7 +101,6 @@ function mt_settings_page() {
         $gallery_val = $_POST[ $gallery_data_field_name ];
         $path_val = $_POST[ $path_data_field_name ];
         $hidden_val = $_POST[ $hidden_data_field_name ];
-        $columns_val = $_POST[ $columns_data_field_name ];
         $marquee_val = $_POST[ $marquee_data_field_name ];
         $marquee_size_val = $_POST[ $marquee_size_data_field_name ];
         $thumbnail_val = $_POST[ $thumbnail_data_field_name ];
@@ -120,7 +113,6 @@ function mt_settings_page() {
         update_option( $gallery_name, $gallery_val );
         update_option( $path_name, $path_val );
         update_option( $hidden_name, $hidden_val );
-        update_option( $columns_name, $columns_val );
         update_option( $marquee_name, $marquee_val );
         update_option( $marquee_size_name, $marquee_size_val );
         update_option( $thumbnail_name, $thumbnail_val );
@@ -173,14 +165,9 @@ Because hosting environments differ here are a few path tips: <br>
 <hr />
 
 <h3>Layout Settings</h3>
-<p><?php _e("Number of thumbnail columns:", 'columns' ); ?> 
-<input type="text" name="<?php echo $columns_data_field_name; ?>" value="<?php echo $columns_val; ?>" size="20">
-Default: 4
-</p>
-
 <p><?php _e("Thumbnail width in pixels:", 'thumbnail' ); ?> 
 <input type="text" name="<?php echo $thumbnail_data_field_name; ?>" value="<?php echo $thumbnail_val; ?>" size="20">
-Default: 145
+Default: 147
 </p>
 
 <p><?php _e("Selected picture width in pixels:", 'browse_view' ); ?> 

@@ -3,7 +3,7 @@ Contributors: mmond
 Tags: gallery, ungallery, pictures, movies, mp4, jpg, png, galleries, photos, browse, images
 Requires at least: 
 Tested up to: 3.0.3
-Stable tag: trunk
+Stable tag: 1.3.2
 
 Publish external image directories in WordPress.  
 
@@ -28,7 +28,7 @@ Mark Reynolds http://markpreynolds.com
 
 == Features ==
 
-* Unlimited depth, breadth, and number of photos in library. My gallery has about 6,000 pictures and movies.
+* Unlimited depth, breadth, and number of photos in library. My gallery has about 8,000 pictures and movies.
 * Photos are managed outside of WordPress.  Simply update a picture directory and UnGallery sees changes immediately.
 * Default and configurable gallery titles
 * Galleries can be set to hidden.  These do not display in browsing, with access provided via direct link.
@@ -108,6 +108,10 @@ Mark Reynolds http://markpreynolds.com
 = 1.3.1 =
 * Gallery images are centered (unless your theme forces justify)
 * Started tagging releases
+= 1.3.2 =
+* Gallery images, title are centered even if your theme sets other justify
+* Number of columns setting is removed.  This can be set by adjusting thumbnail size on admin page.
+* First non-trunk stable release
 
 == Dependencies ==
 

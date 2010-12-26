@@ -3,12 +3,12 @@
 Plugin Name: UnGallery
 Plugin URI: http://markpreynolds.com/technology/wordpress-ungallery
 Author: Mark Reynolds
-Version: 1.3.1
+Version: 1.3.2
 Description: Publish directories of images as a browsable WordPress gallery.
 */
 
 //	Set the version as above and pass to administration menu
-$version_val = "1.3.1";
+$version_val = "1.3.2";
 update_option( "version", $version_val );
 
 include("configuration_menu.php");
@@ -21,7 +21,6 @@ function ungallery() {
 	$version = get_option( 'version' );
 	$pic_root = get_option( 'images_path' );
 	$hidden = get_option( 'hidden' );
-	$columns = get_option( 'columns' );
 	$marquee = get_option( 'marquee' );
 	$marquee_size = get_option( 'marquee_size' );
 	$thumbW = get_option( 'thumbnail' );
@@ -106,28 +105,22 @@ function ungallery() {
 	}
 	closedir($dp);
 	print '
-	<table width="100%"><tr>';			//	Begin the table
-	if (!isset($src) && isset($pic_array)) {							//	If we are not in browse view,
-		if ($marquee == "yes" && $gallerylink == "") $w = $marquee_size	;			//	Set size of marquee picture
-			else $w = $thumbW;
-		print '<td align="center"><div class="post-headline">'; 
-		if (file_exists($pic_root.$gallerylink."/banner.txt")) {
-			include ($pic_root.$gallerylink."/banner.txt");					//	We also display the caption from banner.txt
-		} else {
-			$lastslash =  strrpos($gallerylink, "/");
-			if (strpos($gallerylink, "/")) print "<h2>" . substr($gallerylink, $lastslash + 1) ."</h2>";
-			else print "<h2>" . $gallerylink . "</h2>";
-		}
-		print "</td></tr><tr>";									//	Close cell. Add a bit of space
-		$column = 0;
-		print '<td align="center">';
+		<table width="100%"><tr>';			//	Begin the table
+		if (!isset($src) && isset($pic_array)) {							//	If we are not in browse view,
+			if ($marquee == "yes" && $gallerylink == "") $w = $marquee_size	;			//	Set size of marquee picture
+				else $w = $thumbW;
+			print '<td align="center"><div class="post-headline"><p style="text-align: center;">'; 
+			if (file_exists($pic_root.$gallerylink."/banner.txt")) {
+				include ($pic_root.$gallerylink."/banner.txt");					//	We also display the caption from banner.txt
+			} else {
+				$lastslash =  strrpos($gallerylink, "/");
+				if (strpos($gallerylink, "/")) print "<h2>" . substr($gallerylink, $lastslash + 1) ."</h2>";
+				else print "<h2>" . $gallerylink . "</h2>";
+			}
+			print "</td></tr><tr>";									//	Close cell. Add a bit of space
+			print '<td align="center"><p style="text-align: center;">';
 		foreach ($pic_array as $filename) {						//  Use the pic_array to display the thumbs and assign the links
 			print '<a href="?src='. $pic_root . $gallerylink. "/" .$filename.'"><img src="'. $blogURI . $dir . 'phpthumb/phpThumb.php?ar=x&src='. $pic_root . $gallerylink. "/". $filename.'&w=' .$w. '"></a>'; 
-			$column++;
-			if ( $column == $columns ) {
-				print '<br>';
-				$column = 0;
-			}
 		}
 	} else {	//  Render the browsing version, link to original, last/next picture, and link to parent gallery
 	if (isset($src) && !in_array(substr($src, -3), $movie_types)) { //  If we are in broswing mode and the source is not a movie
