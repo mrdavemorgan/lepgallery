@@ -12,12 +12,6 @@ function mt_add_pages() {
 // mt_settings_page() displays the page content for the Test settings submenu
 function mt_settings_page() {
 	
-	// Create cache directory at ./<WordPress install dir>/wp-content/cache/
-	if (!is_dir($_SERVER['DOCUMENT_ROOT']."/wp-content/cache/")) {
-		mkdir($_SERVER['DOCUMENT_ROOT']."/wp-content/cache/");
-		chmod($_SERVER['DOCUMENT_ROOT']."/wp-content/cache/", 0700);
-	}
-
     //must check that the user has the required capability 
     if (!current_user_can('manage_options'))
     {
@@ -144,16 +138,29 @@ function mt_settings_page() {
 <form name="form1" method="post" action="">
 <input type="hidden" name="<?php echo $hidden_field_name; ?>" value="Y">
 
-Gallery version: <input type="text" readonly name="<?php echo $version_data_field_name; ?>" value="<?php echo $version_val; ?>" size="20">
+Gallery version: <input type="text" readonly name="<?php echo $version_data_field_name; ?>" value="<?php echo $version_val; ?>" size="20"><br />
+
+<p>Gallery cache directory: <input type="text" readonly name="cache_dir" value="
+<?php // Create cache directory at ./<WordPress install dir>/wp-content/cache/
+if (!is_dir($_SERVER['DOCUMENT_ROOT']."/wp-content/cache/")) {
+		@mkdir($_SERVER['DOCUMENT_ROOT']."/wp-content/cache/");
+		if (!is_dir($_SERVER['DOCUMENT_ROOT']."/wp-content/cache/")) print "Could not create cache directory";
+		else {
+			@chmod($_SERVER['DOCUMENT_ROOT']."/wp-content/cache/", 0700); 
+			print $_SERVER['DOCUMENT_ROOT']."/wp-content/cache/";
+		}
+} else 	print $_SERVER['DOCUMENT_ROOT']."/wp-content/cache/";
+?>" size="30"> <br />
+This is the directory UnGallery tries to create and write cache files to.
+
 
 <p><?php _e("Gallery permalink:", 'gallery' ); ?> 
-<input type="text" name="<?php echo $gallery_data_field_name; ?>" value="<?php echo $gallery_val; ?>" size="20">
-Default: gallery (the lower case name of the page you created)
+<input type="text" name="<?php echo $gallery_data_field_name; ?>" value="<?php echo $gallery_val; ?>" size="20"><br />
+This should match the permalink of the page you created (lower case).  Default: gallery 
 </p>
 
 <p><?php _e("Path to image directory:", 'images_path' ); ?> 
 <input type="text" name="<?php echo $path_data_field_name; ?>" value="<?php echo $path_val; ?>" size="30"> 	<br>
-<br>
 Because hosting environments differ here are a few path tips: <br>
 	<br>
 	&nbsp;1. Use the absolute path from the root like: /home/users/your_domain/images/ not relative to your website like: ../images/<br>

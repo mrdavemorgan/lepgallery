@@ -3,7 +3,7 @@ Contributors: mmond
 Tags: gallery, ungallery, pictures, movies, mp4, jpg, png, galleries, photos, browse, images
 Requires at least: 
 Tested up to: 3.0.3
-Stable tag: 1.3.2
+Stable tag: 1.3.3
 
 Publish external image directories in WordPress.  
 
@@ -112,6 +112,11 @@ Mark Reynolds http://markpreynolds.com
 * Gallery images, title are centered even if your theme sets other justify
 * Number of columns setting is removed.  This can be set by adjusting thumbnail size on admin page.
 * First non-trunk stable release
+= 1.3.3 =
+* Caching disables on error when rendering phpThumb images
+* Error handling added to create cache directory process on plugin admin page
+* Originals now streamed directly instead of via phpThumb library
+* Cache directory now set using DOCUMENT_ROOT instead of relative to configuration_menu.php
 
 == Dependencies ==
 

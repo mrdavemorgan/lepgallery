@@ -569,7 +569,7 @@ if ($phpThumb->config_allow_parameter_file && $phpThumb->file) {
 		exit;
 	}
 
-} elseif (@$PHPTHUMB_CONFIG['high_security_enabled'] && @$_GET['nocache']) {
+} elseif (@$_GET['nocache']) {
 
 	// cache disabled, don't write cachefile
 
