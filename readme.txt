@@ -1,64 +1,180 @@
 === UnGallery ===
 Contributors: mmond
-Tags: gallery
+Tags: gallery, ungallery, pictures, movies, mp4, jpg, png, galleries, photos, browse, images
 Requires at least: 
-Tested up to: 2.8
-Stable tag: trunk
+Tested up to: 3.0.4
+Stable tag: 1.4.4
 
-Publish existing picture directories as a WordPress gallery.  
+Publish thousands of pictures in WordPress, in minutes.  
 
 == Description ==
 
-UnGallery imports directories of pictures as a browsable WordPress gallery. 
+UnGallery displays your directories of images as a browsable WordPress gallery. 
 
-Its main value is no management at the WordPress layer.  You can just point UnGallery at a directory hierarchy of photos, even thousands of them, and they are immediately displayed and browsable in your blog.  Any edits you make to the pictures or the organization of your directories are automatically current, on the next browser refresh.
+The advantage of UnGallery is there is there is no gallery management required in WordPress.  You just point the plugin to a directory  of photos and they are immediately viewable via an existing WordPress site.  Any uploads, deletions, or edits you make to your photos and directory organization are automatically reflected in WordPress.
 
-If you've ever had to reorganize where your photos are stored, remove a few or edit the red-eye of a dozen, you know how inconvenient it is to return to the gallery management UI to update everything.  With UnGallery, all add/remove/edit changes you make to your pictures are automatically current in the WordPress UnGallery view.
+If you've ever had to reorganize galleries after publishing them, you know how inconvenient it is to return to a web tool to correct the paths, relink the thumbnails, update titles, etc.   With UnGallery, you can restructure entire galleries, edit a dozen party pic red-eyes, rename an event or remove individual photos and each of these changes is automatically live in WordPress.
 
-This plugin is still young, so there will be things to fix.  Feel free to use it, extend it or contact me with questions.
-Much of the script is taken from other published sources and noted inline.
+[Introduction and installation screencast](http://markpreynolds.com/technology/wordpress-ungallery)
 
 Mark Reynolds http://markpreynolds.com
 
 == Installation ==
 
-1. Upload to /wp-content/plugins/ and activate on the Plugins menu in WordPress.
+1. Upload to ./wp-content/plugins/ and activate on the Plugins menu.
 1. Enable Permalinks: Settings -> Permalinks -> Custom Structure -> /%category%/%postname%
-1. Create a blank WordPress Page called "Gallery".
-1. Create a directory or symlink called "pics" in plugins/ungallery/ to contain your pictures.  See readme for more detail.
-1. For WordPress running on a Windows server:  after downloading, copy files from plugins/ungallery/windows/ to plugins/ungallery/.
+1. Create a blank WordPress Page, for example: "Gallery".
+1. Enter the path to your directory of images on the UnGallery administration menu under Settings / UnGallery. 
 
 == Features ==
 
-* Unlimited depth, breadth, and number of photos in library. Mine has approx 6,000.
-* Photo library is managed outside of WordPress, simply update via FTP, SCP, etc.  UnGallery sees changes immediately.
-* Set optional banner captions
-* Hidden, private galleries
-* Thumbnail cache is created in photo directory for faster page loads
-* Support for PNG, JPG, GIF, MP4, AVI and MOV
-* Automatic image rotation to correct orientation of jpegs with exif information
-* Gallery hierarchy breadcrumbs and with links to parent galleries and subgalleries
-* Multiple gallery views:  Top level marquee, thumbnails, browsing previous and next pictures.
+* Unlimited depth, breadth, and number of photos in library. My gallery has about 8,000 pictures and movies.
+* Photos are managed outside of WordPress.  Simply update a picture directory and UnGallery sees changes immediately.
+* Default and configurable gallery titles
+* Galleries can be set to hidden.  These do not display in browsing, with access provided via direct link.
+* Caching for faster page loads
+* MP4 movies embedded and played within the WordPress site.
+* Image rotation support for orientation of jpegs with exif data
+* Gallery hierarchy breadcrumb links
+* Multiple gallery views:  Top level marquee (optional), thumbnails, browsing previous and next pictures.
 
 == Screenshots ==
 
-1. The UnGallery top level view.  A single "Marquee" picture is displayed and the links to the subdirectories/subgalleries.
-2. Selecting one of the subgallery links above displays the gallery thumbnail view of all JPGs, PNGs and GIFs in that directory.  A breadcrumb trail up to the top level of the galleries is displayed along with the subgalleries.  These are each generated automatically by reading the file system of your photo directories. The -zip- link provides a zip file of all photo originals in the current directory for convenient download.
-3. Clicking on a thumbnail displays the browsing view.  One picture is larger and the previous and next picture thumbnail links are displayed.  There are movie files in this directory, so links to view them are displayed also.  UnGallery's sizes are adjustable to fill larger page widths as this site uses.
+1. The UnGallery top level view.  The highest level of the gallery can display a single larger, picture or a views of thumbnails as the subdirectories/subgalleries do.  This is configurable via the UnGallery administration page.
+2. Selecting one of the subgallery links displays the thumbnail gallery view of all JPGs, PNGs and GIFs in the directory.  A breadcrumb trail back to the top level of the galleries is displayed along with the new subgalleries.  The -zip- link builds an archive of all images in the current directory for convenient download.
+3. Clicking on a thumbnail displays the larger browsing view along with previous and next thumbnails.  There are movie files in this directory, so links to these are displayed also.  All UnGallery's published sizes are adjustable to fill larger page widths as this site uses.
+
+== Frequently Asked Questions ==
+
+= What exactly do I have to set up? =
+At its simplest default:
+1. Download and activate the plugin.
+1. Set permalinks style.
+1. Create a blank page called Gallery.
+1. Enter the path to your images.
+That's it.  You can install UnGallery and publish a thousand photos to your WordPress site in under a minute.  UnGallery faces a unique plugin challenge in leaving the WordPress environment to connect to your image library.  To help, troubleshooting tips and a forum are available to answer questions or issues that arise.  While the default configuration is simple, there are many customizable options available in the advanced settings and usage of UnGallery, including layout, gallery names, hidden galleries, etc. 
+
+= Why are the images are not displaying? =
+The path to the image directory is the most common issue.  IT must be an absolute path from root of file system like: "/home/username/your/images/" and not a relative path like:  "../your/images/".  The trailing slash/ is required.  UnGallery will try to display the path to your WordPress install on the admin page as a suggestion.  If you have shell access to your WordPress installation, you can type: "pwd" from the command line to display the path.
+
+= Why is a change in permalinks style needed? Will this change my site's links? =
+UnGallery uses the address URI to track where in the image directory it is pointing.  Yes.  If you are using the default WordPress permalink style (with addresses ending in: ..?page_id=123) then the needed permalink style update will change those links (to addresses ending like: ..?)
+Another common issue is the UnGallery permalink does not match the permalink of the gallery page.  Please see installation steps 3 and 4.
+
+= Why does does the admin page say it cannot create the cache directory? =
+Permissions on the file system or security on the web server prevent the plugin from creating the directory automatically.  It can be created manually by typing the following commands from the WordPress installation directory:<br>
+<pre><code>mkdir wp-content/cache/
+	chmod 777 wp-content/cache/</pre></code>
+
+= How are the images sorted? =
+Images are sorted alphabetically.  Alphabetical sorting actually provides ability to include some chronological sorting.  For example pictures taken on digital cameras tend to use formats like:  
+<pre><code>-rwxrwxrwx   1.3M Dec 24 08:20 IMG_9558.JPG
+-rwxrwxrwx   1.3M Dec 24 08:24 IMG_9559.JPG
+-rwxrwxrwx   1.4M Dec 24 08:24 IMG_9560.JPG</pre></code>
+So the default naming convention for many already does sort by time.  And if the time stamps are ever lost like some archiving or file transfer actions can do, they'll still remain in time order:
+<pre><code>-rw-rw-r--   47K 2010-08-30 17:59 DSCF0061.JPG
+-rw-rw-r--   40K 2010-08-30 17:59 DSCF0063.JPG
+-rw-rw-r--   68K 2010-08-30 17:59 DSCF0064.JPG</pre></code>
+And they can be modified to suit a custom ordering scheme:
+<pre><code>-rw-rw-r-- 1 pg1720424  72K 2010-08-30 17:58 1.jpg
+-rw-rw-r-- 1 pg1720424  49K 2010-08-30 17:58 2.jpg
+-rw-rw-r-- 1 pg1720424  56K 2010-08-30 17:58 3.jpg</pre></code>
+
+== Changelog ==
+
+= 1.4.2 =
+* Version update/correction
+= 1.4.1 =
+* Corrected issue where plugin always executes.  
+* FAQ updates.
+= 1.4.0 =
+* Support for up to 4 distinct galleries.
+* UnGallery settings page updated with new support section.
+* Plugin page updated with links to Settings page, Support Forum, FAQ, Donate 
+= 1.3.3 =
+* Caching disables on error when rendering phpThumb images
+* Error handling added to create cache directory process on plugin admin page
+* Originals now streamed directly instead of via phpThumb library
+* Cache directory now set using DOCUMENT_ROOT instead of relative to configuration_menu.php
+= 1.3.2 =
+* Gallery images, title are centered even if your theme sets other justify
+* Number of columns setting is removed.  This can be set by adjusting thumbnail size on admin page.
+* First non-trunk stable release
+= 1.3.1 =
+* Gallery images are centered (unless your theme forces justify)
+* Started tagging releases
+= 1.3.0 =
+* Gallery titles are centered (unless your theme forces justify)
+* Banner file handling updates, sample banner.txt included.
+= 1.2.0 =
+* BMP's now supported
+= 1.1.5 =
+* phpThumb is apparently no longer supported and so did not support php 5.3.  Others have extended the code though and this patch fixes UnGallery running on a php 5.3 server.
+* phpThumb library handles the original pic and autorotation
+= 1.1.4 =
+* phpThumb calls set_time_limit which is not supported in safe.  Disabled for now, potential conditional for later.
+* Removed cache limits
+= 1.1.3 =
+* Changed the create cache directory code to use PHP function vs. exec php which is not allowed on some hosters
+= 1.1.2 =
+* Admin menu file was incomplete, causing serious bug when not using gallery name: 'gallery'
+= 1.1.1 =
+* Oops.  Forgot to svn add the phpThumb script subdirectory.
+* Also, some version number increments do not trigger automatic update and flag as recent on wp.org
+= 1.1.0 =
+* Upgraded the thumbnail library to phpThumb which enables many new imaging options.
+* Caching no longer writes to image directories. Cache dir is ./WordPress installation/wp-content/cache/ is created
+= 1.0.4 =
+* First integrated support tips/tool added (pwd)
+= 1.0.3 =
+* Consolidated thumbnail creation files in preparation to update that library
+* Fixed a regression in zip file download
+= 1.0.2 =
+* Version number is displayed on admin menu page and noted in html
+= 1.0.1 =
+* Version format updated
+* Hidden gallery field added to those auto-populated if blank
+* Introduction and installation screencast 
+= 1.0 =
+* Administration menus auto-populate with default values when blank
+* Instructions updated for new configuration
+= 0.9.9 =
+* Due to WP plugin automatic updates deleting and replacing the plugin directory, your images (and any other valuable user data) should **not** be stored in the plugin directory
+* Versioning readded, plugin updates reactivated
+* WordPress Plugin menu screen replaces configuration files
+= 0.9.6 =
+* Versioning removed to disable automatic updates
+= 0.9.5 =
+* You no longer need to call the gallery: "gallery".  Any name can be used.
+* Fixed issue with extra character in hidden.txt causing mismatch
+= 0.9.4 =
+* Fixed issue with some browsers not playing mp4
+* Fixed case sensitivity problem with .mp4/MP4
+* Fixed erroneously reporting plugin download needed for directories with no image files.
+= 0.9.3 =
+* Fixed issue with IE downloading zip archives of images
+= 0.9.2 =
+* Added top-level gallery logic to toggle marquee and zip display behavior
+* Added support for custom WordPress and Site addresses
+= 0.9.1 =
+* Added hardening code and replaced relative links with absolute links
+= 0.9 =
+* MP4's are now embedded and integrated into the WP site frame.  Support for older movie formats is deprecated.
+* Current directory breadcrumb link added.  This allows returning to the thumbnail list from the web-size browse view.
+* Compatibility for WP 3.0's default twentyten theme that broke UnGallery's browse view.
 
 == Dependencies ==
 
-* Permalinks enabled: Settings -> Permalinks -> Custom Structure -> /%category%/%postname% <br>
-  More info here: http://teamtutorials.com/web-development-tutorials/clean-url%E2%80%99s-with-wordpress 
-* Write permission to the photo directories. UnGallery creates a "thumb_cache" to greatly improve performance. 
+* Linux on the WordPress server
+* Permalinks enabled: Settings -> Permalinks -> Custom Structure -> /%category%/%postname% 
 
 == Notes ==
 
-* In: ./wp-content/plugins/ungallery/ either create a symlink called "pics" to your picture directory (recommended) or copy/move/create a directory called pics there.  Please note, if you back up your WordPress install, including your plugins directory, be aware the gallery may be included.
-* To display a caption over a gallery, add a file named banner.txt to that directory with the desired text.
-* The top level directory is intended to have a larger, marquee picture displayed, so only one picture file should be placed in the "/pics/" directory. There is no limit on pictures in the subdirectories.
-* To mark a gallery hidden, edit the /ungallery/hidden.txt file. If e.g., the content of hidden.txt is: "hidden", then any directories you create named "hidden", will not be visible via gallery browsing.  
-* If you'd like to modify the size of the marquee pic, browsing pic or the thumbnails, please edit /ungallery/ungallery.php.  The options are noted near the top of the file.
+* All image sizes including thumbnails, selected image view, movies, marquee, and column layout are customizable.
+* To display a caption over a gallery, add a file named banner.txt to that directory with the desired text.  The file can include plain text or html. If no banner.txt is found, the name of the directory used.
+* The top level directory can optionally be used for a larger, marquee picture displayed.  If chosen, load one picture file to the top level directory.  This can be enabled/disabled using the UnGallery administration page.
+* To mark a gallery hidden, enter a name for hidden galleries on the UnGallery administration page. Any directories you create named "hidden", will not be visible via normal gallery browsing. A direct link may be sent to provide access to hidden galleries.  
+* You can include UnGallery images in other areas of your WordPress site or other sites by embedding the URL from UnGallery into the external site.
 
 == License ==
 
