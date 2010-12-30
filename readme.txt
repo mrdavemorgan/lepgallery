@@ -2,18 +2,18 @@
 Contributors: mmond
 Tags: gallery, ungallery, pictures, movies, mp4, jpg, png, galleries, photos, browse, images
 Requires at least: 
-Tested up to: 3.0.3
-Stable tag: 1.3.3
+Tested up to: 3.0.4
+Stable tag: 1.4.0
 
-Publish external image directories in WordPress.  
+Publish your library images in WordPress, even 1,000s, automatically.  
 
 == Description ==
 
 UnGallery displays directories of images as a browsable WordPress gallery. 
 
-The advantage of UnGallery is there is there is no gallery management required in WordPress.  You just point the plugin to a directory of photos, even thousands of them organized into subdirectories, and they are immediately viewable via an existing WordPress site.  Any uploads, deletions, or edits you make to your photos and directories are automatically reflected in WordPress.
+The advantage of UnGallery is there is there is no gallery management required in WordPress.  You just point the plugin to a directory and subdirectories of photos and they are immediately viewable via an existing WordPress site.  Any uploads, deletions, or edits you make to your photos and directory organization are automatically reflected in WordPress.
 
-If you've ever had to reorganize galleries after publishing them, you know how inconvenient it is to return to a web tool to correct the paths, relink the thumbnails, updated titles, etc.   With UnGallery, you can restructure entire galleries, edit a dozen party pic red-eyes, rename an event or remove individual photos and each of these changes is automatically live in WordPress.
+If you've ever had to reorganize galleries after publishing them, you know how inconvenient it is to return to a web tool to correct the paths, relink the thumbnails, update titles, etc.   With UnGallery, you can restructure entire galleries, edit a dozen party pic red-eyes, rename an event or remove individual photos and each of these changes is automatically live in WordPress.
 
 [Introduction and installation screencast](http://markpreynolds.com/technology/wordpress-ungallery)
 
@@ -43,6 +43,18 @@ Mark Reynolds http://markpreynolds.com
 1. The UnGallery top level view.  The highest level of the gallery can display a single larger, picture or a views of thumbnails as the subdirectories/subgalleries do.  This is configurable via the UnGallery administration page.
 2. Selecting one of the subgallery links displays the thumbnail gallery view of all JPGs, PNGs and GIFs in the directory.  A breadcrumb trail back to the top level of the galleries is displayed along with the new subgalleries.  The -zip- link builds an archive of all images in the current directory for convenient download.
 3. Clicking on a thumbnail displays the larger browsing view along with previous and next thumbnails.  There are movie files in this directory, so links to these are displayed also.  All UnGallery's published sizes are adjustable to fill larger page widths as this site uses.
+
+== Frequently Asked Questions ==
+
+= Images are not displaying in WordPress =
+The path to the image directory is the most common issue.  IT must be an absolute path from root of file system like: "/home/username/your/images/" and not a relative path like:  "../your/images/".  The trailing slash/ is required.  UnGallery will try to display the path to your WordPress install on the admin page as a suggestion.  If you have shell access to your WordPress installation, you can type: "pwd" from the command line to display the path.
+
+Another common issue is the UnGallery permalink does not match the permalink of the gallery page.  Please see installation steps 3 and 4.
+
+= The Gallery cache directory setting says it cannot create the directory =
+Permissions on the file system or security on the web server prevent the plugin from creating the directory automatically.  It can be created manually by typing the following commands from the WordPress installation directory:
+mkdir wp-content/cache/
+chmod 777 wp-content/cache/
 
 == Changelog ==
 
@@ -117,6 +129,10 @@ Mark Reynolds http://markpreynolds.com
 * Error handling added to create cache directory process on plugin admin page
 * Originals now streamed directly instead of via phpThumb library
 * Cache directory now set using DOCUMENT_ROOT instead of relative to configuration_menu.php
+= 1.4.0 =
+* Support for up to 4 separate galleries added.
+* UnGallery settings page updated with new support section.
+* Plugin page updated with links to Settings page, Support Forum, FAQ, Donate 
 
 == Dependencies ==
 

@@ -1,25 +1,50 @@
 <?php
 /*
 Plugin Name: UnGallery
+Description: Publish your entire library of images in WordPress, even thousands, automatically.   
 Plugin URI: http://markpreynolds.com/technology/wordpress-ungallery
 Author: Mark Reynolds
-Version: 1.3.3
-Description: Publish directories of images as a browsable WordPress gallery.
+Author URI: http://markpreynolds.com/professional
+Author Email: mark@markpreynolds.com
+Version: 1.4.0
 */
 
-//	Set the version as above and pass to administration menu
-$version_val = "1.3.3";
+//	Set the version for inline display and update database so admin menu can display it
+$version_val = "1.4.0";
 update_option( "version", $version_val );
 
+//  Display the plugin administration menu
 include("configuration_menu.php");
-$gallery = get_option( 'gallery' );
 
+//  Get the galleries from the database
+$gallery = get_option( 'gallery' );
+$gallery2 = get_option( 'gallery2' );
+$gallery3 = get_option( 'gallery3' );
+$gallery4 = get_option( 'gallery4' );
+
+	// If the zip flag is active, display the archive page
+if (strpos($_SERVER["REQUEST_URI"], "?zip")) {			
+	add_filter('the_content', "zip");
+	// If any gallery flags are active, run the display gallery code
+}	elseif (strstr($_SERVER["REQUEST_URI"], "/". $gallery) || (strstr($_SERVER["REQUEST_URI"], "/". $gallery2)) || (strstr($_SERVER["REQUEST_URI"], "/". $gallery3)) || (strstr($_SERVER["REQUEST_URI"], "/". $gallery4))) {			
+	add_filter('the_content', "ungallery");
+}
+
+//  The display gallery code
 function ungallery() {
 
+	//  Get the gallery name from the WP page slug
+	global $post;
+	$gallery = $post->post_name;
+	
+	//  Get the image directory path associated with the gallery 	
+	if($gallery == get_option( 'gallery' )) $pic_root = get_option( 'images_path' );
+	if($gallery == get_option( 'gallery2' )) $pic_root = get_option( 'images2_path' );
+	if($gallery == get_option( 'gallery3' )) $pic_root = get_option( 'images3_path' );
+	if($gallery == get_option( 'gallery4' )) $pic_root = get_option( 'images4_path' );
+	
 	//	Load the configuration data from the database
-	$gallery = get_option( 'gallery' );
 	$version = get_option( 'version' );
-	$pic_root = get_option( 'images_path' );
 	$hidden = get_option( 'hidden' );
 	$marquee = get_option( 'marquee' );
 	$marquee_size = get_option( 'marquee_size' );
@@ -62,7 +87,7 @@ function ungallery() {
 		}
 	}
 
-										// Create the arrays with the dir's media files
+	// Create the arrays with the dir's media files
 	$dp = opendir( $pic_root.$gallerylink);
 	while ($filename = readdir($dp)) {
 		if (!is_dir($pic_root.$gallerylink. "/". $filename))  {  // If it's a file, begin
@@ -175,16 +200,27 @@ function zip() {
 	include ("zip.php");
 }
 
-function hidden() {
-	include ("hidden.php");
+// Add settings link on plugin page
+function plugin_settings_link($links) { 
+  $settings_link = '<a href="options-general.php?page=ungallerysettings">Settings</a>'; 
+  array_unshift($links, $settings_link); 
+  return $links; 
 }
+$plugin = plugin_basename(__FILE__); 
+add_filter("plugin_action_links_$plugin", 'plugin_settings_link' );
 
-if (strpos($_SERVER["REQUEST_URI"], $gallery ."?zip")) {				// If the zip flag is active, display the archive information page and links
-	add_filter('the_content', "zip");
-}	elseif (strpos($_SERVER["REQUEST_URI"], $gallery . "?hidden")) {		// If the hidden flag is active, display the hidden links page
-	add_filter('the_content', "hidden");	
-}	elseif (strstr($_SERVER["REQUEST_URI"], "/". $gallery)) {				// Otherwise display the main gallery
-	add_filter('the_content', "ungallery");
+function ungallery_set_plugin_meta($links, $file) {
+	$plugin = plugin_basename(__FILE__);
+	// create link
+	if ($file == $plugin) {
+		return array_merge( $links, array( 
+			'<a href="http://wordpress.org/tags/ungallery">' . __('Support Forum') . '</a>',
+			'<a href="http://wordpress.org/extend/plugins/ungallery/faq/">' . __('FAQ') . '</a>',
+			'<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=L6GZ4FVE8YR2S" title="If you find the plugin useful, consider supporting!">' . __('Donate') . '</a>'
+		));
+	}
+	return $links;
 }
+add_filter( 'plugin_row_meta', 'ungallery_set_plugin_meta', 10, 2 );
 
 ?>

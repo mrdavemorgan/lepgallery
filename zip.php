@@ -2,8 +2,17 @@ Building the archive now.... <br>
 <br>
 A summary will print below when the zip file is ready.  Depending on the number of photos it may take a few minutes to complete.  Your browser may even time out before it's ready.  If so, just hit refresh and this page will reload with the summary and zip file link. <br><br>
 <?
-$gallery = get_option( 'gallery' );
-$pic_root = get_option( 'images_path' );
+
+//  Get the gallery name from the WP page slug
+global $post;
+$gallery = $post->post_name;
+
+//  Get the image directory path associated with the gallery 	
+if($gallery == get_option( 'gallery' )) $pic_root = get_option( 'images_path' );
+if($gallery == get_option( 'gallery2' )) $pic_root = get_option( 'images2_path' );
+if($gallery == get_option( 'gallery3' )) $pic_root = get_option( 'images3_path' );
+if($gallery == get_option( 'gallery4' )) $pic_root = get_option( 'images4_path' );
+
 $dir = $pic_root . $_GET['zip'];
 
 
