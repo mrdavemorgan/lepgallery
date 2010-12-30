@@ -3,7 +3,7 @@ Contributors: mmond
 Tags: gallery, ungallery, pictures, movies, mp4, jpg, png, galleries, photos, browse, images
 Requires at least: 
 Tested up to: 3.0.4
-Stable tag: 1.4.3
+Stable tag: 1.4.4
 
 Publish thousands of pictures in WordPress, in minutes.  
 
@@ -63,22 +63,22 @@ Another common issue is the UnGallery permalink does not match the permalink of 
 
 = Why does does the admin page say it cannot create the cache directory? =
 Permissions on the file system or security on the web server prevent the plugin from creating the directory automatically.  It can be created manually by typing the following commands from the WordPress installation directory:<br>
-	mkdir wp-content/cache/
-	chmod 777 wp-content/cache/
+<pre><code>mkdir wp-content/cache/
+	chmod 777 wp-content/cache/</pre></code>
 
 = How are the images sorted? =
 Images are sorted alphabetically.  Alphabetical sorting actually provides ability to include some chronological sorting.  For example pictures taken on digital cameras tend to use formats like:  
-	-rwxrwxrwx   1.3M Dec 24 08:20 IMG_9558.JPG
-	-rwxrwxrwx   1.3M Dec 24 08:24 IMG_9559.JPG
-	-rwxrwxrwx   1.4M Dec 24 08:24 IMG_9560.JPG
+<pre><code>-rwxrwxrwx   1.3M Dec 24 08:20 IMG_9558.JPG
+-rwxrwxrwx   1.3M Dec 24 08:24 IMG_9559.JPG
+-rwxrwxrwx   1.4M Dec 24 08:24 IMG_9560.JPG</pre></code>
 So the default naming convention for many already does sort by time.  And if the time stamps are ever lost like some archiving or file transfer actions can do, they'll still remain in time order:
-	-rw-rw-r--   47K 2010-08-30 17:59 DSCF0061.JPG
-	-rw-rw-r--   40K 2010-08-30 17:59 DSCF0063.JPG
-	-rw-rw-r--   68K 2010-08-30 17:59 DSCF0064.JPG
+<pre><code>-rw-rw-r--   47K 2010-08-30 17:59 DSCF0061.JPG
+-rw-rw-r--   40K 2010-08-30 17:59 DSCF0063.JPG
+-rw-rw-r--   68K 2010-08-30 17:59 DSCF0064.JPG</pre></code>
 And they can be modified to suit a custom ordering scheme:
-	-rw-rw-r-- 1 pg1720424  72K 2010-08-30 17:58 1.jpg
-	-rw-rw-r-- 1 pg1720424  49K 2010-08-30 17:58 2.jpg
-	-rw-rw-r-- 1 pg1720424  56K 2010-08-30 17:58 3.jpg
+<pre><code>-rw-rw-r-- 1 pg1720424  72K 2010-08-30 17:58 1.jpg
+-rw-rw-r-- 1 pg1720424  49K 2010-08-30 17:58 2.jpg
+-rw-rw-r-- 1 pg1720424  56K 2010-08-30 17:58 3.jpg</pre></code>
 
 == Changelog ==
 
