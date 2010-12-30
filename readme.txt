@@ -82,6 +82,8 @@ And they can be modified to suit a custom ordering scheme:
 
 == Changelog ==
 
+= 1.4.2 =
+* Version update/correction
 = 1.4.1 =
 * Corrected issue where plugin always executes.  
 * FAQ updates.
