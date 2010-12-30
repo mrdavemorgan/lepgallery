@@ -3,7 +3,7 @@ Contributors: mmond
 Tags: gallery, ungallery, pictures, movies, mp4, jpg, png, galleries, photos, browse, images
 Requires at least: 
 Tested up to: 3.0.4
-Stable tag: 1.4.0
+Stable tag: 1.4.1
 
 Publish your library images in WordPress, even 1,000s, automatically.  
 
@@ -46,18 +46,45 @@ Mark Reynolds http://markpreynolds.com
 
 == Frequently Asked Questions ==
 
+= What exactly do I have to set up? =
+At its simplest default:
+1. Download and activate the plugin.
+1. Set permalinks style.
+1. Create a blank page called Gallery.
+1. Enter the path to your images.
+That's it.  You can install UnGallery and publish a thousand photos to your WordPress site in under a minute.  UnGallery faces a unique plugin challenge in leaving the WordPress environment to connect to your image library.  To help, troubleshooting tips and a forum are available to answer questions or issues that arise.  While the default configuration is simple, there are many customizable options available in the advanced settings and usage of UnGallery, including layout, gallery names, hidden galleries, etc. 
+
 = Why are the images are not displaying? =
 The path to the image directory is the most common issue.  IT must be an absolute path from root of file system like: "/home/username/your/images/" and not a relative path like:  "../your/images/".  The trailing slash/ is required.  UnGallery will try to display the path to your WordPress install on the admin page as a suggestion.  If you have shell access to your WordPress installation, you can type: "pwd" from the command line to display the path.
 
+= Why is a change in permalinks style needed? Will this change my site's links? =
+UnGallery uses the address URI to track where in the image directory it is pointing.  Yes.  If you are using the default WordPress permalink style (with addresses ending in: ..?page_id=123) then the needed permalink style update will change those links (to addresses ending like: ..?)
 Another common issue is the UnGallery permalink does not match the permalink of the gallery page.  Please see installation steps 3 and 4.
 
 = Why does does the admin page say it cannot create the cache directory? =
 Permissions on the file system or security on the web server prevent the plugin from creating the directory automatically.  It can be created manually by typing the following commands from the WordPress installation directory:<br>
-&nbsp;&nbsp;<i>mkdir wp-content/cache/<br>
-&nbsp;&nbsp;chmod 777 wp-content/cache/<br></i>
+	mkdir wp-content/cache/
+	chmod 777 wp-content/cache/
+
+= How are the images sorted? =
+Images are sorted alphabetically.  Alphabetical sorting actually provides ability to include some chronological sorting.  For example pictures taken on digital cameras tend to use formats like:  
+	-rwxrwxrwx   1.3M Dec 24 08:20 IMG_9558.JPG
+	-rwxrwxrwx   1.3M Dec 24 08:24 IMG_9559.JPG
+	-rwxrwxrwx   1.4M Dec 24 08:24 IMG_9560.JPG
+So the default naming convention for many already does sort by time.  And if the time stamps are ever lost like some archiving or file transfer actions can do, they'll still remain in time order:
+	-rw-rw-r--   47K 2010-08-30 17:59 DSCF0061.JPG
+	-rw-rw-r--   40K 2010-08-30 17:59 DSCF0063.JPG
+	-rw-rw-r--   68K 2010-08-30 17:59 DSCF0064.JPG
+And they can be modified to suit a custom ordering scheme:
+	-rw-rw-r-- 1 pg1720424  72K 2010-08-30 17:58 1.jpg
+	-rw-rw-r-- 1 pg1720424  49K 2010-08-30 17:58 2.jpg
+	-rw-rw-r-- 1 pg1720424  56K 2010-08-30 17:58 3.jpg
 
 == Changelog ==
 
+= 1.4.1 =
+* Corrected issue where plugin always executes.  
+* FAQ updates.
 = 1.4.0 =
 * Support for up to 4 distinct galleries.
 * UnGallery settings page updated with new support section.
