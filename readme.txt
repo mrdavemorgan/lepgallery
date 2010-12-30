@@ -46,93 +46,93 @@ Mark Reynolds http://markpreynolds.com
 
 == Frequently Asked Questions ==
 
-= Images are not displaying in WordPress =
+= Why are the images are not displaying? =
 The path to the image directory is the most common issue.  IT must be an absolute path from root of file system like: "/home/username/your/images/" and not a relative path like:  "../your/images/".  The trailing slash/ is required.  UnGallery will try to display the path to your WordPress install on the admin page as a suggestion.  If you have shell access to your WordPress installation, you can type: "pwd" from the command line to display the path.
 
 Another common issue is the UnGallery permalink does not match the permalink of the gallery page.  Please see installation steps 3 and 4.
 
-= The Gallery cache directory setting says it cannot create the directory =
-Permissions on the file system or security on the web server prevent the plugin from creating the directory automatically.  It can be created manually by typing the following commands from the WordPress installation directory:
-mkdir wp-content/cache/
-chmod 777 wp-content/cache/
+= Why does does the admin page say it cannot create the cache directory? =
+Permissions on the file system or security on the web server prevent the plugin from creating the directory automatically.  It can be created manually by typing the following commands from the WordPress installation directory:<br>
+&nbsp;&nbsp;<i>mkdir wp-content/cache/<br>
+&nbsp;&nbsp;chmod 777 wp-content/cache/<br></i>
 
 == Changelog ==
 
-= 0.9 =
-* MP4's are now embedded and integrated into the WP site frame.  Support for older movie formats is deprecated.
-* Current directory breadcrumb link added.  This allows returning to the thumbnail list from the web-size browse view.
-* Compatibility for WP 3.0's default twentyten theme that broke UnGallery's browse view.
-= 0.9.1 =
-* Added hardening code and replaced relative links with absolute links
-= 0.9.2 =
-* Added top-level gallery logic to toggle marquee and zip display behavior
-* Added support for custom WordPress and Site addresses
-= 0.9.3 =
-* Fixed issue with IE downloading zip archives of images
-= 0.9.4 =
-* Fixed issue with some browsers not playing mp4
-* Fixed case sensitivity problem with .mp4/MP4
-* Fixed erroneously reporting plugin download needed for directories with no image files.
-= 0.9.5 =
-* You no longer need to call the gallery: "gallery".  Any name can be used.
-* Fixed issue with extra character in hidden.txt causing mismatch
-= 0.9.6 =
-* Versioning removed to disable automatic updates
-= 0.9.9 =
-* Due to WP plugin automatic updates deleting and replacing the plugin directory, your images (and any other valuable user data) should **not** be stored in the plugin directory
-* Versioning readded, plugin updates reactivated
-* WordPress Plugin menu screen replaces configuration files
-= 1.0 =
-* Administration menus auto-populate with default values when blank
-* Instructions updated for new configuration
-= 1.0.1 =
-* Version format updated
-* Hidden gallery field added to those auto-populated if blank
-* Introduction and installation screencast 
-= 1.0.2 =
-* Version number is displayed on admin menu page and noted in html
-= 1.0.3 =
-* Consolidated thumbnail creation files in preparation to update that library
-* Fixed a regression in zip file download
-= 1.0.4 =
-* First integrated support tips/tool added (pwd)
-= 1.1.0 =
-* Upgraded the thumbnail library to phpThumb which enables many new imaging options.
-* Caching no longer writes to image directories. Cache dir is ./WordPress installation/wp-content/cache/ is created
-= 1.1.1 =
-* Oops.  Forgot to svn add the phpThumb script subdirectory.
-* Also, some version number increments do not trigger automatic update and flag as recent on wp.org
-= 1.1.2 =
-* Admin menu file was incomplete, causing serious bug when not using gallery name: 'gallery'
-= 1.1.3 =
-* Changed the create cache directory code to use PHP function vs. exec php which is not allowed on some hosters
-= 1.1.4 =
-* phpThumb calls set_time_limit which is not supported in safe.  Disabled for now, potential conditional for later.
-* Removed cache limits
-= 1.1.5 =
-* phpThumb is apparently no longer supported and so did not support php 5.3.  Others have extended the code though and this patch fixes UnGallery running on a php 5.3 server.
-= 1.2.0 =
-* BMP's now supported
-* phpThumb library handles the original pic and autorotation
-= 1.3.0 =
-* Gallery titles are centered (unless your theme forces justify)
-* Banner file handling updates, sample banner.txt included.
-= 1.3.1 =
-* Gallery images are centered (unless your theme forces justify)
-* Started tagging releases
-= 1.3.2 =
-* Gallery images, title are centered even if your theme sets other justify
-* Number of columns setting is removed.  This can be set by adjusting thumbnail size on admin page.
-* First non-trunk stable release
+= 1.4.0 =
+* Support for up to 4 distinct galleries.
+* UnGallery settings page updated with new support section.
+* Plugin page updated with links to Settings page, Support Forum, FAQ, Donate 
 = 1.3.3 =
 * Caching disables on error when rendering phpThumb images
 * Error handling added to create cache directory process on plugin admin page
 * Originals now streamed directly instead of via phpThumb library
 * Cache directory now set using DOCUMENT_ROOT instead of relative to configuration_menu.php
-= 1.4.0 =
-* Support for up to 4 separate galleries added.
-* UnGallery settings page updated with new support section.
-* Plugin page updated with links to Settings page, Support Forum, FAQ, Donate 
+= 1.3.2 =
+* Gallery images, title are centered even if your theme sets other justify
+* Number of columns setting is removed.  This can be set by adjusting thumbnail size on admin page.
+* First non-trunk stable release
+= 1.3.1 =
+* Gallery images are centered (unless your theme forces justify)
+* Started tagging releases
+= 1.3.0 =
+* Gallery titles are centered (unless your theme forces justify)
+* Banner file handling updates, sample banner.txt included.
+= 1.2.0 =
+* BMP's now supported
+= 1.1.5 =
+* phpThumb is apparently no longer supported and so did not support php 5.3.  Others have extended the code though and this patch fixes UnGallery running on a php 5.3 server.
+* phpThumb library handles the original pic and autorotation
+= 1.1.4 =
+* phpThumb calls set_time_limit which is not supported in safe.  Disabled for now, potential conditional for later.
+* Removed cache limits
+= 1.1.3 =
+* Changed the create cache directory code to use PHP function vs. exec php which is not allowed on some hosters
+= 1.1.2 =
+* Admin menu file was incomplete, causing serious bug when not using gallery name: 'gallery'
+= 1.1.1 =
+* Oops.  Forgot to svn add the phpThumb script subdirectory.
+* Also, some version number increments do not trigger automatic update and flag as recent on wp.org
+= 1.1.0 =
+* Upgraded the thumbnail library to phpThumb which enables many new imaging options.
+* Caching no longer writes to image directories. Cache dir is ./WordPress installation/wp-content/cache/ is created
+= 1.0.4 =
+* First integrated support tips/tool added (pwd)
+= 1.0.3 =
+* Consolidated thumbnail creation files in preparation to update that library
+* Fixed a regression in zip file download
+= 1.0.2 =
+* Version number is displayed on admin menu page and noted in html
+= 1.0.1 =
+* Version format updated
+* Hidden gallery field added to those auto-populated if blank
+* Introduction and installation screencast 
+= 1.0 =
+* Administration menus auto-populate with default values when blank
+* Instructions updated for new configuration
+= 0.9.9 =
+* Due to WP plugin automatic updates deleting and replacing the plugin directory, your images (and any other valuable user data) should **not** be stored in the plugin directory
+* Versioning readded, plugin updates reactivated
+* WordPress Plugin menu screen replaces configuration files
+= 0.9.6 =
+* Versioning removed to disable automatic updates
+= 0.9.5 =
+* You no longer need to call the gallery: "gallery".  Any name can be used.
+* Fixed issue with extra character in hidden.txt causing mismatch
+= 0.9.4 =
+* Fixed issue with some browsers not playing mp4
+* Fixed case sensitivity problem with .mp4/MP4
+* Fixed erroneously reporting plugin download needed for directories with no image files.
+= 0.9.3 =
+* Fixed issue with IE downloading zip archives of images
+= 0.9.2 =
+* Added top-level gallery logic to toggle marquee and zip display behavior
+* Added support for custom WordPress and Site addresses
+= 0.9.1 =
+* Added hardening code and replaced relative links with absolute links
+= 0.9 =
+* MP4's are now embedded and integrated into the WP site frame.  Support for older movie formats is deprecated.
+* Current directory breadcrumb link added.  This allows returning to the thumbnail list from the web-size browse view.
+* Compatibility for WP 3.0's default twentyten theme that broke UnGallery's browse view.
 
 == Dependencies ==
 

@@ -22,6 +22,12 @@ $gallery2 = get_option( 'gallery2' );
 $gallery3 = get_option( 'gallery3' );
 $gallery4 = get_option( 'gallery4' );
 
+//  If a gallery is not set in db, give it a value besides "" so not to trigger plugin
+if($gallery == "") $gallery = "UnGalleryWontLoad"; 
+if($gallery2 == "") $gallery2 = "UnGalleryWontLoad"; 
+if($gallery3 == "") $gallery3 = "UnGalleryWontLoad"; 
+if($gallery4 == "") $gallery4 = "UnGalleryWontLoad"; 
+
 	// If the zip flag is active, display the archive page
 if (strpos($_SERVER["REQUEST_URI"], "?zip")) {			
 	add_filter('the_content', "zip");
