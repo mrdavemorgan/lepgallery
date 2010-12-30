@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: UnGallery
-Description: Publish your entire library of images in WordPress, even thousands, automatically.   
+Description: Publish thousands of pictures in WordPress, in minutes.    
 Plugin URI: http://markpreynolds.com/technology/wordpress-ungallery
 Author: Mark Reynolds
 Author URI: http://markpreynolds.com/professional

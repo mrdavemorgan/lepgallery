@@ -3,15 +3,15 @@ Contributors: mmond
 Tags: gallery, ungallery, pictures, movies, mp4, jpg, png, galleries, photos, browse, images
 Requires at least: 
 Tested up to: 3.0.4
-Stable tag: 1.4.1
+Stable tag: 1.4.2
 
-Publish your library images in WordPress, even 1,000s, automatically.  
+Publish thousands of pictures in WordPress, in minutes.  
 
 == Description ==
 
-UnGallery displays directories of images as a browsable WordPress gallery. 
+UnGallery displays your directories of images as a browsable WordPress gallery. 
 
-The advantage of UnGallery is there is there is no gallery management required in WordPress.  You just point the plugin to a directory and subdirectories of photos and they are immediately viewable via an existing WordPress site.  Any uploads, deletions, or edits you make to your photos and directory organization are automatically reflected in WordPress.
+The advantage of UnGallery is there is there is no gallery management required in WordPress.  You just point the plugin to a directory  of photos and they are immediately viewable via an existing WordPress site.  Any uploads, deletions, or edits you make to your photos and directory organization are automatically reflected in WordPress.
 
 If you've ever had to reorganize galleries after publishing them, you know how inconvenient it is to return to a web tool to correct the paths, relink the thumbnails, update titles, etc.   With UnGallery, you can restructure entire galleries, edit a dozen party pic red-eyes, rename an event or remove individual photos and each of these changes is automatically live in WordPress.
 
