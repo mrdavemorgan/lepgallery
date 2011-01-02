@@ -3,7 +3,7 @@ Contributors: mmond
 Tags: gallery, ungallery, pictures, movies, mp4, jpg, png, galleries, photos, browse, images
 Requires at least: 
 Tested up to: 3.0.4
-Stable tag: 1.4.4
+Stable tag: 1.4.5
 
 Publish thousands of pictures in WordPress, in minutes.  
 
@@ -82,6 +82,8 @@ And they can be modified to suit a custom ordering scheme:
 
 == Changelog ==
 
+= 1.4.5 =
+* An extra space in configuration_menu.php was causing various header errors.  Fixed.
 = 1.4.2 =
 * Version update/correction
 = 1.4.1 =
