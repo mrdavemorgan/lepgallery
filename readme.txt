@@ -3,7 +3,7 @@ Contributors: mmond
 Tags: gallery, ungallery, pictures, movies, mp4, jpg, png, galleries, photos, browse, images
 Requires at least: 
 Tested up to: 3.0.4
-Stable tag: 1.4.5
+Stable tag: 1.5.0
 
 Publish thousands of pictures in WordPress, in minutes.  
 
@@ -21,10 +21,9 @@ Mark Reynolds http://markpreynolds.com
 
 == Installation ==
 
-1. Upload to ./wp-content/plugins/ and activate on the Plugins menu.
-1. Enable Permalinks: Settings -> Permalinks -> Custom Structure -> /%category%/%postname%
-1. Create a blank WordPress Page, for example: "Gallery".
-1. Enter the path to your directory of images on the UnGallery administration menu under Settings / UnGallery. 
+1. Download to ./wp-content/plugins/ and activate via the Plugins menu.
+1. Create a blank WordPress Page, for example one called "Gallery".
+1. On the UnGallery admin page, enter the page name and path to the images. 
 
 == Features ==
 
@@ -46,20 +45,17 @@ Mark Reynolds http://markpreynolds.com
 
 == Frequently Asked Questions ==
 
-= What exactly do I have to set up? =
-At its simplest default:
+= What do I have to set up? =
+At its simplest:
 1. Download and activate the plugin.
-1. Set permalinks style.
 1. Create a blank page called Gallery.
-1. Enter the path to your images.
-That's it.  You can install UnGallery and publish a thousand photos to your WordPress site in under a minute.  UnGallery faces a unique plugin challenge in leaving the WordPress environment to connect to your image library.  To help, troubleshooting tips and a forum are available to answer questions or issues that arise.  While the default configuration is simple, there are many customizable options available in the advanced settings and usage of UnGallery, including layout, gallery names, hidden galleries, etc. 
+1. Enter the page ID and path to your images on the UnGallery admin page.
+That's it.  You can install UnGallery and publish a thousand photos to your WordPress site in under a minute. While the default configuration is simple, there are many customizable options available in the advanced options of UnGallery, including layout, gallery names, hidden galleries, etc.  UnGallery faces a few unique challenges in leaving the WordPress environment and connecting to external image directories.  To help, tips and the WordPress plugin forum are available to answer questions or issues that arise.  
 
 = Why are the images are not displaying? =
 The path to the image directory is the most common issue.  IT must be an absolute path from root of file system like: "/home/username/your/images/" and not a relative path like:  "../your/images/".  The trailing slash/ is required.  UnGallery will try to display the path to your WordPress install on the admin page as a suggestion.  If you have shell access to your WordPress installation, you can type: "pwd" from the command line to display the path.
 
-= Why is a change in permalinks style needed? Will this change my site's links? =
-UnGallery uses the address URI to track where in the image directory it is pointing.  Yes.  If you are using the default WordPress permalink style (with addresses ending in: ..?page_id=123) then the needed permalink style update will change those links (to addresses ending like: ..?)
-Another common issue is the UnGallery permalink does not match the permalink of the gallery page.  Please see installation steps 3 and 4.
+Another common issue is the UnGallery permalink does not match the permalink of the gallery page.  Please see installation step 3.
 
 = Why does does the admin page say it cannot create the cache directory? =
 Permissions on the file system or security on the web server prevent the plugin from creating the directory automatically.  It can be created manually by typing the following commands from the WordPress installation directory:<br>
@@ -82,6 +78,8 @@ And they can be modified to suit a custom ordering scheme:
 
 == Changelog ==
 
+= 1.5.0 =
+* Custom permalinks no longer required.
 = 1.4.5 =
 * An extra space in configuration_menu.php was causing various header errors.  Fixed.
 = 1.4.2 =
