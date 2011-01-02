@@ -299,4 +299,4 @@ If you'd like to publish separate galleries, each with its own WordPress page, u
  
 }
 
-?>	
+?>
