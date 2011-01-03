@@ -182,7 +182,14 @@ function mt_settings_page() {
 
 <p><?php _e("Path to image directory:", 'images_path' ); ?>
 <input type="text" name="<?php echo $path_data_field_name; ?>" value="<?php echo $path_val; ?>" size="30"> 	<br />
-* This is the only field you must enter.  See path tips below for help.</p>
+Full path including trailing slash/.  * See path tips below for help.
+</p>
+
+<p>Permalink: <input type="text" readonly name="URI" value="
+	<? print get_bloginfo('url'); ?>/" size="30"><?php _e("", 'gallery' ); ?> 
+<input type="text" name="<?php echo $gallery_data_field_name; ?>" value="<?php echo $gallery_val; ?>" size="20"><br />
+Match the permalink format of the page you created in step 2. Examples are "?page_id=4" and "gallery"
+</p>
 
 Gallery version: <input type="text" readonly name="<?php echo $version_data_field_name; ?>" value="<?php echo $version_val; ?>" size="20"><br />
 
@@ -198,12 +205,6 @@ if (!is_dir($_SERVER['DOCUMENT_ROOT']."/wp-content/cache/")) {
 } else 	print $_SERVER['DOCUMENT_ROOT']."/wp-content/cache/";
 ?>" size="30"> <br />
 This is the directory UnGallery creates and write cache files to.
-
-
-<p><?php _e("Gallery permalink:", 'gallery' ); ?> 
-<input type="text" name="<?php echo $gallery_data_field_name; ?>" value="<?php echo $gallery_val; ?>" size="20"><br />
-This should match the permalink of the page you created (lower case).  Default: gallery 
-</p>
 
 <hr />
 
@@ -299,4 +300,4 @@ If you'd like to publish separate galleries, each with its own WordPress page, u
  
 }
 
-?>	
+?>
