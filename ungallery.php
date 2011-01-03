@@ -21,18 +21,22 @@ $gallery = get_option( 'gallery' );
 $gallery2 = get_option( 'gallery2' );
 $gallery3 = get_option( 'gallery3' );
 $gallery4 = get_option( 'gallery4' );
+$gallery5 = get_option( 'gallery5' );
+$gallery6 = get_option( 'gallery6' );
 
 //  If a gallery is not set in db, give it a value besides "" so not to trigger plugin
 if($gallery == "") $gallery = "UnGalleryWontLoad"; 
 if($gallery2 == "") $gallery2 = "UnGalleryWontLoad"; 
 if($gallery3 == "") $gallery3 = "UnGalleryWontLoad"; 
 if($gallery4 == "") $gallery4 = "UnGalleryWontLoad";
+if($gallery5 == "") $gallery5 = "UnGalleryWontLoad";
+if($gallery6 == "") $gallery6 = "UnGalleryWontLoad";
 
 	// If the zip flag is active, display the archive page
 if (strpos($_SERVER["REQUEST_URI"], "?zip")) {			
 	add_filter('the_content', "zip");
 	// If any gallery flags are active, run the display gallery code
-}	elseif (strstr($_SERVER["REQUEST_URI"], "/". $gallery) || (strstr($_SERVER["REQUEST_URI"], "/". $gallery2)) || (strstr($_SERVER["REQUEST_URI"], "/". $gallery3)) || (strstr($_SERVER["REQUEST_URI"], "/". $gallery4))) {			
+}	elseif (strstr($_SERVER["REQUEST_URI"], "/". $gallery) || (strstr($_SERVER["REQUEST_URI"], "/". $gallery2)) || (strstr($_SERVER["REQUEST_URI"], "/". $gallery3)) || (strstr($_SERVER["REQUEST_URI"], "/". $gallery4)) || (strstr($_SERVER["REQUEST_URI"], "/". $gallery5)) || (strstr($_SERVER["REQUEST_URI"], "/". $gallery6))) {			
 	add_filter('the_content', "ungallery");
 }
 
@@ -67,6 +71,8 @@ function ungallery() {
 	if($gallery_ID == get_option( 'gallery2' )) $pic_root = get_option( 'images2_path' );
 	if($gallery_ID == get_option( 'gallery3' )) $pic_root = get_option( 'images3_path' );
 	if($gallery_ID == get_option( 'gallery4' )) $pic_root = get_option( 'images4_path' );
+	if($gallery_ID == get_option( 'gallery5' )) $pic_root = get_option( 'images5_path' );
+	if($gallery_ID == get_option( 'gallery6' )) $pic_root = get_option( 'images6_path' );
 	
 	//	Load the configuration data from the database
 	$version = get_option( 'version' );
