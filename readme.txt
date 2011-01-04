@@ -3,7 +3,7 @@ Contributors: mmond
 Tags: gallery, ungallery, pictures, movies, mp4, jpg, png, galleries, photos, browse, images
 Requires at least: 
 Tested up to: 3.0.4
-Stable tag: 1.5.2
+Stable tag: 1.5.3
 
 Publish thousands of pictures in WordPress, in minutes.  
 
@@ -41,14 +41,15 @@ Mark Reynolds http://markpreynolds.com
 
 1. The UnGallery top level view.  The highest level of the gallery can display a single larger, picture or a views of thumbnails as the subdirectories/subgalleries do.  This is configurable via the UnGallery administration page.
 2. Selecting one of the subgallery links displays the thumbnail gallery view of all JPGs, PNGs and GIFs in the directory.  A breadcrumb trail back to the top level of the galleries is displayed along with the new subgalleries.  The -zip- link builds an archive of all images in the current directory for convenient download.
-3. Clicking on a thumbnail displays the larger browsing view along with previous and next thumbnails.  There are movie files in this directory, so links to these are displayed also.  All UnGallery's published sizes are adjustable to fill larger page widths as this site uses.
+3. Clicking on a thumbnail displays the larger browsing view along with previous and next thumbnails.  There are movie files in this directory, so links to these are displayed also.  All UnGallery image sizes are adjustable to fill different page widths	.
 
 == Frequently Asked Questions ==
 
 = What do I have to set up? =
 1. Download and activate the plugin.
 1. Create a blank WordPress page.
-1. On the UnGallery settings menu enter the page above and the path to your images.
+1. On the UnGallery settings menu enter page name and path to images.
+
 That's it.  You can install UnGallery and publish a thousand photos to your WordPress site in under a minute. While the default configuration is simple, there are many customizable options available in the advanced options of UnGallery, including layout, gallery names, hidden galleries, etc.  UnGallery faces a few unique challenges in leaving the WordPress environment and connecting to external image directories.  To help, tips and the WordPress plugin forum are available to answer questions or issues that arise.  
 
 = Why are the images are not displaying? =
@@ -60,7 +61,6 @@ Another common issue is the UnGallery permalink does not match the permalink of 
 Permissions on the file system or security on the web server may prevent the plugin from creating the directory automatically.  It can be created manually by typing the following commands from the WordPress installation directory:<br>
 <pre><code>mkdir wp-content/cache/
 chmod 777 wp-content/cache/</code></pre>
-<br>
 
 = How are the images sorted? =
 Images are sorted alphabetically.  Alphabetical sorting actually provides ability to include some chronological sorting.  For example pictures taken on digital cameras tend to use formats like:  
@@ -77,6 +77,8 @@ And they can be modified to suit a custom ordering scheme:
 -rw-rw-r-- 1 pg1720424  56K 2010-08-30 17:58 3.jpg</code></pre>
 
 == Changelog ==
+= 1.5.3 =
+* Corrected zip file bug
 = 1.5.2 =
 * Support for total of 6 top-level galleries added.
 = 1.5.1 =

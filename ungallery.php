@@ -6,11 +6,11 @@ Plugin URI: http://markpreynolds.com/technology/wordpress-ungallery
 Author: Mark Reynolds
 Author URI: http://markpreynolds.com/professional
 Author Email: mark@markpreynolds.com
-Version: 1.5.1
+Version: 1.5.3
 */
 
 //  Set plugin version, update database so admin menu can display it
-$version_val = "1.5.1";
+$version_val = "1.5.3";
 update_option( "version", $version_val );
 
 //  Display the plugin administration menu
@@ -33,7 +33,7 @@ if($gallery5 == "") $gallery5 = "UnGalleryWontLoad";
 if($gallery6 == "") $gallery6 = "UnGalleryWontLoad";
 
 	// If the zip flag is active, display the archive page
-if (strpos($_SERVER["REQUEST_URI"], "?zip")) {			
+if (strpos($_SERVER["REQUEST_URI"], "?zip") || strpos($_SERVER["REQUEST_URI"], "&zip")) {			
 	add_filter('the_content', "zip");
 	// If any gallery flags are active, run the display gallery code
 }	elseif (strstr($_SERVER["REQUEST_URI"], "/". $gallery) || (strstr($_SERVER["REQUEST_URI"], "/". $gallery2)) || (strstr($_SERVER["REQUEST_URI"], "/". $gallery3)) || (strstr($_SERVER["REQUEST_URI"], "/". $gallery4)) || (strstr($_SERVER["REQUEST_URI"], "/". $gallery5)) || (strstr($_SERVER["REQUEST_URI"], "/". $gallery6))) {			
@@ -61,11 +61,6 @@ function ungallery() {
 		$gallery_ID = $post_name;
 	}
 
-	// If the zip flag is active, display the archive page
-	if (strpos($_SERVER["REQUEST_URI"], "?zip")) {			
-		add_filter('the_content', "zip");
-	}
-		
 	//  Get the image directory path associated with the gallery 	
 	if($gallery_ID == get_option( 'gallery' )) $pic_root = get_option( 'images_path' );
 	if($gallery_ID == get_option( 'gallery2' )) $pic_root = get_option( 'images2_path' );
