@@ -3,7 +3,7 @@ Contributors: mmond
 Tags: gallery, ungallery, pictures, movies, mp4, jpg, png, galleries, photos, browse, images
 Requires at least: 
 Tested up to: 3.0.4
-Stable tag: 1.4.4
+Stable tag: 1.5.4
 
 Publish thousands of pictures in WordPress, in minutes.  
 
@@ -21,10 +21,9 @@ Mark Reynolds http://markpreynolds.com
 
 == Installation ==
 
-1. Upload to ./wp-content/plugins/ and activate on the Plugins menu.
-1. Enable Permalinks: Settings -> Permalinks -> Custom Structure -> /%category%/%postname%
-1. Create a blank WordPress Page, for example: "Gallery".
-1. Enter the path to your directory of images on the UnGallery administration menu under Settings / UnGallery. 
+1. Download to ./wp-content/plugins/ and activate via the Plugins menu.
+2. Create a blank WordPress Page, for example one called "Gallery".
+3. On the UnGallery admin page, enter the page name and path to the images. 
 
 == Features ==
 
@@ -42,46 +41,54 @@ Mark Reynolds http://markpreynolds.com
 
 1. The UnGallery top level view.  The highest level of the gallery can display a single larger, picture or a views of thumbnails as the subdirectories/subgalleries do.  This is configurable via the UnGallery administration page.
 2. Selecting one of the subgallery links displays the thumbnail gallery view of all JPGs, PNGs and GIFs in the directory.  A breadcrumb trail back to the top level of the galleries is displayed along with the new subgalleries.  The -zip- link builds an archive of all images in the current directory for convenient download.
-3. Clicking on a thumbnail displays the larger browsing view along with previous and next thumbnails.  There are movie files in this directory, so links to these are displayed also.  All UnGallery's published sizes are adjustable to fill larger page widths as this site uses.
+3. Clicking on a thumbnail displays the larger browsing view along with previous and next thumbnails.  There are movie files in this directory, so links to these are displayed also.  All UnGallery image sizes are adjustable to fill different page widths	.
 
 == Frequently Asked Questions ==
 
-= What exactly do I have to set up? =
-At its simplest default:
+= What do I have to set up? =
 1. Download and activate the plugin.
-1. Set permalinks style.
-1. Create a blank page called Gallery.
-1. Enter the path to your images.
-That's it.  You can install UnGallery and publish a thousand photos to your WordPress site in under a minute.  UnGallery faces a unique plugin challenge in leaving the WordPress environment to connect to your image library.  To help, troubleshooting tips and a forum are available to answer questions or issues that arise.  While the default configuration is simple, there are many customizable options available in the advanced settings and usage of UnGallery, including layout, gallery names, hidden galleries, etc. 
+1. Create a blank WordPress page.
+1. On the UnGallery settings menu enter page name and path to images.
+
+That's it.  You can install UnGallery and publish a thousand photos to your WordPress site in under a minute. While the default configuration is simple, there are many customizable options available in the advanced options of UnGallery, including layout, gallery names, hidden galleries, etc.  UnGallery faces a few unique challenges in leaving the WordPress environment and connecting to external image directories.  To help, tips and the WordPress plugin forum are available to answer questions or issues that arise.  
 
 = Why are the images are not displaying? =
-The path to the image directory is the most common issue.  IT must be an absolute path from root of file system like: "/home/username/your/images/" and not a relative path like:  "../your/images/".  The trailing slash/ is required.  UnGallery will try to display the path to your WordPress install on the admin page as a suggestion.  If you have shell access to your WordPress installation, you can type: "pwd" from the command line to display the path.
+The path to the image directory is the most common issue.  It must be an absolute path from the file system root like: "/home/username/your/images/" and not a relative path like:  "../your/images/".  The trailing slash/ is required.  UnGallery will try to display the path to your WordPress install on the admin page as a suggestion.  If you have shell access to your WordPress installation, you can type: "pwd" from the command line in your images directory to display the path.
 
-= Why is a change in permalinks style needed? Will this change my site's links? =
-UnGallery uses the address URI to track where in the image directory it is pointing.  Yes.  If you are using the default WordPress permalink style (with addresses ending in: ..?page_id=123) then the needed permalink style update will change those links (to addresses ending like: ..?)
-Another common issue is the UnGallery permalink does not match the permalink of the gallery page.  Please see installation steps 3 and 4.
+Another common issue is the UnGallery permalink does not match the permalink of the gallery page.  Please see installation step 3.
 
 = Why does does the admin page say it cannot create the cache directory? =
-Permissions on the file system or security on the web server prevent the plugin from creating the directory automatically.  It can be created manually by typing the following commands from the WordPress installation directory:<br>
+Permissions on the file system or security on the web server may prevent the plugin from creating the directory automatically.  It can be created manually by typing the following commands from the WordPress installation directory:<br>
 <pre><code>mkdir wp-content/cache/
-	chmod 777 wp-content/cache/</pre></code>
+chmod 777 wp-content/cache/</code></pre>
 
 = How are the images sorted? =
 Images are sorted alphabetically.  Alphabetical sorting actually provides ability to include some chronological sorting.  For example pictures taken on digital cameras tend to use formats like:  
 <pre><code>-rwxrwxrwx   1.3M Dec 24 08:20 IMG_9558.JPG
 -rwxrwxrwx   1.3M Dec 24 08:24 IMG_9559.JPG
--rwxrwxrwx   1.4M Dec 24 08:24 IMG_9560.JPG</pre></code>
+-rwxrwxrwx   1.4M Dec 24 08:24 IMG_9560.JPG</code></pre>
 So the default naming convention for many already does sort by time.  And if the time stamps are ever lost like some archiving or file transfer actions can do, they'll still remain in time order:
 <pre><code>-rw-rw-r--   47K 2010-08-30 17:59 DSCF0061.JPG
 -rw-rw-r--   40K 2010-08-30 17:59 DSCF0063.JPG
--rw-rw-r--   68K 2010-08-30 17:59 DSCF0064.JPG</pre></code>
+-rw-rw-r--   68K 2010-08-30 17:59 DSCF0064.JPG</code></pre>
 And they can be modified to suit a custom ordering scheme:
 <pre><code>-rw-rw-r-- 1 pg1720424  72K 2010-08-30 17:58 1.jpg
 -rw-rw-r-- 1 pg1720424  49K 2010-08-30 17:58 2.jpg
--rw-rw-r-- 1 pg1720424  56K 2010-08-30 17:58 3.jpg</pre></code>
+-rw-rw-r-- 1 pg1720424  56K 2010-08-30 17:58 3.jpg</code></pre>
 
 == Changelog ==
-
+= 1.5.4 =
+* Column option added back to correct problem with IE wrapping thumbnails.
+= 1.5.3 =
+* Corrected zip file bug
+= 1.5.2 =
+* Support for total of 6 top-level galleries added.
+= 1.5.1 =
+* Doc/Readme updates
+= 1.5.0 =
+* Custom permalinks no longer required.
+= 1.4.5 =
+* An extra space in configuration_menu.php was causing various header errors.  Fixed.
 = 1.4.2 =
 * Version update/correction
 = 1.4.1 =
