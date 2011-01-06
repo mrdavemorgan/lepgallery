@@ -6,11 +6,11 @@ Plugin URI: http://markpreynolds.com/technology/wordpress-ungallery
 Author: Mark Reynolds
 Author URI: http://markpreynolds.com/professional
 Author Email: mark@markpreynolds.com
-Version: 1.5.3
+Version: 1.5.4
 */
 
 //  Set plugin version, update database so admin menu can display it
-$version_val = "1.5.3";
+$version_val = "1.5.4";
 update_option( "version", $version_val );
 
 //  Display the plugin administration menu
@@ -78,7 +78,9 @@ function ungallery() {
 	$srcW = get_option( 'browse_view' );
 	$movie_height = get_option( 'movie_height' );
 	$movie_width = get_option( 'movie_width' );
-	
+	$columns = get_option( 'columns' );
+	if($columns == "") $columns = 4; // set a default so admin page does not need visit after update. Remove at some point.
+		
 	//	Provide the version of UnGallery
 	print "<!-- UnGallery version: ". $version ." -->";
 
@@ -170,8 +172,14 @@ function ungallery() {
 			}
 			print "</td></tr><tr>";									//	Close cell. Add a bit of space
 			print '<td align="center"><p style="text-align: center;">';
+		$column = 0;
 		foreach ($pic_array as $filename) {						//  Use the pic_array to display the thumbs and assign the links
 			print '<a href="' . $permalink . $QorA . 'src='. $pic_root . $gallerylink. "/" .$filename.'"><img src="'. $blogURI . $dir . 'phpthumb/phpThumb.php?ar=x&src='. $pic_root . $gallerylink. "/". $filename.'&w=' .$w. '"></a>'; 
+			$column++;
+			if ( $column == $columns ) {
+				print '<br>';
+				$column = 0;
+			}
 		}
 	} else {	//  Render the browsing version, link to original, last/next picture, and link to parent gallery
 	if (isset($src) && !in_array(substr($src, -3), $movie_types)) { //  If we are in broswing mode and the source is not a movie

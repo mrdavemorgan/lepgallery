@@ -3,7 +3,7 @@ Contributors: mmond
 Tags: gallery, ungallery, pictures, movies, mp4, jpg, png, galleries, photos, browse, images
 Requires at least: 
 Tested up to: 3.0.4
-Stable tag: 1.5.3
+Stable tag: 1.5.4
 
 Publish thousands of pictures in WordPress, in minutes.  
 
@@ -77,6 +77,8 @@ And they can be modified to suit a custom ordering scheme:
 -rw-rw-r-- 1 pg1720424  56K 2010-08-30 17:58 3.jpg</code></pre>
 
 == Changelog ==
+= 1.5.4 =
+* Column option added back to correct problem with IE wrapping thumbnails.
 = 1.5.3 =
 * Corrected zip file bug
 = 1.5.2 =
