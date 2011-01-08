@@ -6,11 +6,11 @@ Plugin URI: http://markpreynolds.com/technology/wordpress-ungallery
 Author: Mark Reynolds
 Author URI: http://markpreynolds.com/professional
 Author Email: mark@markpreynolds.com
-Version: 1.5.4
+Version: 1.5.5
 */
 
 //  Set plugin version, update database so admin menu can display it
-$version_val = "1.5.4";
+$version_val = "1.5.5";
 update_option( "version", $version_val );
 
 //  Display the plugin administration menu
@@ -142,7 +142,6 @@ function ungallery() {
 		}
 	}
 	closedir($dp);
-	print '&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;Sub Galleries&nbsp;:&nbsp;&nbsp;';
 	$dp = opendir($pic_root.$gallerylink);	//  Read the directory for subdirectories
 	while ($subdir = readdir($dp)) {		//  If it is a subdir and not set as hidden, enter it into the array
 		if (is_dir($pic_root.$gallerylink. "/". $subdir) && $subdir !="thumb_cache" && $subdir != "." && $subdir != ".." && !strstr($subdir, $hidden)) {
@@ -151,6 +150,7 @@ function ungallery() {
 	}
 
 	if($subdirs) {							//  List each subdir and link
+		print '&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;Sub Galleries&nbsp;:&nbsp;&nbsp;';
 		sort($subdirs);	
 		foreach ($subdirs as $key => $subdir) {
 			print  '<a href="'. $permalink . $QorA .'gallerylink='. $parentpath.$subdir. '" >'	.$subdir.'</a> / ';
