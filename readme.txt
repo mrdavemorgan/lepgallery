@@ -3,7 +3,7 @@ Contributors: mmond
 Tags: gallery, ungallery, pictures, movies, mp4, jpg, png, galleries, photos, browse, images
 Requires at least: 
 Tested up to: 3.0.4
-Stable tag: 1.5.5
+Stable tag: 1.5.6
 
 Publish thousands of pictures in WordPress, in minutes.  
 
@@ -13,7 +13,7 @@ UnGallery displays your directories of images as a browsable WordPress gallery.
 
 The advantage of UnGallery is there is there is no gallery management required in WordPress.  You just point the plugin to a directory  of photos and they are immediately viewable via an existing WordPress site.  Any uploads, deletions, or edits you make to your photos and directory organization are automatically reflected in WordPress.
 
-If you've ever had to reorganize galleries after publishing them, you know how inconvenient it is to return to a web tool to correct the paths, relink the thumbnails, update titles, etc.   With UnGallery, you can restructure entire galleries, edit a dozen party pic red-eyes, rename an event or remove individual photos and each of these changes is automatically live in WordPress.
+If you've ever had to reorganize galleries after publishing, you know how inconvenient it is to return to a web tool to correct the paths, relink the thumbnails, update titles, etc.   With UnGallery, you can restructure entire galleries, edit a dozen party pic red-eyes, rename an event or remove individual photos and each of these changes is automatically live in WordPress.
 
 [Introduction and installation screencast](http://markpreynolds.com/technology/wordpress-ungallery)
 
@@ -62,19 +62,29 @@ Permissions on the file system or security on the web server may prevent the plu
 <pre><code>mkdir wp-content/cache/
 chmod 777 wp-content/cache/</code></pre>
 <br>
+<br>
 = How are the images sorted? =
-Images are sorted alphabetically.  Alphabetical sorting actually provides ability to include some chronological sorting.  For example pictures taken on digital cameras tend to use formats like:  <pre><code>-rwxrwxrwx   1.3M Dec 24 08:20 IMG_9558.JPG
+Images are sorted alphabetically.  Alphabetical sorting actually provides ability to include some chronological sorting.  For example pictures taken on digital cameras tend to use formats like:  
+<pre><code>-rwxrwxrwx   1.3M Dec 24 08:20 IMG_9558.JPG
 -rwxrwxrwx   1.3M Dec 24 08:24 IMG_9559.JPG
 -rwxrwxrwx   1.4M Dec 24 08:24 IMG_9560.JPG</code></pre>
 <br>
-So the default naming convention for many already does sort by time.  And if the time stamps are ever lost like some archiving or file transfer actions can do, they'll still remain in time order:<pre><code>-rw-rw-r--   47K 2010-08-30 17:59 DSCF0061.JPG
+<br>
+So the default naming convention for many already does sort by time.  And if the time stamps are ever lost like some archiving or file transfer actions can do, they'll still remain in time order:
+<pre><code>-rw-rw-r--   47K 2010-08-30 17:59 DSCF0061.JPG
 -rw-rw-r--   40K 2010-08-30 17:59 DSCF0063.JPG
--rw-rw-r--   68K 2010-08-30 17:59 DSCF0064.JPG</code></pre>
-And they can be modified to suit a custom ordering scheme:<pre><code>-rw-rw-r-- 1 pg1720424  72K 2010-08-30 17:58 1.jpg
+-rw-rw-r--   68K 2010-08-30 17:59 DSCF0064.JPG
+</code></pre>
+<br>
+<br>
+And they can be modified to suit a custom ordering scheme:
+<pre><code>-rw-rw-r-- 1 pg1720424  72K 2010-08-30 17:58 1.jpg
 -rw-rw-r-- 1 pg1720424  49K 2010-08-30 17:58 2.jpg
 -rw-rw-r-- 1 pg1720424  56K 2010-08-30 17:58 3.jpg</code></pre>
 
 == Changelog ==
+= 1.5.6 =
+* Disabled phpThumb's SafeExec function due to security flaw
 = 1.5.5 =
 * If there are no subgalleries, we no longer display the "Subgalleries: " text
 * Updated doc with PHP 5.x prerequisite
