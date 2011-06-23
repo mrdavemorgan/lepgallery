@@ -1,20 +1,39 @@
+This feature is disabled for security reasons.  It may be reenabled in a later release.
+<?
+die;
+?>
 Building the archive now.... <br>
 <br>
 A summary will print below when the zip file is ready.  Depending on the number of photos it may take a few minutes to complete.  Your browser may even time out before it's ready.  If so, just hit refresh and this page will reload with the summary and zip file link. <br><br>
 <?
+//  Get the page name from the WP page data
+global $wp_query;
+$post_obj = $wp_query->get_queried_object();
+$post_ID = $post_obj->ID;
+$post_name = $post_obj->post_name;
 
-//  Get the gallery name from the WP page slug
-global $post;
-$gallery = $post->post_name;
+//  Get the current gallery page's permalink
+$permalink = get_permalink();
+
+//  Base the UnGallery linking format on the site's permalink settings
+if (strstr($permalink, "?")) {
+	$QorA = "&";
+	$gallery_ID = "?page_id=" . $post_ID;
+}
+ else {
+	$QorA = "?";
+	$gallery_ID = $post_name;
+}
 
 //  Get the image directory path associated with the gallery 	
-if($gallery == get_option( 'gallery' )) $pic_root = get_option( 'images_path' );
-if($gallery == get_option( 'gallery2' )) $pic_root = get_option( 'images2_path' );
-if($gallery == get_option( 'gallery3' )) $pic_root = get_option( 'images3_path' );
-if($gallery == get_option( 'gallery4' )) $pic_root = get_option( 'images4_path' );
+if($gallery_ID == get_option( 'gallery' )) $pic_root = get_option( 'images_path' );
+if($gallery_ID == get_option( 'gallery2' )) $pic_root = get_option( 'images2_path' );
+if($gallery_ID == get_option( 'gallery3' )) $pic_root = get_option( 'images3_path' );
+if($gallery_ID == get_option( 'gallery4' )) $pic_root = get_option( 'images4_path' );
+if($gallery_ID == get_option( 'gallery5' )) $pic_root = get_option( 'images5_path' );
+if($gallery_ID == get_option( 'gallery6' )) $pic_root = get_option( 'images6_path' );
 
 $dir = $pic_root . $_GET['zip'];
-
 
 // Create the arrays with the dir's image files
 $dp = opendir($dir);
@@ -29,10 +48,9 @@ foreach ($pic_array as $filename) {
 }
 
 $output = `zip -u -j $dir/pics.zip $media_files`;
-print $output . "<br>";
 
 print "<pre>$output</pre>";
 print 'Complete. The file can be downloaded <a href="'. $blogURI .'/wp-content/plugins/ungallery/source.php?zip='. $dir . '/pics.zip">here</a>';
-print  '<br><br>You can return to the gallery <a href="'. $blogURI . $gallery .'?gallerylink=' . $_GET['zip'] .'">here.</a>';
+print  '<br><br>You can return to the gallery <a href="'. $permalink . $QorA .'gallerylink=' . $_GET['zip'] .'">here.</a>';
 
 ?>
