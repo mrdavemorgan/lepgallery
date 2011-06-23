@@ -2,7 +2,7 @@
 // 	Choose the URL argument being passed to source.php
 //	Build the content type link based on file type
 
-if ($_GET['zip']) {
+/*if ($_GET['zip']) {
 	$filename = $_GET['zip'];
 	$len = filesize($filename);
 	$lastslash =  strrpos($filename, "/");
@@ -12,7 +12,7 @@ if ($_GET['zip']) {
 	header("Content-Length: $len;\r\n");
 	header('Content-Disposition: attachment; filename="' . $name . '"');  // Create a download stream link
 	readfile($filename);	
-}
+} */
 
 if ($_GET['pic']) {
 	$filename = $_GET['pic'];

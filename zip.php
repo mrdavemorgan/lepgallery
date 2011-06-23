@@ -1,3 +1,7 @@
+This feature is disabled for security reasons.  It may be reenabled in a later release.
+<?
+die;
+?>
 Building the archive now.... <br>
 <br>
 A summary will print below when the zip file is ready.  Depending on the number of photos it may take a few minutes to complete.  Your browser may even time out before it's ready.  If so, just hit refresh and this page will reload with the summary and zip file link. <br><br>
