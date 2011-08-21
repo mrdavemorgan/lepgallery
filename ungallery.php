@@ -6,11 +6,11 @@ Plugin URI: http://markpreynolds.com/technology/wordpress-ungallery
 Author: Mark Reynolds
 Author URI: http://markpreynolds.com/professional
 Author Email: mark@markpreynolds.com
-Version: 1.5.8
+Version: 1.5.9
 */
 
 //  Set plugin version, update database so admin menu can display it
-$version_val = "1.5.8";
+$version_val = "1.5.9";
 update_option( "version", $version_val );
 
 //  Display the plugin administration menu
@@ -34,7 +34,7 @@ if($gallery6 == "") $gallery6 = "UnGalleryWontLoad";
 
 	// If the zip flag is active, display the archive page
 if (strpos($_SERVER["REQUEST_URI"], "?zip") || strpos($_SERVER["REQUEST_URI"], "&zip")) {			
-	add_filter('the_content', "zip");
+	add_filter('the_content', "zip"); 
 	// If any gallery flags are active, run the display gallery code
 }	elseif (strstr($_SERVER["REQUEST_URI"], "/". $gallery) || (strstr($_SERVER["REQUEST_URI"], "/". $gallery2)) || (strstr($_SERVER["REQUEST_URI"], "/". $gallery3)) || (strstr($_SERVER["REQUEST_URI"], "/". $gallery4)) || (strstr($_SERVER["REQUEST_URI"], "/". $gallery5)) || (strstr($_SERVER["REQUEST_URI"], "/". $gallery6))) {			
 	add_filter('the_content', "ungallery");
@@ -134,6 +134,8 @@ function ungallery() {
 	elseif ($marquee !== "yes") print '  / <a href="'. $permalink . $QorA .'zip=' . $gallerylink . '" title="Download a zipped archive of all photos in this gallery">-zip-</a> /';	
 */
 	// Display the movie links
+	// Movies are disabled until more security is added
+	/*
 	if($movie_array) {					
 		print ' <br>Movies:&nbsp;&nbsp;';
 		foreach ($movie_array as $filename => $filesize) {
@@ -142,6 +144,7 @@ function ungallery() {
 		}
 	}
 	closedir($dp);
+	*/
 	$dp = opendir($pic_root.$gallerylink);	//  Read the directory for subdirectories
 	while ($subdir = readdir($dp)) {		//  If it is a subdir and not set as hidden, enter it into the array
 		if (is_dir($pic_root.$gallerylink. "/". $subdir) && $subdir !="thumb_cache" && $subdir != "." && $subdir != ".." && !strstr($subdir, $hidden)) {
@@ -188,7 +191,7 @@ function ungallery() {
 		$after_filename = $pic_array[array_search($filename, $pic_array) + 1 ];
 																	//  Display the current/websize pic
 		print '
-		<td align="center" rowspan="2" style="vertical-align:middle;"><a href="'. $blogURI . $dir .'source.php?pic=' . $src . '"><img src="'. $blogURI . $dir . 'phpthumb/phpThumb.php?ar=x&src='. $src. '&w='. $srcW. '"></a></td>
+		<td align="center" rowspan="2" style="vertical-align:middle;"><a href="'. $blogURI . $dir .'phpthumb/phpThumb.php?ar=x&src=' . $src . '"><img src="'. $blogURI . $dir . 'phpthumb/phpThumb.php?ar=x&src='. $src. '&w='. $srcW. '"></a></td>
 		<td valign="center">';
 			
 		if ($before_filename) {										// Display the before thumb, if it exists
