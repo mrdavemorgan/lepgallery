@@ -6,7 +6,7 @@ Plugin URI: http://markpreynolds.com/technology/wordpress-ungallery
 Author: Mark Reynolds
 Author URI: http://markpreynolds.com/professional
 Author Email: mark@markpreynolds.com
-Version: 1.5.9
+Version: 1.5.10
 */
 
 //  Set plugin version, update database so admin menu can display it
@@ -177,7 +177,7 @@ function ungallery() {
 			print '<td align="center"><p style="text-align: center;">';
 		$column = 0;
 		foreach ($pic_array as $filename) {						//  Use the pic_array to display the thumbs and assign the links
-			print '<a href="' . $permalink . $QorA . 'src='. $pic_root . $gallerylink. "/" .$filename.'"><img src="'. $blogURI . $dir . 'phpthumb/phpThumb.php?ar=x&src='. $pic_root . $gallerylink. "/". $filename.'&w=' .$w. '"></a>'; 
+			print '<a href="' . $permalink . $QorA . 'src='. $pic_root . $gallerylink. "/" .$filename.'"><img src="'. $blogURI . $dir . 'phpthumb/phpThumb.php?src='. $pic_root . $gallerylink. "/". $filename.'&w=' .$w. '"></a>'; 
 			$column++;
 			if ( $column == $columns ) {
 				print '<br>';
