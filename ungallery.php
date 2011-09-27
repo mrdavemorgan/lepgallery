@@ -6,7 +6,7 @@ Plugin URI: http://markpreynolds.com/technology/wordpress-ungallery
 Author: Mark Reynolds
 Author URI: http://markpreynolds.com/professional
 Author Email: mark@markpreynolds.com
-Version: 1.5.11
+Version: 1.5.13
 */
 
 //  Set plugin version, update database so admin menu can display it
