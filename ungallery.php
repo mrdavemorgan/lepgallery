@@ -177,7 +177,7 @@ function ungallery() {
 			print '<td align="center"><p style="text-align: center;">';
 		$column = 0;
 		foreach ($pic_array as $filename) {						//  Use the pic_array to display the thumbs and assign the links
-			print '<a href="' . $permalink . $QorA . 'src='. $pic_root . $gallerylink. "/" .$filename.'"><img src="'. $blogURI . $dir . 'phpthumb/phpThumb.php?src='. $pic_root . $gallerylink. "/". $filename.'&w=' .$w. '"></a>'; 
+			print '<a href="' . $permalink . $QorA . 'src='. $pic_root . $gallerylink. "/" .$filename.'"><img src="'. $blogURI . $dir . 'phpthumb/phpThumb.php?ar=x&src='. $pic_root . $gallerylink. "/". $filename.'&w=' .$w. '"></a>'; 
 			$column++;
 			if ( $column == $columns ) {
 				print '<br>';
@@ -191,7 +191,7 @@ function ungallery() {
 		$after_filename = $pic_array[array_search($filename, $pic_array) + 1 ];
 																	//  Display the current/websize pic
 		print '
-		<td align="center" rowspan="2" style="vertical-align:middle;"><a href="'. $blogURI . $dir .'phpthumb/phpThumb.php?src=' . $src . '"><img src="'. $blogURI . $dir . 'phpthumb/phpThumb.php?ar=x&src='. $src. '&w='. $srcW. '"></a></td>
+		<td align="center" rowspan="2" style="vertical-align:middle;"><a href="'. $blogURI . $dir .'phpthumb/phpThumb.php?ar=x&src=' . $src . '"><img src="'. $blogURI . $dir . 'phpthumb/phpThumb.php?ar=x&src='. $src. '&w='. $srcW. '"></a></td>
 		<td valign="center">';
 			
 		if ($before_filename) {										// Display the before thumb, if it exists
