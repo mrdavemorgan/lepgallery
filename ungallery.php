@@ -129,13 +129,11 @@ function ungallery() {
 	} 
 	// If we are viewing a gallery, arrange the thumbs
 	if($pic_array) sort($pic_array);	
-/*	// Unless we are at the top level or the marquee is set, display the zip link
+	// Unless we are at the top level or the marquee is set, display the zip link
 	if ($_SERVER["REQUEST_URI"]  !== "/".$gallery) print '  / <a href="'. $permalink . $QorA .'zip=' . $gallerylink . '" title="Download a zipped archive of all photos in this gallery">-zip-</a> /';	
 	elseif ($marquee !== "yes") print '  / <a href="'. $permalink . $QorA .'zip=' . $gallerylink . '" title="Download a zipped archive of all photos in this gallery">-zip-</a> /';	
-*/
+
 	// Display the movie links
-	// Movies are disabled until more security is added
-	/*
 	if($movie_array) {					
 		print ' <br>Movies:&nbsp;&nbsp;';
 		foreach ($movie_array as $filename => $filesize) {
@@ -144,7 +142,7 @@ function ungallery() {
 		}
 	}
 	closedir($dp);
-	*/
+
 	$dp = opendir($pic_root.$gallerylink);	//  Read the directory for subdirectories
 	while ($subdir = readdir($dp)) {		//  If it is a subdir and not set as hidden, enter it into the array
 		if (is_dir($pic_root.$gallerylink. "/". $subdir) && $subdir !="thumb_cache" && $subdir != "." && $subdir != ".." && !strstr($subdir, $hidden)) {
