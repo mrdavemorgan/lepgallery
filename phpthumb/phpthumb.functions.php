@@ -441,43 +441,6 @@ class phpthumb_functions {
 
 
 	function SafeExec($command) {
-		static $AllowedExecFunctions = array();
-		if (empty($AllowedExecFunctions)) {
-			$AllowedExecFunctions = array('shell_exec'=>true, 'passthru'=>true, 'system'=>true, 'exec'=>true);
-			foreach ($AllowedExecFunctions as $key => $value) {
-				$AllowedExecFunctions[$key] = !phpthumb_functions::FunctionIsDisabled($key);
-			}
-		}
-		$command .= ' 2>&1'; // force redirect stderr to stdout
-		foreach ($AllowedExecFunctions as $execfunction => $is_allowed) {
-			if (!$is_allowed) {
-				continue;
-			}
-			$returnvalue = false;
-			switch ($execfunction) {
-				case 'passthru':
-				case 'system':
-					ob_start();
-					$execfunction($command);
-					$returnvalue = ob_get_contents();
-					ob_end_clean();
-					break;
-
-				case 'exec':
-					$output = array();
-					$lastline = $execfunction($command, $output);
-					$returnvalue = implode("\n", $output);
-					break;
-
-				case 'shell_exec':
-					ob_start();
-					$returnvalue = $execfunction($command);
-					ob_end_clean();
-					break;
-			}
-			return $returnvalue;
-		}
-		return false;
 	}
 
 

@@ -6,48 +6,68 @@ Plugin URI: http://markpreynolds.com/technology/wordpress-ungallery
 Author: Mark Reynolds
 Author URI: http://markpreynolds.com/professional
 Author Email: mark@markpreynolds.com
-Version: 1.4.4
+Version: 1.5.16
 */
 
-//	Set the version for inline display and update database so admin menu can display it
-$version_val = "1.4.4";
+//  Set plugin version, update database so admin menu can display it
+$version_val = "1.5.15";
 update_option( "version", $version_val );
 
 //  Display the plugin administration menu
 include("configuration_menu.php");
 
-//  Get the galleries from the database
+//  Get the gallery names from the database
 $gallery = get_option( 'gallery' );
 $gallery2 = get_option( 'gallery2' );
 $gallery3 = get_option( 'gallery3' );
 $gallery4 = get_option( 'gallery4' );
+$gallery5 = get_option( 'gallery5' );
+$gallery6 = get_option( 'gallery6' );
 
 //  If a gallery is not set in db, give it a value besides "" so not to trigger plugin
 if($gallery == "") $gallery = "UnGalleryWontLoad"; 
 if($gallery2 == "") $gallery2 = "UnGalleryWontLoad"; 
 if($gallery3 == "") $gallery3 = "UnGalleryWontLoad"; 
-if($gallery4 == "") $gallery4 = "UnGalleryWontLoad"; 
+if($gallery4 == "") $gallery4 = "UnGalleryWontLoad";
+if($gallery5 == "") $gallery5 = "UnGalleryWontLoad";
+if($gallery6 == "") $gallery6 = "UnGalleryWontLoad";
 
 	// If the zip flag is active, display the archive page
-if (strpos($_SERVER["REQUEST_URI"], "?zip")) {			
-	add_filter('the_content', "zip");
+if (strpos($_SERVER["REQUEST_URI"], "?zip") || strpos($_SERVER["REQUEST_URI"], "&zip")) {			
+	add_filter('the_content', "zip"); 
 	// If any gallery flags are active, run the display gallery code
-}	elseif (strstr($_SERVER["REQUEST_URI"], "/". $gallery) || (strstr($_SERVER["REQUEST_URI"], "/". $gallery2)) || (strstr($_SERVER["REQUEST_URI"], "/". $gallery3)) || (strstr($_SERVER["REQUEST_URI"], "/". $gallery4))) {			
+}	elseif (strstr($_SERVER["REQUEST_URI"], "/". $gallery) || (strstr($_SERVER["REQUEST_URI"], "/". $gallery2)) || (strstr($_SERVER["REQUEST_URI"], "/". $gallery3)) || (strstr($_SERVER["REQUEST_URI"], "/". $gallery4)) || (strstr($_SERVER["REQUEST_URI"], "/". $gallery5)) || (strstr($_SERVER["REQUEST_URI"], "/". $gallery6))) {			
 	add_filter('the_content', "ungallery");
 }
 
-//  The display gallery code
 function ungallery() {
-
-	//  Get the gallery name from the WP page slug
-	global $post;
-	$gallery = $post->post_name;
 	
+	//  Get the page name from the WP page slug
+	global $wp_query;
+	$post_obj = $wp_query->get_queried_object();
+	$post_ID = $post_obj->ID;
+	$post_name = $post_obj->post_name;
+	
+	//  Get the current gallery page's permalink
+	$permalink = get_permalink();
+	
+	//  Base the UnGallery linking format on the site's permalink settings
+	if (strstr($permalink, "?")) {
+		$QorA = "&";
+		$gallery_ID = "?page_id=" . $post_ID;
+	}
+	 else {
+		$QorA = "?";
+		$gallery_ID = $post_name;
+	}
+
 	//  Get the image directory path associated with the gallery 	
-	if($gallery == get_option( 'gallery' )) $pic_root = get_option( 'images_path' );
-	if($gallery == get_option( 'gallery2' )) $pic_root = get_option( 'images2_path' );
-	if($gallery == get_option( 'gallery3' )) $pic_root = get_option( 'images3_path' );
-	if($gallery == get_option( 'gallery4' )) $pic_root = get_option( 'images4_path' );
+	if($gallery_ID == get_option( 'gallery' )) $pic_root = get_option( 'images_path' );
+	if($gallery_ID == get_option( 'gallery2' )) $pic_root = get_option( 'images2_path' );
+	if($gallery_ID == get_option( 'gallery3' )) $pic_root = get_option( 'images3_path' );
+	if($gallery_ID == get_option( 'gallery4' )) $pic_root = get_option( 'images4_path' );
+	if($gallery_ID == get_option( 'gallery5' )) $pic_root = get_option( 'images5_path' );
+	if($gallery_ID == get_option( 'gallery6' )) $pic_root = get_option( 'images6_path' );
 	
 	//	Load the configuration data from the database
 	$version = get_option( 'version' );
@@ -58,7 +78,9 @@ function ungallery() {
 	$srcW = get_option( 'browse_view' );
 	$movie_height = get_option( 'movie_height' );
 	$movie_width = get_option( 'movie_width' );
-	
+	$columns = get_option( 'columns' );
+	if($columns == "") $columns = 4; // set a default so admin page does not need visit after update. Remove at some point.
+		
 	//	Provide the version of UnGallery
 	print "<!-- UnGallery version: ". $version ." -->";
 
@@ -85,10 +107,10 @@ function ungallery() {
 		$gallerylinkarray =  explode("/", $gallerylink);
 	
 		//  Render the Up/Current directory links
-		print '<a href="./'. $gallery .'">Top</a>';
+		print '<a href="'. $permalink .'">Top</a>';
 		foreach ($gallerylinkarray as $key => $level) {
 			$parentpath = $parentpath . $level ;
-			print ' / <a href="'. $gallery .'?gallerylink='. $parentpath .'" >'. $level .'</a>';
+			print ' / <a href="'. $permalink . $QorA .'gallerylink='. $parentpath .'" >'. $level .'</a>';
 			$parentpath = $parentpath . "/";
 		}
 	}
@@ -107,21 +129,21 @@ function ungallery() {
 	} 
 	// If we are viewing a gallery, arrange the thumbs
 	if($pic_array) sort($pic_array);	
-	// Unless we are at the top level and marquee is set, display the zip link
-	if ($_SERVER["REQUEST_URI"]  !== "/".$gallery) print '  / <a href="'. $blogURI . $gallery .'?zip=' . $gallerylink . '" title="Download a zipped archive of all photos in this gallery">-zip-</a> /';	
-	elseif ($marquee !== "yes") print '  / <a href="'. $blogURI . $gallery .'?zip=' . $gallerylink . '" title="Download a zipped archive of all photos in this gallery">-zip-</a> /';	
+	// Unless we are at the top level or the marquee is set, display the zip link
+	if ($_SERVER["REQUEST_URI"]  !== "/".$gallery) print '  / <a href="'. $permalink . $QorA .'zip=' . $gallerylink . '" title="Download a zipped archive of all photos in this gallery">-zip-</a> /';	
+	elseif ($marquee !== "yes") print '  / <a href="'. $permalink . $QorA .'zip=' . $gallerylink . '" title="Download a zipped archive of all photos in this gallery">-zip-</a> /';	
 
 	// Display the movie links
 	if($movie_array) {					
 		print ' <br>Movies:&nbsp;&nbsp;';
 		foreach ($movie_array as $filename => $filesize) {
 			print  '
-				<a href="'. $gallery .'?src='. $pic_root . substr($parentpath, 0, strlen($parentpath) -1).$subdir.'/'.$filename. '" title="This movie file size is '. $filesize .'">'	.$filename.'</a>&nbsp;&nbsp;/&nbsp;&nbsp;';
+				<a href="'. $permalink . $QorA .'src='. $pic_root . substr($parentpath, 0, strlen($parentpath) -1).$subdir.'/'.$filename. '" title="This movie file size is '. $filesize .'">'	.$filename.'</a>&nbsp;&nbsp;/&nbsp;&nbsp;';
 		}
 	}
 	closedir($dp);
-	print '&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;Sub Galleries&nbsp;:&nbsp;&nbsp;';
-	$dp = opendir($pic_root.$gallerylink);	//  Display the Subdirectory links
+
+	$dp = opendir($pic_root.$gallerylink);	//  Read the directory for subdirectories
 	while ($subdir = readdir($dp)) {		//  If it is a subdir and not set as hidden, enter it into the array
 		if (is_dir($pic_root.$gallerylink. "/". $subdir) && $subdir !="thumb_cache" && $subdir != "." && $subdir != ".." && !strstr($subdir, $hidden)) {
 			$subdirs[] = $subdir;
@@ -129,9 +151,10 @@ function ungallery() {
 	}
 
 	if($subdirs) {							//  List each subdir and link
+		print '&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;Sub Galleries&nbsp;:&nbsp;&nbsp;';
 		sort($subdirs);	
 		foreach ($subdirs as $key => $subdir) {
-			print  '<a href="'. $gallery .'?gallerylink='. $parentpath.$subdir. '" >'	.$subdir.'</a> / ';
+			print  '<a href="'. $permalink . $QorA .'gallerylink='. $parentpath.$subdir. '" >'	.$subdir.'</a> / ';
 		}
 	}
 	closedir($dp);
@@ -150,8 +173,14 @@ function ungallery() {
 			}
 			print "</td></tr><tr>";									//	Close cell. Add a bit of space
 			print '<td align="center"><p style="text-align: center;">';
+		$column = 0;
 		foreach ($pic_array as $filename) {						//  Use the pic_array to display the thumbs and assign the links
-			print '<a href="?src='. $pic_root . $gallerylink. "/" .$filename.'"><img src="'. $blogURI . $dir . 'phpthumb/phpThumb.php?ar=x&src='. $pic_root . $gallerylink. "/". $filename.'&w=' .$w. '"></a>'; 
+			print '<a href="' . $permalink . $QorA . 'src='. $pic_root . $gallerylink. "/" .$filename.'"><img src="'. $blogURI . $dir . 'phpthumb/phpThumb.php?ar=x&src='. $pic_root . $gallerylink. "/". $filename.'&w=' .$w. '"></a>'; 
+			$column++;
+			if ( $column == $columns ) {
+				print '<br>';
+				$column = 0;
+			}
 		}
 	} else {	//  Render the browsing version, link to original, last/next picture, and link to parent gallery
 	if (isset($src) && !in_array(substr($src, -3), $movie_types)) { //  If we are in broswing mode and the source is not a movie
@@ -160,11 +189,11 @@ function ungallery() {
 		$after_filename = $pic_array[array_search($filename, $pic_array) + 1 ];
 																	//  Display the current/websize pic
 		print '
-		<td align="center" rowspan="2" style="vertical-align:middle;"><a href="'. $blogURI . $dir .'source.php?pic=' . $src . '"><img src="'. $blogURI . $dir . 'phpthumb/phpThumb.php?ar=x&src='. $src. '&w='. $srcW. '"></a></td>
+		<td align="center" rowspan="2" style="vertical-align:middle;"><a href="'. $blogURI . $dir .'phpthumb/phpThumb.php?src=' . $src . '"><img src="'. $blogURI . $dir . 'phpthumb/phpThumb.php?ar=x&src='. $src. '&w='. $srcW. '"></a></td>
 		<td valign="center">';
 			
 		if ($before_filename) {										// Display the before thumb, if it exists
-			print '<a href="?src='. $pic_root . $gallerylink."/".$before_filename .'" title="Previous Gallery Picture"><img src="'. $blogURI . $dir .'phpthumb/phpThumb.php?ar=x&src='. $pic_root . $gallerylink."/".$before_filename .'&w='. $w .'"></a>';
+			print '<a href="'. $permalink . $QorA . 'src='. $pic_root . $gallerylink."/".$before_filename .'" title="Previous Gallery Picture"><img src="'. $blogURI . $dir .'phpthumb/phpThumb.php?ar=x&src='. $pic_root . $gallerylink."/".$before_filename .'&w='. $w .'"></a>';
 		}
 	print "</td>
 	</tr>
@@ -172,7 +201,7 @@ function ungallery() {
 	<td>
 	";
 		if ($after_filename) {										// Display the after thumb, if it exists
-			print '	<a href="?src='. $pic_root . $gallerylink."/".$after_filename .'" title="Next Gallery Picture"><img src="'. $blogURI . $dir .'phpthumb/phpThumb.php?ar=x&src='. $pic_root . $gallerylink."/".$after_filename .'&w='. $w .'"></a>';
+			print '<a href="'. $permalink . $QorA . 'src='. $pic_root . $gallerylink."/".$after_filename .'" title="Next Gallery Picture"><img src="'. $blogURI . $dir .'phpthumb/phpThumb.php?ar=x&src='. $pic_root . $gallerylink."/".$after_filename .'&w='. $w .'"></a>';
 		}
 	} elseif (($movie_array) && (in_array(substr($src, -3), $movie_types))) print '<td>
 <OBJECT CLASSID="clsid:02BF25D5-8C17-4B23-BC80-D3488ABDDC6B" CODEBASE="http://www.apple.com/qtactivex/qtplugin.cab" width="'. $movie_width .'" height="'. $movie_height .'" ><br />
@@ -188,6 +217,7 @@ function ungallery() {
 	</tr>
 	</table>";
 }
+
 function size_readable ($size, $retstring = null) {
         // adapted from code at http://aidanlister.com/repos/v/function.size_readable.php
         $sizes = array('B', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB');
@@ -228,5 +258,6 @@ function ungallery_set_plugin_meta($links, $file) {
 	return $links;
 }
 add_filter( 'plugin_row_meta', 'ungallery_set_plugin_meta', 10, 2 );
+
 
 ?>
