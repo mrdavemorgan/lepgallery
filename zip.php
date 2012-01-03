@@ -12,6 +12,8 @@ if($gallery == get_option( 'gallery' )) $pic_root = get_option( 'images_path' );
 if($gallery == get_option( 'gallery2' )) $pic_root = get_option( 'images2_path' );
 if($gallery == get_option( 'gallery3' )) $pic_root = get_option( 'images3_path' );
 if($gallery == get_option( 'gallery4' )) $pic_root = get_option( 'images4_path' );
+if($gallery == get_option( 'gallery5' )) $pic_root = get_option( 'images5_path' );
+if($gallery == get_option( 'gallery6' )) $pic_root = get_option( 'images6_path' );
 
 $dir = $pic_root . $_GET['zip'];
 //	For security do not allow relative paths

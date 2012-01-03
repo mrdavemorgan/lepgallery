@@ -3,7 +3,7 @@ Contributors: mmond
 Tags: gallery, ungallery, pictures, movies, mp4, jpg, png, galleries, photos, browse, images
 Requires at least: 
 Tested up to: 3.3
-Stable tag: 1.5.17
+Stable tag: 1.6
 
 Publish thousands of pictures in WordPress, in minutes.  
 
@@ -83,6 +83,8 @@ And they can be modified to suit a custom ordering scheme:
 -rw-rw-r-- 1 pg1720424  56K 2010-08-30 17:58 3.jpg</code></pre>
 
 == Changelog ==
+= 1.6 =
+* Add first rev of files and directory searching using keywords.  Currently this is via appending "&search=your_search" to URI. So for example: http://markpreynolds.com/gallery?gallerylink=&search=squirrel
 = 1.5.17 =
 * svn did not pick up new files. Adding and incrementing version.
 = 1.5.16 =
