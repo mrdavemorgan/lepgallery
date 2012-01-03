@@ -6,11 +6,11 @@ Plugin URI: http://markpreynolds.com/technology/wordpress-ungallery
 Author: Mark Reynolds
 Author URI: http://markpreynolds.com/professional
 Author Email: mark@markpreynolds.com
-Version: 1.5.16
+Version: 1.6
 */
 
 //  Set plugin version, update database so admin menu can display it
-$version_val = "1.5.15";
+$version_val = "1.6";
 update_option( "version", $version_val );
 
 //  Display the plugin administration menu
@@ -32,11 +32,14 @@ if($gallery4 == "") $gallery4 = "UnGalleryWontLoad";
 if($gallery5 == "") $gallery5 = "UnGalleryWontLoad";
 if($gallery6 == "") $gallery6 = "UnGalleryWontLoad";
 
-	// If the zip flag is active, display the archive page
-if (strpos($_SERVER["REQUEST_URI"], "?zip") || strpos($_SERVER["REQUEST_URI"], "&zip")) {			
-	add_filter('the_content', "zip"); 
-	// If any gallery flags are active, run the display gallery code
-}	elseif (strstr($_SERVER["REQUEST_URI"], "/". $gallery) || (strstr($_SERVER["REQUEST_URI"], "/". $gallery2)) || (strstr($_SERVER["REQUEST_URI"], "/". $gallery3)) || (strstr($_SERVER["REQUEST_URI"], "/". $gallery4)) || (strstr($_SERVER["REQUEST_URI"], "/". $gallery5)) || (strstr($_SERVER["REQUEST_URI"], "/". $gallery6))) {			
+// If the search flag is active, display the search page
+if (strpos($_SERVER["REQUEST_URI"], "&search")) add_filter('the_content', "search"); 
+
+// If the zip flag is active, display the archive page
+elseif (strpos($_SERVER["REQUEST_URI"], "?zip")) add_filter('the_content', "zip"); 
+
+// If any gallery flags are active, run the display gallery code
+elseif (strstr($_SERVER["REQUEST_URI"], "/". $gallery) || (strstr($_SERVER["REQUEST_URI"], "/". $gallery2)) || (strstr($_SERVER["REQUEST_URI"], "/". $gallery3)) || (strstr($_SERVER["REQUEST_URI"], "/". $gallery4)) || (strstr($_SERVER["REQUEST_URI"], "/". $gallery5)) || (strstr($_SERVER["REQUEST_URI"], "/". $gallery6))) {			
 	add_filter('the_content', "ungallery");
 }
 
@@ -129,7 +132,7 @@ function ungallery() {
 	} 
 	// If we are viewing a gallery, arrange the thumbs
 	if($pic_array) sort($pic_array);	
-	// Unless we are at the top level or the marquee is set, display the zip link
+	// Unless we are at the top level or the marquee is set, display the zip link 
 	if ($_SERVER["REQUEST_URI"]  !== "/".$gallery) print '  / <a href="'. $permalink . $QorA .'zip=' . $gallerylink . '" title="Download a zipped archive of all photos in this gallery">-zip-</a> /';	
 	elseif ($marquee !== "yes") print '  / <a href="'. $permalink . $QorA .'zip=' . $gallerylink . '" title="Download a zipped archive of all photos in this gallery">-zip-</a> /';	
 
@@ -229,6 +232,10 @@ function size_readable ($size, $retstring = null) {
         }
         if ($sizestring == $sizes[0]) { $retstring = '%01d %s'; } // Bytes aren't normally fractional
         return sprintf($retstring, $size, $sizestring);
+}
+
+function search() {
+	include ("search.php");
 }
 
 function zip() {
