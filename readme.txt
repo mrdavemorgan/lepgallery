@@ -2,8 +2,8 @@
 Contributors: mmond
 Tags: gallery, ungallery, pictures, movies, mp4, jpg, png, galleries, photos, browse, images
 Requires at least: 
-Tested up to: 3.3
-Stable tag: 1.6.1
+Tested up to: 3.3.1
+Stable tag: 1.7.0
 
 Publish thousands of pictures in WordPress, in minutes.  
 
@@ -84,6 +84,8 @@ And they can be modified to suit a custom ordering scheme:
 -rw-rw-r-- 1 pg1720424  56K 2010-08-30 17:58 3.jpg</code></pre>
 
 == Changelog ==
+= 1.7.0 =
+* Needed 3 digit tagging to allow automatic updates.
 = 1.6.1 =
 * Searching form field now included in the gallery inline, excludes hidden galleries, and is relative to whatever level of the gallery tree you are viewing.
 = 1.6 =
