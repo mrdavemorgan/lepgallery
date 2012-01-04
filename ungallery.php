@@ -6,11 +6,11 @@ Plugin URI: http://markpreynolds.com/technology/wordpress-ungallery
 Author: Mark Reynolds
 Author URI: http://markpreynolds.com/professional
 Author Email: mark@markpreynolds.com
-Version: 1.6
+Version: 1.6.1
 */
 
 //  Set plugin version, update database so admin menu can display it
-$version_val = "1.6";
+$version_val = "1.6.1";
 update_option( "version", $version_val );
 
 //  Display the plugin administration menu
@@ -33,7 +33,7 @@ if($gallery5 == "") $gallery5 = "UnGalleryWontLoad";
 if($gallery6 == "") $gallery6 = "UnGalleryWontLoad";
 
 // If the search flag is active, display the search page
-if (strpos($_SERVER["REQUEST_URI"], "&search")) add_filter('the_content', "search"); 
+if (strpos($_SERVER["REQUEST_URI"], "&search=")) add_filter('the_content', "search"); 
 
 // If the zip flag is active, display the archive page
 elseif (strpos($_SERVER["REQUEST_URI"], "?zip")) add_filter('the_content', "zip"); 
@@ -132,9 +132,18 @@ function ungallery() {
 	} 
 	// If we are viewing a gallery, arrange the thumbs
 	if($pic_array) sort($pic_array);	
-	// Unless we are at the top level or the marquee is set, display the zip link 
-	if ($_SERVER["REQUEST_URI"]  !== "/".$gallery) print '  / <a href="'. $permalink . $QorA .'zip=' . $gallerylink . '" title="Download a zipped archive of all photos in this gallery">-zip-</a> /';	
-	elseif ($marquee !== "yes") print '  / <a href="'. $permalink . $QorA .'zip=' . $gallerylink . '" title="Download a zipped archive of all photos in this gallery">-zip-</a> /';	
+	// Unless we are at the top level or the marquee is set, display the zip link and search form
+	if ($_SERVER["REQUEST_URI"]  !== "/".$gallery) print '  / <a href="'. $permalink . $QorA .'zip=' . $gallerylink . '" title="Download a zipped archive of all photos in this gallery">-zip-</a> / <form name="myform" action="http://markpreynolds.com/gallery" style="display: inline" > 
+	<input type="hidden" name="gallerylink" value="' . $gallerylink . '">
+	<a href="javascript: submitform()">-search-</a> <input type="text" name="search" size="8"/>
+	</form>
+	<script type="text/javascript">
+	function submitform()
+	{
+	  document.myform.submit();
+	}
+	</script>';	
+	elseif ($marquee !== "yes") print '  / <a href="'. $permalink . $QorA .'zip=' . $gallerylink . '" title="Download a zipped archive of all photos in this gallery">-zip-</a> / ';	
 
 	// Display the movie links
 	if($movie_array) {					
