@@ -1,9 +1,9 @@
 === UnGallery ===
 Contributors: mmond
-Tags: gallery, ungallery, pictures, movies, mp4, jpg, png, galleries, photos, browse, images
+Tags: gallery, ungallery, pictures, movies, mp4, jpg, png, gallery, photos, browse, images
 Requires at least: 
-Tested up to: 3.3
-Stable tag: 1.5.16
+Tested up to: 3.3.1
+Stable tag: 1.7.2
 
 Publish thousands of pictures in WordPress, in minutes.  
 
@@ -22,17 +22,18 @@ Mark Reynolds http://markpreynolds.com
 == Installation ==
 
 1. Download to ./wp-content/plugins/ and activate via the Plugins menu.
-2. Create a blank WordPress Page, for example one called "Gallery".
-3. On the UnGallery admin page, enter the page name and path to the images. 
+2. Create a blank WordPress Page, for example one called "Gallery".  Note the permalink that is assigned.
+3. On the UnGallery admin page, enter the permalink from above and the path to your images. 
 
 == Features ==
 
-* Unlimited depth, breadth, and number of photos in library. My gallery has about 8,000 pictures and movies.
+* Unlimited depth, breadth, and number of photos in library. My gallery has ~24,000 pictures and movies.
 * Photos are managed outside of WordPress.  Simply update a picture directory and UnGallery sees changes immediately.
+* Galleries are searchable.  This became very helpful as gallery volume grew to thousands.
 * Default and configurable gallery titles
 * Galleries can be set to hidden.  These do not display in browsing, with access provided via direct link.
 * Caching for faster page loads
-* MP4 movies embedded and played within the WordPress site.
+* MP4 movies browsable within WordPress. Movies are linked and playable within browser.
 * Image rotation support for orientation of jpegs with exif data
 * Gallery hierarchy breadcrumb links
 * Multiple gallery views:  Top level marquee (optional), thumbnails, browsing previous and next pictures.
@@ -83,6 +84,18 @@ And they can be modified to suit a custom ordering scheme:
 -rw-rw-r-- 1 pg1720424  56K 2010-08-30 17:58 3.jpg</code></pre>
 
 == Changelog ==
+= 1.7.2 =
+* Moved movie playback to render in its own window.  Removing the WordPress frame seems to clear a lot of browser compatibility problems.
+= 1.7.1 =
+* Living in svn tagging hell.
+= 1.7.0 =
+* Needed 3 digit tagging to allow automatic updates.
+= 1.6.1 =
+* Searching form field now included in the gallery inline, excludes hidden galleries, and is relative to whatever level of the gallery tree you are viewing.
+= 1.6 =
+* Add first rev of files and directory searching using keywords.  Currently this is via appending "&search=your_search" toURI. So for example: http://markpreynolds.com/gallery?gallerylink=&search=squirrel
+= 1.5.17 =
+* svn did not pick up new files. Adding and incrementing version.
 = 1.5.16 =
 * Removed phpThumb's auto rotation call as it causes OOM error on weenie providers like Dreamhost.
 = 1.5.15 =
