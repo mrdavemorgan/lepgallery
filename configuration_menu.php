@@ -222,8 +222,7 @@ function mt_settings_page() {
 Full path including trailing slash/.  * See path tips below for help.
 </p>
 
-<p>Permalink: <input type="text" readonly name="URI" value="
-	<? print get_bloginfo('url'); ?>/" size="30"><?php _e("", 'gallery' ); ?> 
+<p>Permalink: <input type="text" readonly name="URI" value="<? print get_bloginfo('url'); ?>/" size="30"><?php _e("", 'gallery' ); ?> 
 <input type="text" name="<?php echo $gallery_data_field_name; ?>" value="<?php echo $gallery_val; ?>" size="20"><br />
 Match the permalink format of the page you created in step 2. Examples are "?page_id=4" and "gallery"
 </p>
@@ -237,6 +236,12 @@ if (!is_dir($_SERVER['DOCUMENT_ROOT']."/wp-content/cache/")) {
 		if (!is_dir($_SERVER['DOCUMENT_ROOT']."/wp-content/cache/")) print "Could not create cache directory";
 		else {
 			@chmod($_SERVER['DOCUMENT_ROOT']."/wp-content/cache/", 0700); 
+			$file = $_SERVER['DOCUMENT_ROOT']."/wp-content/cache/.htacess";
+			file_put_contents($file, 'AuthType Basic
+AuthName "Password Required"
+AuthUserFile /does_not_exist
+Require valid-user');
+			@chmod($file, 0700);
 			print $_SERVER['DOCUMENT_ROOT']."/wp-content/cache/";
 		}
 } else 	print $_SERVER['DOCUMENT_ROOT']."/wp-content/cache/";
