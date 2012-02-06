@@ -101,6 +101,7 @@ function mt_settings_page() {
     $browse_view_name = 'browse_view';
     $browse_view_data_field_name = 'browse_view';
 
+	// The next 2 sections are depricated
     // variables for the movie player height field  
     $movie_height_name = 'movie_height';
     $movie_height_data_field_name = 'movie_height';
@@ -221,8 +222,7 @@ function mt_settings_page() {
 Full path including trailing slash/.  * See path tips below for help.
 </p>
 
-<p>Permalink: <input type="text" readonly name="URI" value="
-	<? print get_bloginfo('url'); ?>/" size="30"><?php _e("", 'gallery' ); ?> 
+<p>Permalink: <input type="text" readonly name="URI" value="<? print get_bloginfo('url'); ?>/" size="30"><?php _e("", 'gallery' ); ?> 
 <input type="text" name="<?php echo $gallery_data_field_name; ?>" value="<?php echo $gallery_val; ?>" size="20"><br />
 Match the permalink format of the page you created in step 2. Examples are "?page_id=4" and "gallery"
 </p>
@@ -236,6 +236,12 @@ if (!is_dir($_SERVER['DOCUMENT_ROOT']."/wp-content/cache/")) {
 		if (!is_dir($_SERVER['DOCUMENT_ROOT']."/wp-content/cache/")) print "Could not create cache directory";
 		else {
 			@chmod($_SERVER['DOCUMENT_ROOT']."/wp-content/cache/", 0700); 
+			$file = $_SERVER['DOCUMENT_ROOT']."/wp-content/cache/.htacess";
+			file_put_contents($file, 'AuthType Basic
+AuthName "Password Required"
+AuthUserFile /does_not_exist
+Require valid-user');
+			@chmod($file, 0700);
 			print $_SERVER['DOCUMENT_ROOT']."/wp-content/cache/";
 		}
 } else 	print $_SERVER['DOCUMENT_ROOT']."/wp-content/cache/";
@@ -284,7 +290,8 @@ Default: 147
 <input type="text" name="<?php echo $browse_view_data_field_name; ?>" value="<?php echo $browse_view_val; ?>" size="20">
 Default: 440
 </p>
-
+The following 2 fields are deprecated: <br />
+<font color="grey">
 <p><?php _e("Movie player height in pixels:", 'movie_height' ); ?> 
 <input type="text" name="<?php echo $movie_height_data_field_name; ?>" value="<?php echo $movie_height_val; ?>" size="20">
 Example: 490
@@ -293,7 +300,7 @@ Example: 490
 <input type="text" name="<?php echo $movie_width_data_field_name; ?>" value="<?php echo $movie_width_val; ?>" size="20">
 Example: 640
 </p>
-
+</font>
 <p><?php _e("Use a marquee picture at the top level?:", 'marquee' ); ?> 
 <input type="text" name="<?php echo $marquee_data_field_name; ?>" value="<?php echo $marquee_val; ?>" size="20">
 Default: no  ("yes" for a single larger photo at the top level)<p></p>
