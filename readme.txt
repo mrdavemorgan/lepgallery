@@ -3,7 +3,7 @@ Contributors: mmond
 Tags: gallery, ungallery, pictures, movies, mp4, jpg, png, gallery, photos, browse, images
 Requires at least: 
 Tested up to: 3.3.1
-Stable tag: 1.7.3
+Stable tag: 1.7.4
 
 Publish thousands of pictures in WordPress, in minutes.  
 
@@ -84,7 +84,10 @@ And they can be modified to suit a custom ordering scheme:
 -rw-rw-r-- 1 pg1720424  56K 2010-08-30 17:58 3.jpg</code></pre>
 
 == Changelog ==
-= 1.7.2 =
+= 1.7.4 =
+* Changed default thumbnail columns and size to match default WP theme
+* Extended configuration page fields to display longer paths clearly
+= 1.7.3 =
 * Removed spaces from URL displayed on configuration page
 * An .htaccess file is now created in the cache directory to prevent direct browser access.
 * Removed legacy thumb_cache masking code
