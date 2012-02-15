@@ -101,6 +101,7 @@ function mt_settings_page() {
     $browse_view_name = 'browse_view';
     $browse_view_data_field_name = 'browse_view';
 
+	// The next 2 sections are depricated
     // variables for the movie player height field  
     $movie_height_name = 'movie_height';
     $movie_height_data_field_name = 'movie_height';
@@ -135,8 +136,8 @@ function mt_settings_page() {
     // Apply defaults to form if db field is blank 
     if ($gallery_val == "") $gallery_val = "gallery";
     if ($hidden_val == "") $hidden_val = "hidden";
-    if ($columns_val == "") $columns_val = "4";
-    if ($thumbnail_val == "") $thumbnail_val = "145";
+    if ($columns_val == "") $columns_val = "3";
+    if ($thumbnail_val == "") $thumbnail_val = "190";
     if ($browse_view_val == "") $browse_view_val = "440";
     if ($marquee_val == "") $marquee_val = "no";
     if ($movie_height_val == "") $movie_height_val = "495";
@@ -217,17 +218,16 @@ function mt_settings_page() {
 <input type="hidden" name="<?php echo $hidden_field_name; ?>" value="Y">
 
 <p><?php _e("Path to image directory:", 'images_path' ); ?>
-<input type="text" name="<?php echo $path_data_field_name; ?>" value="<?php echo $path_val; ?>" size="30"> 	<br />
+<input type="text" name="<?php echo $path_data_field_name; ?>" value="<?php echo $path_val; ?>" size="70"> 	<br />
 Full path including trailing slash/.  * See path tips below for help.
 </p>
 
-<p>Permalink: <input type="text" readonly name="URI" value="
-	<? print get_bloginfo('url'); ?>/" size="30"><?php _e("", 'gallery' ); ?> 
+<p>Permalink: <input type="text" readonly name="URI" value="<? print get_bloginfo('url'); ?>/" size="40"><?php _e("", 'gallery' ); ?> 
 <input type="text" name="<?php echo $gallery_data_field_name; ?>" value="<?php echo $gallery_val; ?>" size="20"><br />
 Match the permalink format of the page you created in step 2. Examples are "?page_id=4" and "gallery"
 </p>
 
-Gallery version: <input type="text" readonly name="<?php echo $version_data_field_name; ?>" value="<?php echo $version_val; ?>" size="20"><br />
+Gallery version: <input type="text" readonly name="<?php echo $version_data_field_name; ?>" value="<?php echo $version_val; ?>" size="10"><br />
 
 <p>Gallery cache directory: <input type="text" readonly name="cache_dir" value="
 <?php // Create cache directory at ./<WordPress install dir>/wp-content/cache/
@@ -236,10 +236,16 @@ if (!is_dir($_SERVER['DOCUMENT_ROOT']."/wp-content/cache/")) {
 		if (!is_dir($_SERVER['DOCUMENT_ROOT']."/wp-content/cache/")) print "Could not create cache directory";
 		else {
 			@chmod($_SERVER['DOCUMENT_ROOT']."/wp-content/cache/", 0700); 
+			$file = $_SERVER['DOCUMENT_ROOT']."/wp-content/cache/.htacess";
+			file_put_contents($file, 'AuthType Basic
+AuthName "Password Required"
+AuthUserFile /does_not_exist
+Require valid-user');
+			@chmod($file, 0700);
 			print $_SERVER['DOCUMENT_ROOT']."/wp-content/cache/";
 		}
 } else 	print $_SERVER['DOCUMENT_ROOT']."/wp-content/cache/";
-?>" size="30"> <br />
+?>" size="70"> <br />
 This is the directory UnGallery creates and write cache files to.
 
 <hr />
@@ -272,19 +278,20 @@ UnGallery faces a unique plugin challenge in leaving the WordPress environment t
 <h3>Layout Settings</h3>
 <p><?php _e("Number of thumbnail columns:", 'columns' ); ?> 
 <input type="text" name="<?php echo $columns_data_field_name; ?>" value="<?php echo $columns_val; ?>" size="20">
-Default: 4
+Default: 3
 </p>
 
 <p><?php _e("Thumbnail width in pixels:", 'thumbnail' ); ?> 
 <input type="text" name="<?php echo $thumbnail_data_field_name; ?>" value="<?php echo $thumbnail_val; ?>" size="20">
-Default: 147
+Default: 190
 </p>
 
 <p><?php _e("Selected picture width in pixels:", 'browse_view' ); ?> 
 <input type="text" name="<?php echo $browse_view_data_field_name; ?>" value="<?php echo $browse_view_val; ?>" size="20">
 Default: 440
 </p>
-
+The following 2 fields are deprecated: <br />
+<font color="grey">
 <p><?php _e("Movie player height in pixels:", 'movie_height' ); ?> 
 <input type="text" name="<?php echo $movie_height_data_field_name; ?>" value="<?php echo $movie_height_val; ?>" size="20">
 Example: 490
@@ -293,7 +300,7 @@ Example: 490
 <input type="text" name="<?php echo $movie_width_data_field_name; ?>" value="<?php echo $movie_width_val; ?>" size="20">
 Example: 640
 </p>
-
+</font>
 <p><?php _e("Use a marquee picture at the top level?:", 'marquee' ); ?> 
 <input type="text" name="<?php echo $marquee_data_field_name; ?>" value="<?php echo $marquee_val; ?>" size="20">
 Default: no  ("yes" for a single larger photo at the top level)<p></p>
