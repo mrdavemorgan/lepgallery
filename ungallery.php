@@ -6,11 +6,11 @@ Plugin URI: http://markpreynolds.com/technology/wordpress-ungallery
 Author: Mark Reynolds
 Author URI: http://markpreynolds.com/professional
 Author Email: mark@markpreynolds.com
-Version: 1.7.4
+Version: 1.7.5
 */
 
 //  Set plugin version, update database so admin menu can display it
-$version_val = "1.7.4";
+$version_val = "1.7.5";
 update_option( "version", $version_val );
 
 //  Display the plugin administration menu
@@ -133,7 +133,7 @@ function ungallery() {
 	// If we are viewing a gallery, arrange the thumbs
 	if($pic_array) sort($pic_array);	
 	// Unless we are at the top level or the marquee is set, display the zip link and search form
-	if ($_SERVER["REQUEST_URI"]  !== "/".$gallery) print '  / <a href="'. $permalink . $QorA .'zip=' . $gallerylink . '" title="Download a zipped archive of all photos in this gallery">-zip-</a> / <form name="myform" action="http://markpreynolds.com/gallery" style="display: inline" > 
+	if ($_SERVER["REQUEST_URI"]  !== "/".$gallery) print '  / <a href="'. $permalink . $QorA .'zip=' . $gallerylink . '" title="Download a zipped archive of all photos in this gallery">-zip-</a> / <form name="myform" action="'. $_SERVER["REQUEST_URI"] . 'gallery" style="display: inline" > 
 	<input type="hidden" name="gallerylink" value="' . $gallerylink . '">
 	<a href="javascript: submitform()">-search-</a> <input type="text" name="search" size="8"/>
 	</form>

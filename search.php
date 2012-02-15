@@ -25,12 +25,9 @@ print "Searching in <i>$dir.</i>
 <br />";
 
 print "These galleries matched <i>$search:</i><br />";
-$galleries = `find $dir -iname *$search* -type d`;
-//print "<pre>" . $galleries . "</pre>";
+$galleries = `find $dir -iname \*$search\* -type d`;
 
 $galleries = explode("\n", $galleries);
-//print_r ($galleries);
-//print "<br /><br />";
 
 foreach ($galleries as $gallery_path) {
 	$gallery = str_replace($pic_root, "", $gallery_path) ;
@@ -39,12 +36,9 @@ foreach ($galleries as $gallery_path) {
 }
 
 print "These files matched <i>$search:</i><br />";
-$files = `find $dir -iname *$search* -type f`;
-//print "<pre>" . $galleries . "</pre>";
+$files = `find $dir -iname \*$search\* -type f`;
 
 $files = explode("\n", $files);
-//print_r ($galleries);
-//print "<br /><br />";
 
 foreach ($files as $file_path) {
 	$file = str_replace($pic_root, "", $file_path) ;

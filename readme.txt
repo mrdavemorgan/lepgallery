@@ -3,7 +3,7 @@ Contributors: mmond
 Tags: gallery, ungallery, pictures, movies, mp4, jpg, png, gallery, photos, browse, images
 Requires at least: 
 Tested up to: 3.3.1
-Stable tag: 1.7.4
+Stable tag: 1.7.5
 
 Publish thousands of pictures in WordPress, in minutes.  
 
@@ -40,7 +40,7 @@ Mark Reynolds http://markpreynolds.com
 
 == Screenshots ==
 
-1. The UnGallery top level view.  The highest level of the gallery can display a single larger, picture or a views of thumbnails as the subdirectories/subgalleries do.  This is configurable via the UnGallery administration page.
+1. The UnGallery top level view.  The highest level of the gallery can display a single larger, picture or a series of thumbnails, same as the subdirectories/subgalleries.  This is configurable via the UnGallery administration page.
 2. Selecting one of the subgallery links displays the thumbnail gallery view of all JPGs, PNGs and GIFs in the directory.  A breadcrumb trail back to the top level of the galleries is displayed along with the new subgalleries.  The -zip- link builds an archive of all images in the current directory for convenient download.
 3. Clicking on a thumbnail displays the larger browsing view along with previous and next thumbnails.  There are movie files in this directory, so links to these are displayed also.  All UnGallery image sizes are adjustable to fill different page widths	.
 
@@ -85,7 +85,10 @@ And they can be modified to suit a custom ordering scheme:
 
 == Changelog ==
 = 1.7.4 =
-* Changed default thumbnail columns and size to match default WP theme
+* Fixed the search always redirecting to my own site.  Oops!  Sorry folks.  Not the best way to drive traffic to me. =)
+* Searches are no longer case sensitive.
+= 1.7.4 =
+*Changed default thumbnail columns and size to match default WP theme
 * Extended configuration page fields to display longer paths clearly
 = 1.7.3 =
 * Removed spaces from URL displayed on configuration page
