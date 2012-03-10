@@ -25,10 +25,6 @@ function mt_settings_page() {
     $version_name = 'version';
     $version_data_field_name = 'version';
 
-    // variables for the version field  
-    $version_name = 'version';
-    $version_data_field_name = 'version';
-
     // variables for the columns field  
     $columns_name = 'columns';
     $columns_data_field_name = 'columns';
@@ -101,15 +97,6 @@ function mt_settings_page() {
     $browse_view_name = 'browse_view';
     $browse_view_data_field_name = 'browse_view';
 
-	// The next 2 sections are depricated
-    // variables for the movie player height field  
-    $movie_height_name = 'movie_height';
-    $movie_height_data_field_name = 'movie_height';
-
-    // variables for the movie player width field  
-    $movie_width_name = 'movie_width';
-    $movie_width_data_field_name = 'movie_width';
-
     // Read in existing option value from database
     $version_val = get_option( $version_name );
     $gallery_val = get_option( $gallery_name );
@@ -145,10 +132,10 @@ function mt_settings_page() {
     if ($marquee_size_val == "") $marquee_size_val = "700";
 
 
-    // See if the user has posted us some information
+    // See if the user has submitted information
     // If they did, this hidden field will be set to 'Y'
     if( isset($_POST[ $hidden_field_name ]) && $_POST[ $hidden_field_name ] == 'Y' ) {
-        // Read their posted value
+        // Read the form values
         $gallery_val = $_POST[ $gallery_data_field_name ];
         $gallery2_val = $_POST[ $gallery2_data_field_name ];
         $gallery3_val = $_POST[ $gallery3_data_field_name ];
@@ -170,7 +157,7 @@ function mt_settings_page() {
         $movie_height_val = $_POST[ $movie_height_data_field_name ];
         $movie_width_val = $_POST[ $movie_width_data_field_name ];
 
-        // Save the posted value in the database
+        // Save the new values in the database
         update_option( $version_name, $version_val );
         update_option( $gallery_name, $gallery_val );
         update_option( $gallery2_name, $gallery2_val );
@@ -192,6 +179,8 @@ function mt_settings_page() {
         update_option( $browse_view_name, $browse_view_val );
         update_option( $movie_height_name, $movie_height_val );
         update_option( $movie_width_name, $movie_width_val );
+
+        update_option( 'activate_fancybox', $_POST[ 'activate_fancybox' ] );
 
         // Put settings updated message on the screen
 
@@ -222,12 +211,13 @@ function mt_settings_page() {
 Full path including trailing slash/.  * See path tips below for help.
 </p>
 
-<p>Permalink: <input type="text" readonly name="URI" value="<? print get_bloginfo('url'); ?>/" size="40"><?php _e("", 'gallery' ); ?> 
-<input type="text" name="<?php echo $gallery_data_field_name; ?>" value="<?php echo $gallery_val; ?>" size="20"><br />
-Match the permalink format of the page you created in step 2. Examples are "?page_id=4" and "gallery"
+<p>Website: <input type="text" readonly name="URI" value="<? print get_bloginfo('url'); ?>/" size="40"><?php _e("", 'gallery' ); ?> 
+Permalink: <input type="text" name="<?php echo $gallery_data_field_name; ?>" value="<?php echo $gallery_val; ?>" size="20"><br />
+Match the permalink format of the page you created in step 2. Examples are "page_id=4" and "gallery".<br />
+Note:  I recommend changing the permalink from the default to: "/%category%/%postname%" on the Settings / Permalink page for friendlier looking WordPress and UnGallery URLs.
 </p>
 
-Gallery version: <input type="text" readonly name="<?php echo $version_data_field_name; ?>" value="<?php echo $version_val; ?>" size="10"><br />
+UnGallery version: <input type="text" readonly name="<?php echo $version_name; ?>" value="<?php echo $version_val; ?>" size="10"><br />
 
 <p>Gallery cache directory: <input type="text" readonly name="cache_dir" value="
 <?php // Create cache directory at ./<WordPress install dir>/wp-content/cache/
@@ -236,7 +226,7 @@ if (!is_dir($_SERVER['DOCUMENT_ROOT']."/wp-content/cache/")) {
 		if (!is_dir($_SERVER['DOCUMENT_ROOT']."/wp-content/cache/")) print "Could not create cache directory";
 		else {
 			@chmod($_SERVER['DOCUMENT_ROOT']."/wp-content/cache/", 0700); 
-			$file = $_SERVER['DOCUMENT_ROOT']."/wp-content/cache/.htacess";
+			$file = $_SERVER['DOCUMENT_ROOT']."/wp-content/cache/.htaccess";
 			file_put_contents($file, 'AuthType Basic
 AuthName "Password Required"
 AuthUserFile /does_not_exist
@@ -250,7 +240,43 @@ This is the directory UnGallery creates and write cache files to.
 
 <hr />
 
+<h3>FancyBox</h3>
+
+<p>
+This section configures the very stylish fancyBox features created by Jānis Skarnelis.  UnGallery goes from being a handy way of efficiently publishing many images, to also delivering the look and feel of the most polished gallery plugins.  FancyBox Version 2x is licensed via Creative Commons, not GPL and therefor not included with UnGallery (to comply with WordPress.org policy).  FancyBox is free for personal and non-profit use and a small fee is charged for commercial use.  Please check <a href="http://sites.fastspring.com/fancyapps/product/store">here</a> for details.  The Creative Commons license details are <a href="http://creativecommons.org/licenses/by-nc/3.0/">here</a>. 
+</p>
+Setup is simple but I'll work to automate it in the future. <br />
+<p><strong>Step 1:</strong><br />
+Copy and paste the fancyBox calls into the WordPress header.  You can do this from the <a href="<?php print get_bloginfo('url')  ?>/wp-admin/theme-editor.php"> WordPress admin menu / Appearance / Editor </a> Navigate there or click the link and then the header.php link.  Insert the lines below between the &lt;head&gt; and &lt;/head&gt; tags.</p>
+
+<pre>
+&lt;!-- Add jQuery library and fancyBox--&gt;
+&lt;script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"&gt;&lt;/script&gt;
+&lt;link rel="stylesheet" href="./wp-content/plugins/fancybox/source/jquery.fancybox.css?v=2.0.5" type="text/css" media="screen" /&gt;
+&lt;script type="text/javascript" src="./wp-content/plugins/fancybox/source/jquery.fancybox.pack.js?v=2.0.5"&gt;&lt;/script&gt;
+&lt;link rel="stylesheet" href="./wp-content/plugins/fancybox/source/helpers/jquery.fancybox-buttons.css?v=2.0.5" type="text/css" media="screen" /&gt;
+&lt;script type="text/javascript" src="./wp-content/plugins/fancybox/source/helpers/jquery.fancybox-buttons.js?v=2.0.5"&gt;&lt;/script&gt;
+&lt;link rel="stylesheet" href="./wp-content/plugins/fancybox/source/helpers/jquery.fancybox-thumbs.css?v=2.0.5" type="text/css" media="screen" /&gt;
+&lt;script type="text/javascript" src="./wp-content/plugins/fancybox/source/helpers/jquery.fancybox-thumbs.js?v=2.0.5"&gt;&lt;/script&gt;
+</pre>
+
+<p><strong>Step 2:</strong> <br />
+Download fancyBox and unzip the directory to the same level (./wp-content/plugins/) as your other plugins:  ./wp-content/plugins/fancybox/.  It's available here: <a href="https://github.com/fancyapps/fancyBox/zipball/v2.0.5">fancyBox v. 2.0.5</a>. You can type or paste the following lines:<br />
+<pre>
+	cd ./wp-content/plugins/
+	wget https://github.com/fancyapps/fancyBox/zipball/v2.0.5
+	unzip v2.0.5
+	mv fancyapps-fancyBox-5403ca0 fancybox
+</pre>
+The new fancyBox directory should be here: <input type="text" readonly value="<?php print $_SERVER['DOCUMENT_ROOT']."/wp-content/fancybox/"; ?>" size="70"> <br />
+<p><strong>Step 3:</strong> Activate fancyBox<br />
+<input name="activate_fancybox" id="activate_fancybox" value="true" type="checkbox" <?php if ( get_option('activate_fancybox') == 'true' ) echo ' checked="checked" '; ?> /> <?php _e('Toggle this checkbox to activate or deactivate fancyBox.'); ?>
+</p>
+
+<hr />
+
 <h3>Tips and Troubleshooting</h3>
+
 UnGallery faces a unique plugin challenge in leaving the WordPress environment to connect to your image library.  If your gallery does not display immediately, please check below for common solutions.  More info is available via the <a href="http://wordpress.org/extend/plugins/ungallery/faq/">FAQ</a>, <a href="http://wordpress.org/extend/plugins/ungallery/">plugin home page,</a> and <a href="http://wordpress.org/tags/ungallery">support forum</a>.  If you have any questions about configuring, using, or improving UnGallery please visit.
 <p>
 	<strong>Path</strong><br /> 
@@ -290,17 +316,7 @@ Default: 190
 <input type="text" name="<?php echo $browse_view_data_field_name; ?>" value="<?php echo $browse_view_val; ?>" size="20">
 Default: 440
 </p>
-The following 2 fields are deprecated: <br />
-<font color="grey">
-<p><?php _e("Movie player height in pixels:", 'movie_height' ); ?> 
-<input type="text" name="<?php echo $movie_height_data_field_name; ?>" value="<?php echo $movie_height_val; ?>" size="20">
-Example: 490
-<p></p>
-<?php _e("Movie player width in pixels:", 'movie_width' ); ?> 
-<input type="text" name="<?php echo $movie_width_data_field_name; ?>" value="<?php echo $movie_width_val; ?>" size="20">
-Example: 640
-</p>
-</font>
+
 <p><?php _e("Use a marquee picture at the top level?:", 'marquee' ); ?> 
 <input type="text" name="<?php echo $marquee_data_field_name; ?>" value="<?php echo $marquee_val; ?>" size="20">
 Default: no  ("yes" for a single larger photo at the top level)<p></p>

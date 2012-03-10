@@ -3,7 +3,7 @@ Contributors: mmond
 Tags: gallery, ungallery, pictures, movies, mp4, jpg, png, gallery, photos, browse, images
 Requires at least: 
 Tested up to: 3.3.1
-Stable tag: 1.7.5
+Stable tag: 2.0
 
 Publish thousands of pictures in WordPress, in minutes.  
 
@@ -21,9 +21,22 @@ Mark Reynolds http://markpreynolds.com
 
 == Installation ==
 
+= Ungallery =
 1. Download to ./wp-content/plugins/ and activate via the Plugins menu.
-2. Create a blank WordPress Page, for example one called "Gallery".  Note the permalink that is assigned.
+2. Create a blank WordPress Page, for example one called "Gallery".  (Optionally update permalinks format)
 3. On the UnGallery admin page, enter the permalink from above and the path to your images. 
+
+The UnGallery steps above are simple and the install is generally quick.  However because the plugin works outside the WordPress environment and communicates with the web server file system, there are sometimes challenges troubleshooting the install.  It helps to have a bit of familiarity with Linux commands and paths.  If you encounter any problems, feel free to leverage the support resources.  Several tips and tools are built into UnGallery to help direct the installation and are available on the admin page.
+
+= FancyBox =
+
+FancyBox is a very polished image lightbox application.  UnGallery has been updated to integrate with fancyBox, which changes the plugin from being an efficient way to manage a high volume of photos to also having the look and feel of even the most professional WordPress galleries.  I highly recommend activating this feature.
+
+FancyBox is not GPL and therefor none of its code can be installed from WordPress.org.  There are just a few additional steps to include fancyBox.  They only need to be performed once.  Automatic updates to UnGallery will not require the steps below to be rerun.
+
+1. Paste the calls fancyBox from the admin page.
+2. Download and unzip fancyBox from the UnGallery admin page.
+3. Check the box to activate fancyBox.
 
 == Features ==
 
@@ -84,6 +97,8 @@ And they can be modified to suit a custom ordering scheme:
 -rw-rw-r-- 1 pg1720424  56K 2010-08-30 17:58 3.jpg</code></pre>
 
 == Changelog ==
+= 2.0 =
+* UnGallery now supports (but does not require) integration with fancyBox lightbox application.
 = 1.7.4 =
 * Fixed the search always redirecting to my own site.  Oops!  Sorry folks.  Not the best way to drive traffic to me. =)
 * Searches are no longer case sensitive.
