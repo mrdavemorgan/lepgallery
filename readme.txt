@@ -3,7 +3,7 @@ Contributors: mmond
 Tags: gallery, ungallery, pictures, movies, mp4, jpg, png, gallery, photos, browse, images
 Requires at least: 
 Tested up to: 3.3.1
-Stable tag: 2.0.1
+Stable tag: 2.0.2
 
 Publish thousands of pictures in WordPress, in minutes.  
 
@@ -26,16 +26,16 @@ Mark Reynolds http://markpreynolds.com
 2. Create a blank WordPress Page, for example one called "Gallery".  (Optionally update permalinks format)
 3. On the UnGallery admin page, enter the permalink from above and the path to your images. 
 
-The UnGallery steps above are simple and the install is generally quick.  However because the plugin works outside the WordPress environment and communicates with the web server file system, there are sometimes challenges troubleshooting the install.  It helps to have a bit of familiarity with Linux commands and paths.  If you encounter any problems, feel free to leverage the support resources.  Several tips and tools are built into UnGallery to help direct the installation and are available on the admin page.
+The UnGallery steps above are simple and the install is generally quick.  However because the plugin works outside the WordPress environment and communicates with the web server file system, there are sometimes challenges troubleshooting the install.  It helps to have a bit of familiarity with Linux commands and paths.  If you encounter any problems, feel free to leverage the support resources.  Several tips and tools to help you install are built into UnGallery's plugin settings page.
 
 = FancyBox =
 
-FancyBox is a very polished image lightbox application.  UnGallery has been updated to integrate with fancyBox, which changes the plugin from being an efficient way to manage a high volume of photos to also having the look and feel of even the most professional WordPress galleries.  I highly recommend activating this feature.
+FancyBox is a very polished image lightbox application.  UnGallery has been updated to integrate with fancyBox, which changes the plugin from being an efficient way to manage a high volume of photos to also having the look and feel of the most professional WordPress galleries.  I highly recommend activating this feature.
 
-There are just a few additional steps to include fancyBox.  They only need to be performed once.  Automatic updates to UnGallery will not require the steps below to be rerun.
+There are just a few additional steps to use fancyBox.  They only need to be performed once.  Automatic updates to UnGallery will not require the steps below to be rerun.  Details are the UnGallery settings page.
 
-1. Paste the calls fancyBox from the admin page.
-2. Download and unzip fancyBox from the UnGallery admin page.
+1. Paste the fancyBox calls from the settings page.
+2. Download and unzip fancyBox from the link provided.
 3. Check the box to activate fancyBox.
 
 == Features ==
@@ -53,10 +53,10 @@ There are just a few additional steps to include fancyBox.  They only need to be
 
 == Screenshots ==
 
-1. The gallery browsing view with fancyBox ligthbox application featuring thumbnails, navigation buttons, zoom, and slideshow.
+1. The gallery browsing view with fancyBox ligthtbox application featuring thumbnails, navigation buttons, zoom, and slideshow.
 2. Thumbnails are displayed during lightbox browsing.
 3. Navigation is available via buttons or arrow keys.
-4. The UnGallery default view with subdirectories/subgalleries available, with breadcrumbs, zip, and search.  
+4. The UnGallery default view with subdirectories/subgalleries, breadcrumbs, zip, and search available.
 
 == Frequently Asked Questions ==
 
@@ -65,7 +65,7 @@ There are just a few additional steps to include fancyBox.  They only need to be
 1. Create a blank WordPress page.
 1. On the UnGallery settings menu enter page name and path to images.
 
-That's it.  You can install UnGallery and publish a thousand photos to your WordPress site in under a minute. While the default configuration is simple, there are many customizable options available in the advanced options of UnGallery, including layout, gallery names, hidden galleries, etc.  UnGallery faces a few unique challenges in leaving the WordPress environment and connecting to external image directories.  To help, tips and the WordPress plugin forum are available to answer questions or issues that arise.  
+That's it.  You can install UnGallery and publish a thousand photos to your WordPress site in just a few minutes. While the default configuration is simple, there are many customizable options available in the advanced options of UnGallery, including layout, gallery names, hidden galleries, etc.  UnGallery faces a few unique challenges in leaving the WordPress environment and connecting to external image directories.  To help, tips and the WordPress plugin forum are available to answer questions or issues that arise.  
 
 = Why are the images are not displaying? =
 The path to the image directory is the most common issue.  It must be an absolute path from the file system root like: "/home/username/your/images/" and not a relative path like:  "../your/images/".  The trailing slash/ is required.  UnGallery will try to display the path to your WordPress install on the admin page as a suggestion.  If you have shell access to your WordPress installation, you can type: "pwd" from the command line in your images directory to display the path.
