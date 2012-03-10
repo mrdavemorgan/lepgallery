@@ -3,7 +3,7 @@ Contributors: mmond
 Tags: gallery, ungallery, pictures, movies, mp4, jpg, png, gallery, photos, browse, images
 Requires at least: 
 Tested up to: 3.3.1
-Stable tag: 2.0
+Stable tag: 2.0.1
 
 Publish thousands of pictures in WordPress, in minutes.  
 
@@ -32,7 +32,7 @@ The UnGallery steps above are simple and the install is generally quick.  Howeve
 
 FancyBox is a very polished image lightbox application.  UnGallery has been updated to integrate with fancyBox, which changes the plugin from being an efficient way to manage a high volume of photos to also having the look and feel of even the most professional WordPress galleries.  I highly recommend activating this feature.
 
-FancyBox is not GPL and therefor none of its code can be installed from WordPress.org.  There are just a few additional steps to include fancyBox.  They only need to be performed once.  Automatic updates to UnGallery will not require the steps below to be rerun.
+There are just a few additional steps to include fancyBox.  They only need to be performed once.  Automatic updates to UnGallery will not require the steps below to be rerun.
 
 1. Paste the calls fancyBox from the admin page.
 2. Download and unzip fancyBox from the UnGallery admin page.
@@ -53,9 +53,10 @@ FancyBox is not GPL and therefor none of its code can be installed from WordPres
 
 == Screenshots ==
 
-1. The UnGallery top level view.  The highest level of the gallery can display a single larger, picture or a series of thumbnails, same as the subdirectories/subgalleries.  This is configurable via the UnGallery administration page.
-2. Selecting one of the subgallery links displays the thumbnail gallery view of all JPGs, PNGs and GIFs in the directory.  A breadcrumb trail back to the top level of the galleries is displayed along with the new subgalleries.  The -zip- link builds an archive of all images in the current directory for convenient download.
-3. Clicking on a thumbnail displays the larger browsing view along with previous and next thumbnails.  There are movie files in this directory, so links to these are displayed also.  All UnGallery image sizes are adjustable to fill different page widths	.
+1. The gallery browsing view with fancyBox ligthbox application featuring thumbnails, navigation buttons, zoom, and slideshow.
+2. Thumbnails are displayed during lightbox browsing.
+3. Navigation is available via buttons or arrow keys.
+4. The UnGallery default view with subdirectories/subgalleries available, with breadcrumbs, zip, and search.  
 
 == Frequently Asked Questions ==
 
@@ -97,6 +98,8 @@ And they can be modified to suit a custom ordering scheme:
 -rw-rw-r-- 1 pg1720424  56K 2010-08-30 17:58 3.jpg</code></pre>
 
 == Changelog ==
+= 2.0.1 =
+* Screenshots updated.
 = 2.0 =
 * UnGallery now supports (but does not require) integration with fancyBox lightbox application.
 = 1.7.4 =
