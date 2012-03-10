@@ -121,7 +121,7 @@ function mt_settings_page() {
     $movie_width_val = get_option( $movie_width_name );
 
     // Apply defaults to form if db field is blank 
-    if ($gallery_val == "") $gallery_val = "gallery";
+    //if ($gallery_val == "") $gallery_val = "gallery";
     if ($hidden_val == "") $hidden_val = "hidden";
     if ($columns_val == "") $columns_val = "3";
     if ($thumbnail_val == "") $thumbnail_val = "190";
@@ -213,7 +213,7 @@ Full path including trailing slash/.  * See path tips below for help.
 
 <p>Website: <input type="text" readonly name="URI" value="<? print get_bloginfo('url'); ?>/" size="40"><?php _e("", 'gallery' ); ?> 
 Permalink: <input type="text" name="<?php echo $gallery_data_field_name; ?>" value="<?php echo $gallery_val; ?>" size="20"><br />
-Match the permalink format of the page you created in step 2. Examples are "page_id=4" and "gallery".<br />
+Match the permalink format of the page you created in step 2. Examples are "?page_id=4" and "gallery".<br />
 Note:  I recommend changing the permalink from the default to: "/%category%/%postname%" on the Settings / Permalink page for friendlier looking WordPress and UnGallery URLs.
 </p>
 
