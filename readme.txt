@@ -1,9 +1,9 @@
 === UnGallery ===
 Contributors: mmond
-Tags: gallery, ungallery, pictures, movies, mp4, jpg, png, galleries, photos, browse, images
+Tags: gallery, ungallery, pictures, movies, mp4, jpg, png, gallery, photos, browse, images
 Requires at least: 
-Tested up to: 3.3
-Stable tag: 1.5.16
+Tested up to: 3.3.1
+Stable tag: 2.0
 
 Publish thousands of pictures in WordPress, in minutes.  
 
@@ -21,25 +21,40 @@ Mark Reynolds http://markpreynolds.com
 
 == Installation ==
 
+= Ungallery =
 1. Download to ./wp-content/plugins/ and activate via the Plugins menu.
-2. Create a blank WordPress Page, for example one called "Gallery".
-3. On the UnGallery admin page, enter the page name and path to the images. 
+2. Create a blank WordPress Page, for example one called "Gallery".  
+3. On the UnGallery admin page, enter the permalink from above and the path to your images. 
+
+The UnGallery steps above are simple and the install is generally quick.  However because the plugin works outside the WordPress environment and communicates with the web server file system, there are sometimes challenges troubleshooting the install.  It helps to have a bit of familiarity with Linux commands and paths.  If you encounter any problems, feel free to leverage the support resources.  Several tips and tools are built into UnGallery to help direct the installation and are available on the admin page.
+
+
+= FancyBox =
+
+FancyBox is a very polished lightbox application.  UnGallery has been updated to integrate with fancyBox, which changes the plugin from being an efficient way to manage a high volume of photos to also having the look and feel of even the most professional WordPress galleries.  I highly recommend activating this feature.
+
+FancyBox is not GPL and therefor none of its code can be installed from WordPress.org.  There are just a few additional steps to include fancyBox.  They only need to be performed once.  Automatic updates to UnGallery will not require the steps below to be rerun.
+
+1. Paste the calls fancyBox from the admin page.
+2. Download and unzip fancyBox from the UnGallery admin page.
+3. Check the box to activate fancyBox.
 
 == Features ==
 
-* Unlimited depth, breadth, and number of photos in library. My gallery has about 8,000 pictures and movies.
+* Unlimited depth, breadth, and number of photos in library. My gallery has ~24,000 pictures and movies.
 * Photos are managed outside of WordPress.  Simply update a picture directory and UnGallery sees changes immediately.
+* Galleries are searchable.  This became very helpful as gallery volume grew to thousands.
 * Default and configurable gallery titles
 * Galleries can be set to hidden.  These do not display in browsing, with access provided via direct link.
 * Caching for faster page loads
-* MP4 movies embedded and played within the WordPress site.
+* MP4 movies browsable within WordPress. Movies are linked and playable within browser.
 * Image rotation support for orientation of jpegs with exif data
 * Gallery hierarchy breadcrumb links
 * Multiple gallery views:  Top level marquee (optional), thumbnails, browsing previous and next pictures.
 
 == Screenshots ==
 
-1. The UnGallery top level view.  The highest level of the gallery can display a single larger, picture or a views of thumbnails as the subdirectories/subgalleries do.  This is configurable via the UnGallery administration page.
+1. The UnGallery top level view.  The highest level of the gallery can display a single larger, picture or a series of thumbnails, same as the subdirectories/subgalleries.  This is configurable via the UnGallery administration page.
 2. Selecting one of the subgallery links displays the thumbnail gallery view of all JPGs, PNGs and GIFs in the directory.  A breadcrumb trail back to the top level of the galleries is displayed along with the new subgalleries.  The -zip- link builds an archive of all images in the current directory for convenient download.
 3. Clicking on a thumbnail displays the larger browsing view along with previous and next thumbnails.  There are movie files in this directory, so links to these are displayed also.  All UnGallery image sizes are adjustable to fill different page widths	.
 
@@ -83,6 +98,30 @@ And they can be modified to suit a custom ordering scheme:
 -rw-rw-r-- 1 pg1720424  56K 2010-08-30 17:58 3.jpg</code></pre>
 
 == Changelog ==
+= 2.0 =
+* UnGallery now supports (but does not require) fancyBox lightbox
+= 1.7.4 =
+* Fixed the search always redirecting to my own site.  Oops!  Sorry folks.  Not the best way to drive traffic to me. =)
+* Searches are no longer case sensitive.
+= 1.7.4 =
+*Changed default thumbnail columns and size to match default WP theme
+* Extended configuration page fields to display longer paths clearly
+= 1.7.3 =
+* Removed spaces from URL displayed on configuration page
+* An .htaccess file is now created in the cache directory to prevent direct browser access.
+* Removed legacy thumb_cache masking code
+= 1.7.2 =
+* Moved movie playback to render in its own window.  Removing the WordPress frame seems to clear a lot of browser compatibility problems.
+= 1.7.1 =
+* Living in svn tagging hell.
+= 1.7.0 =
+* Needed 3 digit tagging to allow automatic updates.
+= 1.6.1 =
+* Searching form field now included in the gallery inline, excludes hidden galleries, and is relative to whatever level of the gallery tree you are viewing.
+= 1.6 =
+* Add first rev of files and directory searching using keywords.  Currently this is via appending "&search=your_search" toURI. So for example: http://markpreynolds.com/gallery?gallerylink=&search=squirrel
+= 1.5.17 =
+* svn did not pick up new files. Adding and incrementing version.
 = 1.5.16 =
 * Removed phpThumb's auto rotation call as it causes OOM error on weenie providers like Dreamhost.
 = 1.5.15 =
