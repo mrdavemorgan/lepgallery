@@ -3,7 +3,7 @@ Contributors: mmond
 Tags: gallery, ungallery, pictures, movies, mp4, jpg, png, gallery, photos, browse, images
 Requires at least: 
 Tested up to: 3.3.1
-Stable tag: 2.0.3
+Stable tag: 2.0.4
 
 Publish thousands of pictures in WordPress, in minutes.  
 
@@ -27,6 +27,10 @@ Mark Reynolds http://markpreynolds.com
 3. On the UnGallery admin page, enter the permalink from above and the path to your images. 
 
 The UnGallery steps above are simple and the install is generally quick.  However because the plugin works outside the WordPress environment and communicates with the web server file system, there are sometimes challenges troubleshooting the install.  It helps to have a bit of familiarity with Linux commands and paths.  If you encounter any problems, feel free to leverage the support resources.  Several tips and tools to help you install are built into UnGallery's plugin settings page.
+
+Introduction and Installation Screencast:
+
+http://markpreynolds.com/UnGallery2.mp4
 
 = FancyBox =
 
@@ -98,6 +102,9 @@ And they can be modified to suit a custom ordering scheme:
 -rw-rw-r-- 1 pg1720424  56K 2010-08-30 17:58 3.jpg</code></pre>
 
 == Changelog ==
+= 2.0.4 =
+* Top level search bug fixed.
+* New screencast linked from install page
 = 2.0.3 =
 * Configuration menu updated.
 = 2.0.2 =
