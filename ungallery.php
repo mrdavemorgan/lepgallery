@@ -2,15 +2,15 @@
 /*
 Plugin Name: UnGallery
 Description: Publish thousands of pictures in WordPress, in minutes.    
-Plugin URI: http://markpreynolds.com/technology/ungallery2
+Plugin URI: http://markpreynolds.com/technology/wordpress-ungallery
 Author: Mark Reynolds
 Author URI: http://markpreynolds.com
 Author Email: mark@markpreynolds.com
-Version: 2.0.5
+Version: 2.1
 */
 
 //  Set plugin version, update database so admin menu can display it
-$version_val = "2.0.5";
+$version_val = "2.1";
 update_option( "version", $version_val );
 
 //  Display the plugin administration menu
@@ -136,8 +136,12 @@ function ungallery() {
 	} 
 	// If we are viewing a gallery, arrange the thumbs
 	if($pic_array) sort($pic_array);	
-	// Unless we are at the top level or the marquee is set, display the zip link and search form
-	if ($_SERVER["REQUEST_URI"]  !== "/".$gallery) print '  / <a href="'. $permalink . $QorA .'zip=' . $gallerylink . '" title="Download a zipped archive of all photos in this gallery">-zip-</a> / <form name="myform" action="'. $_SERVER["REQUEST_URI"] . '" style="display: inline" > 
+	
+	// Display the zip link
+	if ( get_option('disable_zip') !== 'true' ) print '  / <a href="'. $permalink . $QorA .'zip=' . $gallerylink . '" title="Download a zipped archive of all photos in this gallery">-zip-</a> ';
+	
+	// Display the search form
+	print ' / <form name="myform" action="/' . $permalink . '" style="display: inline" > 
 	<input type="hidden" name="gallerylink" value="' . $gallerylink . '">
 	<a href="javascript: submitform()">-search-</a> <input type="text" name="search" size="8"/>
 	</form>
@@ -147,7 +151,6 @@ function ungallery() {
 	  document.myform.submit();
 	}
 	</script>';	
-	elseif ($marquee !== "yes") print '  / <a href="'. $permalink . $QorA .'zip=' . $gallerylink . '" title="Download a zipped archive of all photos in this gallery">-zip-</a> / ';	
 
 	// Display the movie links
 	if($movie_array) {					
@@ -219,7 +222,7 @@ function ungallery() {
 			";
 		$column = 0;
 			foreach ($pic_array as $filename) {						//  Use the pic_array to display the thumbs and assign the links
-				print '<a class="fancybox-button" rel="fancybox-button" href="' . $blogURI . $dir . 'phpthumb/phpThumb.php?ar=x&w=800&src='. $pic_root . $gallerylink.'/'. $filename. '" title="<a href=' . $blogURI . $dir . 'phpthumb/phpThumb.php?src='. $pic_root . $gallerylink.'/'. $filename. ' title=Original>' . $filename .'</a>" /><img src="'. $blogURI . $dir . 'phpthumb/phpThumb.php?ar=x&src='. $pic_root . $gallerylink.'/'. $filename.'&w=' .$w. '"></a>'; 
+				print '<a class="fancybox-button" rel="fancybox-button" href="' . $blogURI . $dir . 'phpthumb/phpThumb.php?ar=x&w='. $srcW . '&src='. $pic_root . $gallerylink.'/'. $filename. '" title="<a href=' . $blogURI . $dir . 'phpthumb/phpThumb.php?src='. $pic_root . $gallerylink.'/'. $filename. ' title=Original>' . $filename .'</a>" /><img src="'. $blogURI . $dir . 'phpthumb/phpThumb.php?ar=x&src='. $pic_root . $gallerylink.'/'. $filename.'&w=' .$w. '"></a>'; 
 				$column++;
 				if ( $column == $columns ) {
 					print '<br>';

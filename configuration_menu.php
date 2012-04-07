@@ -81,14 +81,6 @@ function mt_settings_page() {
     $hidden_name = 'hidden';
     $hidden_data_field_name = 'hidden';
 
-    // variables for the marquee field  
-    $marquee_name = 'marquee';
-    $marquee_data_field_name = 'marquee';
-
-    // variables for the marquee size field  
-    $marquee_size_name = 'marquee_size';
-    $marquee_size_data_field_name = 'marquee_size';
-
     // variables for the thumbnail width field  
     $thumbnail_name = 'thumbnail';
     $thumbnail_data_field_name = 'thumbnail';
@@ -113,8 +105,6 @@ function mt_settings_page() {
     $path6_val = get_option( $path6_name );
     $hidden_val = get_option( $hidden_name );
     $columns_val = get_option( $columns_name );
-    $marquee_val = get_option( $marquee_name );
-    $marquee_size_val = get_option( $marquee_size_name );
     $thumbnail_val = get_option( $thumbnail_name );
     $browse_view_val = get_option( $browse_view_name );
     $movie_height_val = get_option( $movie_height_name );
@@ -126,10 +116,8 @@ function mt_settings_page() {
     if ($columns_val == "") $columns_val = "3";
     if ($thumbnail_val == "") $thumbnail_val = "190";
     if ($browse_view_val == "") $browse_view_val = "440";
-    if ($marquee_val == "") $marquee_val = "no";
     if ($movie_height_val == "") $movie_height_val = "495";
     if ($movie_width_val == "") $movie_width_val = "640";
-    if ($marquee_size_val == "") $marquee_size_val = "700";
 
 
     // See if the user has submitted information
@@ -150,8 +138,6 @@ function mt_settings_page() {
         $path6_val = $_POST[ $path6_data_field_name ];
         $hidden_val = $_POST[ $hidden_data_field_name ];
         $columns_val = $_POST[ $columns_data_field_name ];
-        $marquee_val = $_POST[ $marquee_data_field_name ];
-        $marquee_size_val = $_POST[ $marquee_size_data_field_name ];
         $thumbnail_val = $_POST[ $thumbnail_data_field_name ];
         $browse_view_val = $_POST[ $browse_view_data_field_name ];
         $movie_height_val = $_POST[ $movie_height_data_field_name ];
@@ -173,14 +159,13 @@ function mt_settings_page() {
         update_option( $path6_name, $path6_val );
         update_option( $hidden_name, $hidden_val );
         update_option( $columns_name, $columns_val );
-        update_option( $marquee_name, $marquee_val );
-        update_option( $marquee_size_name, $marquee_size_val );
         update_option( $thumbnail_name, $thumbnail_val );
         update_option( $browse_view_name, $browse_view_val );
         update_option( $movie_height_name, $movie_height_val );
         update_option( $movie_width_name, $movie_width_val );
 
         update_option( 'activate_fancybox', $_POST[ 'activate_fancybox' ] );
+        update_option( 'disable_zip', $_POST[ 'disable_zip' ] );
 
         // Put settings updated message on the screen
 
@@ -315,14 +300,6 @@ Default: 190
 <p><?php _e("Selected picture width in pixels:", 'browse_view' ); ?> 
 <input type="text" name="<?php echo $browse_view_data_field_name; ?>" value="<?php echo $browse_view_val; ?>" size="20">
 Default: 440
-</p>
-
-<p><?php _e("Use a marquee picture at the top level?:", 'marquee' ); ?> 
-<input type="text" name="<?php echo $marquee_data_field_name; ?>" value="<?php echo $marquee_val; ?>" size="20">
-Default: no  ("yes" for a single larger photo at the top level)<p></p>
-<?php _e("Marquee view picture width in pixels:", 'marquee_size' ); ?> 
-<input type="text" name="<?php echo $marquee_size_data_field_name; ?>" value="<?php echo $marquee_size_val; ?>" size="20">
-Example: 640
 </p><hr />
 
 <h3>Advanced Options</h3>
@@ -330,6 +307,10 @@ Example: 640
 <p><?php _e("Name used for hidden galleries:", 'hidden' ); ?> 
 <input type="text" name="<?php echo $hidden_data_field_name; ?>" value="<?php echo $hidden_val; ?>" size="20">
 Example: hidden
+</p>
+
+<p>Do not display the zip archive link: <input name="disable_zip" id="disable_zip" value="true" type="checkbox" <?php if ( get_option('disable_zip') == 'true' ) echo ' checked="checked" '; ?> /> <br />
+<?php _e('Check this box to remove the zip link from all pages.'); ?>
 </p>
 
 <p>A single gallery can contain an unlimited number of images and sub-galleries organized using the file system directory tree.  <br />

@@ -1,9 +1,9 @@
 === UnGallery ===
 Contributors: mmond
-Tags: gallery, ungallery, pictures, movies, mp4, jpg, png, gallery, photos, browse, images
+Tags: gallery, ungallery, pictures, movies, mp4, jpg, png, gallery, photos, browse, images, slideshow, lightbox
 Requires at least: 
 Tested up to: 3.3.1
-Stable tag: 2.0.5
+Stable tag: 2.1
 
 Publish thousands of pictures in WordPress, in minutes.  
 
@@ -53,11 +53,11 @@ There are just a few additional steps to use fancyBox.  They only need to be per
 * MP4 movies browsable within WordPress. Movies are linked and playable within browser.
 * Image rotation support for orientation of jpegs with exif data
 * Gallery hierarchy breadcrumb links
-* Multiple gallery views:  Top level marquee (optional), thumbnails, browsing previous and next pictures.
+* Multiple gallery views, thumbnails, browsing navigation buttons, and slideshow.
 
 == Screenshots ==
 
-1. The gallery browsing view with fancyBox ligthtbox application featuring thumbnails, navigation buttons, zoom, and slideshow.
+1. The gallery browsing view with fancyBox lightbox application featuring thumbnails, navigation buttons, zoom, and slideshow.
 2. Thumbnails are displayed during lightbox browsing.
 3. Navigation is available via buttons or arrow keys.
 4. The UnGallery default view with subdirectories/subgalleries, breadcrumbs, zip, and search available.
@@ -102,6 +102,9 @@ And they can be modified to suit a custom ordering scheme:
 -rw-rw-r-- 1 pg1720424  56K 2010-08-30 17:58 3.jpg</code></pre>
 
 == Changelog ==
+= 2.1 =
+* Added checkbox to admin page to make zip link optional.
+* Removed the marquee feature.
 = 2.0.5 =
 * Port search fix to non-fancyBox option.
 = 2.0.4 =
@@ -263,9 +266,8 @@ And they can be modified to suit a custom ordering scheme:
 
 == Notes ==
 
-* All image sizes including thumbnails, selected image view, movies, marquee, and column layout are customizable.
+* All image sizes including thumbnails, selected image view, movies, and column layout are customizable.
 * To display a caption over a gallery, add a file named banner.txt to that directory with the desired text.  The file can include plain text or html. If no banner.txt is found, the name of the directory used.
-* The top level directory can optionally be used for a larger, marquee picture displayed.  If chosen, load one picture file to the top level directory.  This can be enabled/disabled using the UnGallery administration page.
 * To mark a gallery hidden, enter a name for hidden galleries on the UnGallery administration page. Any directories you create named "hidden", will not be visible via normal gallery browsing. A direct link may be sent to provide access to hidden galleries.  
 * You can include UnGallery images in other areas of your WordPress site or other sites by embedding the URL from UnGallery into the external site.
 

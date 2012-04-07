@@ -3,22 +3,31 @@ Building the archive now.... <br>
 A summary will print below when the zip file is ready.  Depending on the number of photos it may take a few minutes to complete.  Your browser may even time out before it's ready.  If so, just hit refresh and this page will reload with the summary and zip file link. <br><br>
 <?
 
-//  Get the gallery name from the WP page slug
-global $post;
-$gallery = $post->post_name;
-
-//  Get the image directory path associated with the gallery 	
-if($gallery == get_option( 'gallery' )) $pic_root = get_option( 'images_path' );
-if($gallery == get_option( 'gallery2' )) $pic_root = get_option( 'images2_path' );
-if($gallery == get_option( 'gallery3' )) $pic_root = get_option( 'images3_path' );
-if($gallery == get_option( 'gallery4' )) $pic_root = get_option( 'images4_path' );
-if($gallery == get_option( 'gallery5' )) $pic_root = get_option( 'images5_path' );
-if($gallery == get_option( 'gallery6' )) $pic_root = get_option( 'images6_path' );
+//  Get the image directory path associated with the active gallery 	
+if(strpos(get_permalink(), get_option( 'gallery' ))) $pic_root = get_option( 'images_path' );
+if (get_option( 'gallery2' )) if(strpos(get_permalink(), get_option( 'gallery2' ))) $pic_root = get_option( 'images2_path' );
+if (get_option( 'gallery3' )) if(strpos(get_permalink(), get_option( 'gallery2' ))) $pic_root = get_option( 'images3_path' );
+if (get_option( 'gallery4' )) if(strpos(get_permalink(), get_option( 'gallery2' ))) $pic_root = get_option( 'images4_path' );
+if (get_option( 'gallery5' )) if(strpos(get_permalink(), get_option( 'gallery2' ))) $pic_root = get_option( 'images5_path' );
+if (get_option( 'gallery6' )) if(strpos(get_permalink(), get_option( 'gallery2' ))) $pic_root = get_option( 'images6_path' );
 
 $dir = $pic_root . $_GET['zip'];
 //	For security do not allow relative paths
 if (strpos($dir, "..")) {
 	exit;
+}
+
+//  Get the current gallery page's permalink
+$permalink = get_permalink();
+
+//  Base the UnGallery linking format on the site's permalink settings
+if (strstr($permalink, "?")) {
+	$QorA = "&";
+	$gallery_ID = "?page_id=" . $post_ID;
+}
+ else {
+	$QorA = "?";
+	$gallery_ID = $post_name;
 }
 
 // Create the arrays with the dir's image files
@@ -36,7 +45,7 @@ foreach ($pic_array as $filename) {
 $output = `zip -j $dir/pics.zip $media_files`;
 
 print "<pre>$output</pre>";
-print 'Complete. The file can be downloaded <a href="'. $blogURI .'/wp-content/plugins/ungallery/source.php?zip='. $dir . '/pics.zip">here</a>';
-print  '<br><br>You can return to the gallery <a href="'. $blogURI . $gallery .'?gallerylink=' . $_GET['zip'] .'">here.</a>';
+print 'Complete. The file can be downloaded <a href="'. $blogURI .'wp-content/plugins/ungallery/source.php?zip='. $dir . '/pics.zip">here</a>';
+print  '<br><br>You can return to the gallery <a href="'. $permalink . '?gallerylink=' . $_GET['zip'] .'">here.</a>';
 
 ?>
