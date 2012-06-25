@@ -6,11 +6,11 @@ Plugin URI: http://markpreynolds.com/technology/wordpress-ungallery
 Author: Mark Reynolds
 Author URI: http://markpreynolds.com
 Author Email: mark@markpreynolds.com
-Version: 2.1.0
+Version: 2.1.1
 */
 
 //  Set plugin version, update database so admin menu can display it
-$version_val = "2.1.0";
+$version_val = "2.1.1";
 update_option( "version", $version_val );
 
 //  Display the plugin administration menu
@@ -135,7 +135,7 @@ function ungallery() {
 		}
 	} 
 	// If we are viewing a gallery, arrange the thumbs
-	if($pic_array) sort($pic_array);	
+	if($pic_array) rsort($pic_array);	
 	
 	// Display the zip link
 	if ( get_option('disable_zip') !== 'true' ) print '  / <a href="'. $permalink . $QorA .'zip=' . $gallerylink . '" title="Download a zipped archive of all photos in this gallery">-zip-</a> ';

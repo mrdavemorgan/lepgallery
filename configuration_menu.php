@@ -221,7 +221,7 @@ Require valid-user');
 		}
 } else 	print $_SERVER['DOCUMENT_ROOT']."/wp-content/cache/";
 ?>" size="70"> <br />
-This is the directory UnGallery creates and write cache files to.
+This is the directory UnGallery creates and writes cache files to.
 
 <hr />
 
