@@ -6,11 +6,11 @@ Plugin URI: http://markpreynolds.com/technology/wordpress-ungallery
 Author: Mark Reynolds
 Author URI: http://markpreynolds.com
 Author Email: mark@markpreynolds.com
-Version: 2.1.1
+Version: 2.1.2
 */
 
 //  Set plugin version, update database so admin menu can display it
-$version_val = "2.1.1";
+$version_val = "2.1.2";
 update_option( "version", $version_val );
 
 //  Display the plugin administration menu
@@ -127,13 +127,14 @@ function ungallery() {
 	while ($filename = readdir($dp)) {
 		if (!is_dir($pic_root.$gallerylink. "/". $filename))  {  // If it's a file, begin
 				$pic_types = array("JPG", "jpg", "GIF", "gif", "PNG", "png", "BMP", "bmp"); 		
-				if (in_array(substr($filename, -3), $pic_types)) $pic_array[] = $filename;		// If it's a picture, add it to thumb array
+				if (in_array(substr($filename, -3), $pic_types)) $pic_array[] = rawurlencode($filename);		// If it's a picture, add it to thumb array
 				else {
 					$movie_types = array("MP4", "mp4");								
-					if (in_array(substr($filename, -3), $movie_types)) $movie_array[$filename] = size_readable(filesize($pic_root.$gallerylink. "/". $filename));		// If it's a movie, add name and size to the movie array
+					if (in_array(substr($filename, -3), $movie_types)) $movie_array[rawurlencode($filename)] = size_readable(filesize($pic_root.$gallerylink. "/". $filename));		// If it's a movie, add name and size to the movie array
 				}
 		}
 	} 
+
 	// If we are viewing a gallery, arrange the thumbs
 	if($pic_array) rsort($pic_array);	
 	
