@@ -42,7 +42,9 @@ $files = explode("\n", $files);
 
 foreach ($files as $file_path) {
 	$file = str_replace($pic_root, "", $file_path) ;
-	$link = '<a href="'. $permalink .'?src=' . $file_path  . '">' . $file . '</a>';
+	#$link = '<a href="'. $permalink .'?src=' . $file_path  . '">' . $file . '</a>';
+	if (stripos(strrev($file), "4pm") === 0) $link = '<a href="' . $blogURI . 'wp-content/plugins/ungallery/source.php?movie=' . $file_path  . '">' . $file . '</a>';
+	else $link = '<a href="' . $blogURI . 'wp-content/plugins/ungallery/phpthumb/phpThumb.php?src=' . rawurlencode($file_path) .'">' . $file . '</a>'; 
 	if (!strpos($file, $hidden)) print "&nbsp;" . $link . "<br />"; 
 }
 ?>
