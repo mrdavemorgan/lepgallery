@@ -3,7 +3,7 @@ Contributors: mmond
 Tags: gallery, ungallery, pictures, movies, mp4, jpg, png, gallery, photos, browse, images, slideshow, lightbox
 Requires at least: 
 Tested up to: 3.3.1
-Stable tag: 2.1.3
+Stable tag: 2.1.4
 
 Publish thousands of pictures in WordPress, in minutes.  
 
