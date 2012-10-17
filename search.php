@@ -3,21 +3,25 @@ $permalink = get_permalink();
 $blogURI = get_bloginfo('url') . "/";	
 $hidden = get_option( 'hidden' );
 
+// Only allow the search process to execute via the plugin, not via WP index.php
+if (strpos($permalink, $blogURI.get_option('gallery')) === false) die;
+
 //  Get the gallery name from the WP page slug
 global $post;
 $gallery = $post->post_name;
 
 //  Get the image directory path associated with the active gallery 	
-if(strpos(get_permalink(), get_option( 'gallery' ))) $pic_root = get_option( 'images_path' );
-if (get_option( 'gallery2' )) if(strpos(get_permalink(), get_option( 'gallery2' ))) $pic_root = get_option( 'images2_path' );
-if (get_option( 'gallery3' )) if(strpos(get_permalink(), get_option( 'gallery2' ))) $pic_root = get_option( 'images3_path' );
-if (get_option( 'gallery4' )) if(strpos(get_permalink(), get_option( 'gallery2' ))) $pic_root = get_option( 'images4_path' );
-if (get_option( 'gallery5' )) if(strpos(get_permalink(), get_option( 'gallery2' ))) $pic_root = get_option( 'images5_path' );
-if (get_option( 'gallery6' )) if(strpos(get_permalink(), get_option( 'gallery2' ))) $pic_root = get_option( 'images6_path' );
+if(strpos($permalink, get_option( 'gallery' ))) $pic_root = get_option( 'images_path' );
+if (get_option( 'gallery2' )) if(strpos($permalink, get_option( 'gallery2' ))) $pic_root = get_option( 'images2_path' );
+if (get_option( 'gallery3' )) if(strpos($permalink, get_option( 'gallery3' ))) $pic_root = get_option( 'images3_path' );
+if (get_option( 'gallery4' )) if(strpos($permalink, get_option( 'gallery4' ))) $pic_root = get_option( 'images4_path' );
+if (get_option( 'gallery5' )) if(strpos($permalink, get_option( 'gallery5' ))) $pic_root = get_option( 'images5_path' );
+if (get_option( 'gallery6' )) if(strpos($permalink, get_option( 'gallery6' ))) $pic_root = get_option( 'images6_path' );
 
 $gallerylink = ($_GET['gallerylink']) ;
 $search = ($_GET['search']) ;
 $dir = $pic_root . $gallerylink;
+
 
 //	Find galleries
 print "Searching in <i>$dir.</i>
