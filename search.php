@@ -3,9 +3,6 @@ $permalink = get_permalink();
 $blogURI = get_bloginfo('url') . "/";	
 $hidden = get_option( 'hidden' );
 
-// Only allow the search process to execute via the plugin, not via WP index.php
-if (strpos($permalink, $blogURI.get_option('gallery')) === false) die;
-
 //  Get the gallery name from the WP page slug
 global $post;
 $gallery = $post->post_name;
@@ -22,6 +19,9 @@ $gallerylink = ($_GET['gallerylink']) ;
 $search = ($_GET['search']) ;
 $dir = $pic_root . $gallerylink;
 
+// Do not allow any termination of search parameter
+if (strpos($search, ";")) print "Invalid Search"; 
+	else {
 
 //	Find galleries
 print "Searching in <i>$dir.</i>
@@ -50,5 +50,6 @@ foreach ($files as $file_path) {
 	if (stripos(strrev($file), "4pm") === 0) $link = '<a href="' . $blogURI . 'wp-content/plugins/ungallery/source.php?movie=' . $file_path  . '">' . $file . '</a>';
 	else $link = '<a href="' . $blogURI . 'wp-content/plugins/ungallery/phpthumb/phpThumb.php?src=' . rawurlencode($file_path) .'">' . $file . '</a>'; 
 	if (!strpos($file, $hidden)) print "&nbsp;" . $link . "<br />"; 
+} 
 }
 ?>
