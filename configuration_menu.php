@@ -123,7 +123,7 @@ function mt_settings_page() {
     if ($browse_view_val == "") $browse_view_val = "440";
     if ($movie_height_val == "") $movie_height_val = "495";
     if ($movie_width_val == "") $movie_width_val = "640";
-    if ($max_thumbs_val == "") $max_thumbs_val = "100";
+    if ($max_thumbs_val == "") $max_thumbs_val = "10";
 
     // See if the user has submitted information
     // If they did, this hidden field will be set to 'Y'
@@ -311,7 +311,7 @@ Default: 440
 
 <p><?php _e("Only show a maximum number of thumbnails per gallery page.  Maximum:", 'max_thumbs' ); ?> 
 <input type="text" name="<?php echo $max_thumbs_data_field_name; ?>" value="<?php echo $max_thumbs_val; ?>" size="10">
-Default: 100
+Default: 10
 </p><hr />
 
 <h3>Advanced Options</h3>

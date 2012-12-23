@@ -6,11 +6,11 @@ Plugin URI: http://markpreynolds.com/technology/wordpress-ungallery
 Author: Mark Reynolds
 Author URI: http://markpreynolds.com
 Author Email: mark@markpreynolds.com
-Version: 2.2
+Version: 2.2.1
 */
 
 //  Set plugin version, update database so admin menu can display it
-$version_val = "2.2";
+$version_val = "2.2.1";
 update_option( "version", $version_val );
 
 //  Display the plugin administration menu
@@ -89,8 +89,7 @@ function ungallery() {
 	if($columns == "") $columns = 4; // set a default so admin page does not need visit after update. Remove at some point.
 	$max_thumbs = get_option( 'max_thumbs' ); 
 	if ($max_thumbs == 0) $max_thumbs = 25;
-	
-		
+			
 	//	Provide the version of UnGallery
 	print "<!-- UnGallery version: ". $version ." -->";
 
