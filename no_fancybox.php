@@ -1,55 +1,4 @@
-<?php
-/*
-Plugin Name: UnGallery
-Description: Publish thousands of pictures in WordPress, in minutes.    
-Plugin URI: http://markpreynolds.com/technology/wordpress-ungallery
-Author: Mark Reynolds
-Author URI: http://markpreynolds.com
-Author Email: mark@markpreynolds.com
-Version: 2.2.2
-*/
-
-//  Set plugin version, update database so admin menu can display it
-$version_val = "2.2.2";
-update_option( "version", $version_val );
-
-//  Display the plugin administration menu
-include("configuration_menu.php");
-
-//  Get the gallery names from the database
-$gallery = get_option( 'gallery' );
-$gallery2 = get_option( 'gallery2' );
-$gallery3 = get_option( 'gallery3' );
-$gallery4 = get_option( 'gallery4' );
-$gallery5 = get_option( 'gallery5' );
-$gallery6 = get_option( 'gallery6' );
-
-//  If a gallery is not set in db, give it a value besides "" so not to trigger plugin
-if($gallery == "") $gallery = "UnGalleryWontLoad"; 
-if($gallery2 == "") $gallery2 = "UnGalleryWontLoad"; 
-if($gallery3 == "") $gallery3 = "UnGalleryWontLoad"; 
-if($gallery4 == "") $gallery4 = "UnGalleryWontLoad";
-if($gallery5 == "") $gallery5 = "UnGalleryWontLoad";
-if($gallery6 == "") $gallery6 = "UnGalleryWontLoad";
-
-// If the search flag is active, display the search page
-if (strpos($_SERVER["REQUEST_URI"], "&search=")) add_filter('the_content', "search"); 
-
-// If the zip flag is active, display the archive page
-elseif (strpos($_SERVER["REQUEST_URI"], "?zip")) add_filter('the_content', "zip"); 
-
-// If any gallery flags are active, run the display gallery code
-elseif (strstr($_SERVER["REQUEST_URI"], "/". $gallery) || (strstr($_SERVER["REQUEST_URI"], "/". $gallery2)) || (strstr($_SERVER["REQUEST_URI"], "/". $gallery3)) || 	(strstr($_SERVER["REQUEST_URI"], "/". $gallery4)) || (strstr($_SERVER["REQUEST_URI"], "/". $gallery5)) || (strstr($_SERVER["REQUEST_URI"], "/". $gallery6))) {			
-			if ( get_option('activate_fancybox') !== 'true' ) add_filter('the_content', "no_fancybox") ;
-			else add_filter('the_content', "ungallery");
-		}
-
-function no_fancybox() {
-	include ("no_fancybox.php");
-}
-
-function ungallery() {
-	//  Get the page name from the WP page slug
+<?		//  Get the page name from the WP page slug
 	global $wp_query;
 	$post_obj = $wp_query->get_queried_object();
 	$post_ID = $post_obj->ID;
@@ -89,7 +38,7 @@ function ungallery() {
 	if($columns == "") $columns = 4; // set a default so admin page does not need visit after update. Remove at some point.
 	$max_thumbs = get_option( 'max_thumbs' ); 
 	if ($max_thumbs == 0) $max_thumbs = 25;
-			
+		
 	//	Provide the version of UnGallery
 	print "<!-- UnGallery version: ". $version ." -->";
 
@@ -130,22 +79,17 @@ function ungallery() {
 	while ($filename = readdir($dp)) {
 		if (!is_dir($pic_root.$gallerylink. "/". $filename))  {  // If it's a file, begin
 				$pic_types = array("JPG", "jpg", "GIF", "gif", "PNG", "png", "BMP", "bmp"); 		
-				if (in_array(substr($filename, -3), $pic_types)) $pic_array[] = rawurlencode($filename);		// If it's a picture, add it to thumb array
+				if (in_array(substr($filename, -3), $pic_types)) $pic_array[] = $filename;		// If it's a picture, add it to thumb array
 				else {
 					$movie_types = array("MP4", "mp4");								
-					if (in_array(substr($filename, -3), $movie_types)) $movie_array[rawurlencode($filename)] = size_readable(filesize($pic_root.$gallerylink. "/". $filename));		// If it's a movie, add name and size to the movie array
+					if (in_array(substr($filename, -3), $movie_types)) $movie_array[$filename] = size_readable(filesize($pic_root.$gallerylink. "/". $filename));		// If it's a movie, add name and size to the movie array
 				}
 		}
 	} 
-
 	// If we are viewing a gallery, arrange the thumbs
-	if($pic_array) rsort($pic_array);	
-	
-	// Display the zip link
-	if ( get_option('disable_zip') !== 'true' ) print '  / <a href="'. $permalink . $QorA .'zip=' . $gallerylink . '" title="Download a zipped archive of all photos in this gallery">-zip-</a> ';
-	
-	// Display the search form
-	print ' / <form name="myform" action="/' . $permalink . '" style="display: inline" > 
+	if($pic_array) sort($pic_array);	
+	// Unless we are at the top level or the marquee is set, display the zip link and search form
+	if ($_SERVER["REQUEST_URI"]  !== "/".$gallery) print '  / <a href="'. $permalink . $QorA .'zip=' . $gallerylink . '" title="Download a zipped archive of all photos in this gallery">-zip-</a> / <form name="myform" action="'. $permalink . '" style="display: inline" > 
 	<input type="hidden" name="gallerylink" value="' . $gallerylink . '">
 	<a href="javascript: submitform()">-search-</a> <input type="text" name="search" size="8"/>
 	</form>
@@ -155,6 +99,7 @@ function ungallery() {
 	  document.myform.submit();
 	}
 	</script>';	
+	elseif ($marquee !== "yes") print '  / <a href="'. $permalink . $QorA .'zip=' . $gallerylink . '" title="Download a zipped archive of all photos in this gallery">-zip-</a> / ';	
 
 	// Display the movie links
 	if($movie_array) {					
@@ -169,7 +114,7 @@ function ungallery() {
 	$dp = opendir($pic_root.$gallerylink);	//  Read the directory for subdirectories
 	while ($subdir = readdir($dp)) {		//  If it is a subdir and not set as hidden, enter it into the array
 		if (is_dir($pic_root.$gallerylink. "/". $subdir) && $subdir != "." && $subdir != ".." && !strstr($subdir, $hidden)) {
-			$subdirs[] = rawurlencode($subdir);
+			$subdirs[] = $subdir;
 		}
 	}
 
@@ -183,7 +128,7 @@ function ungallery() {
 	closedir($dp);
 	print '
 		<table width="100%"><tr>';			//	Begin the table
-		if (!isset($src) && isset($pic_array)) {							//	If we are in thumbnails view,
+		if (!isset($src) && isset($pic_array)) {							//	If we are not in browse view,
 			if ($marquee == "yes" && $gallerylink == "") $w = $marquee_size	;			//	Set size of marquee picture
 				else $w = $thumbW;
 			print '<td align="center"><div class="post-headline"><p style="text-align: center;">'; 
@@ -195,35 +140,7 @@ function ungallery() {
 				else print "<h2>" . $gallerylink . "</h2>";
 			}
 			print "</td></tr><tr>";									//	Close cell. Add a bit of space
-			print '<td align="center"><p style="text-align: center;">
-				<script type="text/javascript">
-				$(document).ready(function() {
-					$(".fancybox-button").fancybox({
-						';
-					print "prevEffect		: 'none',
-						nextEffect		: 'none',
-						";
-					print "closeBtn		: true,
-						helpers		: { 
-							title	: { 
-								type : 'inside' 
-							},
-							buttons	: {},
-							overlay	: {
-								opacity : 0.7,
-								css : {
-									'background-color' : '#000'
-								}
-							},
-							thumbs	: {
-								width	: 100,
-								height	: 100
-							}
-}
-					});
-				});
-			    </script>
-			";
+			print '<td align="center"><p style="text-align: center;">';
 		$column = 0;
 		// Handle maximum thumbs per page 
 		$sliced_array = $pic_array;
@@ -234,15 +151,14 @@ function ungallery() {
 			}
 			$sliced_array = array_slice($pic_array, $offset, $max_thumbs);
 		}
-		foreach ($sliced_array as $filename) {						//  Use the sliced_array to display the thumbs and assign the links
-				print '<a class="fancybox-button" rel="fancybox-button" href="' . $blogURI . $dir . 'phpthumb/phpThumb.php?ar=x&w='. $srcW . '&src='. $pic_root . $gallerylink.'/'. $filename. '" title="<a href=' . $blogURI . $dir . 'phpthumb/phpThumb.php?src='. rawurlencode($pic_root) . rawurlencode($gallerylink) .'/'. $filename. ' title=Original>' . $filename .'</a>" /><img src="'. $blogURI . $dir . 'phpthumb/phpThumb.php?ar=x&src='. $pic_root . $gallerylink.'/'. $filename.'&w=' .$w. '"></a>'; 
-				$column++;
-				if ( $column == $columns ) {
-					print '<br>';
-					$column = 0;
-				}
-		} 
-		
+		foreach ($sliced_array as $filename) {						//  Use the pic_array to display the thumbs and assign the links
+			print '<a href="' . $permalink . $QorA . 'src='. $pic_root . $gallerylink. "/" .$filename.'"><img src="'. $blogURI . $dir . 'phpthumb/phpThumb.php?ar=x&src='. $pic_root . $gallerylink. "/". $filename.'&w=' .$w. '"></a>'; 
+			$column++;
+			if ( $column == $columns ) {
+				print '<br>';
+				$column = 0;
+			}
+		}
 		// If we are displaying thumbnails across multiple pages, display Next/Previos page links
 		if ($max_thumbs < count($pic_array)) {	
 					
@@ -266,52 +182,39 @@ function ungallery() {
 		print "	</td></tr>
 	</td>
 	</table>";
+	} else {	//  Render the browsing version, link to original, last/next picture, and link to parent gallery
+	if (isset($src) && !in_array(substr($src, -3), $movie_types)) { //  If we are in broswing mode and the source is not a movie
+		$filename = substr($src, $lastslash + 1);
+		$before_filename = $pic_array[array_search($filename, $pic_array) - 1 ];
+		$after_filename = $pic_array[array_search($filename, $pic_array) + 1 ];
+																	//  Display the current/websize pic
+		print '
+		<td align="center" rowspan="2" style="vertical-align:middle;"><a href="'. $blogURI . $dir .'phpthumb/phpThumb.php?src=' . $src . '"><img src="'. $blogURI . $dir . 'phpthumb/phpThumb.php?ar=x&src='. $src. '&w='. $srcW. '"></a></td>
+		<td valign="center">';
+			
+		if ($before_filename) {										// Display the before thumb, if it exists
+			print '<a href="'. $permalink . $QorA . 'src='. $pic_root . $gallerylink."/".$before_filename .'" title="Previous Gallery Picture"><img src="'. $blogURI . $dir .'phpthumb/phpThumb.php?ar=x&src='. $pic_root . $gallerylink."/".$before_filename .'&w='. $w .'"></a>';
+		}
+	// Complete the table formatting 
+	print "</td>
+	</tr>
+	<tr>
+	<td>
+	";
+		if ($after_filename) {										// Display the after thumb, if it exists
+			print '<a href="'. $permalink . $QorA . 'src='. $pic_root . $gallerylink."/".$after_filename .'" title="Next Gallery Picture"><img src="'. $blogURI . $dir .'phpthumb/phpThumb.php?ar=x&src='. $pic_root . $gallerylink."/".$after_filename .'&w='. $w .'"></a>';
+		}
+	} elseif (($movie_array) && (in_array(substr($src, -3), $movie_types))) print '<td>
+<OBJECT CLASSID="clsid:02BF25D5-8C17-4B23-BC80-D3488ABDDC6B" CODEBASE="http://www.apple.com/qtactivex/qtplugin.cab" width="'. $movie_width .'" height="'. $movie_height .'" ><br />
+<PARAM NAME="src" VALUE="wp-content/plugins/ungallery/source.php?movie='. $src  .'" ><br />
+<PARAM NAME="controller" VALUE="true" ><br />
+<EMBED SRC="wp-content/plugins/ungallery/source.php?movie='. $src  .'" TYPE="image/x-macpaint" PLUGINSPAGE="http://www.apple.com/quicktime/download" AUTOPLAY="true" width="'. $movie_width .'" height="'. $movie_height .'" ><br />
+</EMBED><br />
+</OBJECT>';															// If the source is a movie, play it
+	else print "<br><br>"; 
 	}
-}
-
-function size_readable ($size, $retstring = null) {
-        // adapted from code at http://aidanlister.com/repos/v/function.size_readable.php
-        $sizes = array('B', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB');
-        if ($retstring === null) { $retstring = '%01.2f %s'; }
-        $lastsizestring = end($sizes);
-        foreach ($sizes as $sizestring) {
-                if ($size < 1024) { break; }
-                if ($sizestring != $lastsizestring) { $size /= 1024; }
-        }
-        if ($sizestring == $sizes[0]) { $retstring = '%01d %s'; } // Bytes aren't normally fractional
-        return sprintf($retstring, $size, $sizestring);
-}
-
-function search() {
-	include ("search.php");
-}
-
-function zip() {
-	$blogURI = get_bloginfo('url') . "/";	
-	include ("zip.php");
-}
-
-// Add settings link on plugin page
-function plugin_settings_link($links) { 
-  $settings_link = '<a href="options-general.php?page=ungallerysettings">Settings</a>'; 
-  array_unshift($links, $settings_link); 
-  return $links; 
-}
-$plugin = plugin_basename(__FILE__); 
-add_filter("plugin_action_links_$plugin", 'plugin_settings_link' );
-
-function ungallery_set_plugin_meta($links, $file) {
-	$plugin = plugin_basename(__FILE__);
-	// create link
-	if ($file == $plugin) {
-		return array_merge( $links, array( 
-			'<a href="http://wordpress.org/tags/ungallery">' . __('Support Forum') . '</a>',
-			'<a href="http://wordpress.org/extend/plugins/ungallery/faq/">' . __('FAQ') . '</a>',
-			'<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=L6GZ4FVE8YR2S" title="If you find the plugin useful, consider supporting!">' . __('Donate') . '</a>'
-		));
-	}
-	return $links;
-}
-add_filter( 'plugin_row_meta', 'ungallery_set_plugin_meta', 10, 2 );
-
+	print "
+	</td>
+	</tr>
+	</table>";
 ?>
