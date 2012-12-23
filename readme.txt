@@ -2,8 +2,8 @@
 Contributors: mmond
 Tags: gallery, ungallery, pictures, movies, mp4, jpg, png, gallery, photos, browse, images, slideshow, lightbox
 Requires at least: 
-Tested up to: 3.3
-Stable tag: 2.2.1
+Tested up to: 3.5
+Stable tag: 2.2.2
 
 Publish thousands of pictures in WordPress, in minutes.  
 
@@ -102,6 +102,8 @@ And they can be modified to suit a custom ordering scheme:
 -rw-rw-r-- 1 pg1720424  56K 2010-08-30 17:58 3.jpg</code></pre>
 
 == Changelog ==
+= 2.2.2 =
+* version correction
 = 2.2.1 =
 * Support for multiple gallery pages added to non-fancyBox
 = 2.2 =
