@@ -89,6 +89,10 @@ function mt_settings_page() {
     $browse_view_name = 'browse_view';
     $browse_view_data_field_name = 'browse_view';
 
+    // variables for the max_thumbs field  
+    $max_thumbs_name = 'max_thumbs';
+    $max_thumbs_data_field_name = 'max_thumbs';
+
     // Read in existing option value from database
     $version_val = get_option( $version_name );
     $gallery_val = get_option( $gallery_name );
@@ -109,6 +113,7 @@ function mt_settings_page() {
     $browse_view_val = get_option( $browse_view_name );
     $movie_height_val = get_option( $movie_height_name );
     $movie_width_val = get_option( $movie_width_name );
+    $max_thumbs_val = get_option( $max_thumbs_name );
 
     // Apply defaults to form if db field is blank 
     //if ($gallery_val == "") $gallery_val = "gallery";
@@ -118,7 +123,7 @@ function mt_settings_page() {
     if ($browse_view_val == "") $browse_view_val = "440";
     if ($movie_height_val == "") $movie_height_val = "495";
     if ($movie_width_val == "") $movie_width_val = "640";
-
+    if ($max_thumbs_val == "") $max_thumbs_val = "100";
 
     // See if the user has submitted information
     // If they did, this hidden field will be set to 'Y'
@@ -142,6 +147,7 @@ function mt_settings_page() {
         $browse_view_val = $_POST[ $browse_view_data_field_name ];
         $movie_height_val = $_POST[ $movie_height_data_field_name ];
         $movie_width_val = $_POST[ $movie_width_data_field_name ];
+        $max_thumbs_val = $_POST[ $max_thumbs_data_field_name ];
 
         // Save the new values in the database
         update_option( $version_name, $version_val );
@@ -163,6 +169,7 @@ function mt_settings_page() {
         update_option( $browse_view_name, $browse_view_val );
         update_option( $movie_height_name, $movie_height_val );
         update_option( $movie_width_name, $movie_width_val );
+        update_option( $max_thumbs_name, $max_thumbs_val );
 
         update_option( 'activate_fancybox', $_POST[ 'activate_fancybox' ] );
         update_option( 'disable_zip', $_POST[ 'disable_zip' ] );
@@ -288,18 +295,23 @@ UnGallery faces a unique plugin challenge in leaving the WordPress environment t
 
 <h3>Layout Settings</h3>
 <p><?php _e("Number of thumbnail columns:", 'columns' ); ?> 
-<input type="text" name="<?php echo $columns_data_field_name; ?>" value="<?php echo $columns_val; ?>" size="20">
+<input type="text" name="<?php echo $columns_data_field_name; ?>" value="<?php echo $columns_val; ?>" size="10">
 Default: 3
 </p>
 
 <p><?php _e("Thumbnail width in pixels:", 'thumbnail' ); ?> 
-<input type="text" name="<?php echo $thumbnail_data_field_name; ?>" value="<?php echo $thumbnail_val; ?>" size="20">
+<input type="text" name="<?php echo $thumbnail_data_field_name; ?>" value="<?php echo $thumbnail_val; ?>" size="10">
 Default: 190
 </p>
 
 <p><?php _e("Selected picture width in pixels:", 'browse_view' ); ?> 
-<input type="text" name="<?php echo $browse_view_data_field_name; ?>" value="<?php echo $browse_view_val; ?>" size="20">
+<input type="text" name="<?php echo $browse_view_data_field_name; ?>" value="<?php echo $browse_view_val; ?>" size="10">
 Default: 440
+</p>
+
+<p><?php _e("Only show a maximum number of thumbnails per gallery page.  Maximum:", 'max_thumbs' ); ?> 
+<input type="text" name="<?php echo $max_thumbs_data_field_name; ?>" value="<?php echo $max_thumbs_val; ?>" size="10">
+Default: 100
 </p><hr />
 
 <h3>Advanced Options</h3>

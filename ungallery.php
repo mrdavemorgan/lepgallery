@@ -6,11 +6,11 @@ Plugin URI: http://markpreynolds.com/technology/wordpress-ungallery
 Author: Mark Reynolds
 Author URI: http://markpreynolds.com
 Author Email: mark@markpreynolds.com
-Version: 2.1.7
+Version: 2.2
 */
 
 //  Set plugin version, update database so admin menu can display it
-$version_val = "2.1.7";
+$version_val = "2.2";
 update_option( "version", $version_val );
 
 //  Display the plugin administration menu
@@ -87,6 +87,9 @@ function ungallery() {
 	$movie_width = get_option( 'movie_width' );
 	$columns = get_option( 'columns' );
 	if($columns == "") $columns = 4; // set a default so admin page does not need visit after update. Remove at some point.
+	$max_thumbs = get_option( 'max_thumbs' ); 
+	if ($max_thumbs == 0) $max_thumbs = 25;
+	
 		
 	//	Provide the version of UnGallery
 	print "<!-- UnGallery version: ". $version ." -->";
@@ -97,6 +100,7 @@ function ungallery() {
 	$gallerylink = $_GET['gallerylink'];
 	$src = $_GET['src'];
 	$movie_types = array();
+	$page = $_GET['page'];
 
 	//	If we are browsing a gallery, gallerylink is not set so derive it from src in URL
 	if (isset($src)) {
@@ -180,7 +184,7 @@ function ungallery() {
 	closedir($dp);
 	print '
 		<table width="100%"><tr>';			//	Begin the table
-		if (!isset($src) && isset($pic_array)) {							//	If we are not in browse view,
+		if (!isset($src) && isset($pic_array)) {							//	If we are in thumbnails view,
 			if ($marquee == "yes" && $gallerylink == "") $w = $marquee_size	;			//	Set size of marquee picture
 				else $w = $thumbW;
 			print '<td align="center"><div class="post-headline"><p style="text-align: center;">'; 
@@ -222,18 +226,48 @@ function ungallery() {
 			    </script>
 			";
 		$column = 0;
-			foreach ($pic_array as $filename) {						//  Use the pic_array to display the thumbs and assign the links
+		// Handle maximum thumbs per page 
+		$sliced_array = $pic_array;
+		if ($max_thumbs < count($pic_array)) {		// If we are displaying thumbnails across multiple pages, update array with page data
+			if($page) {
+				$page = substr($page, 1) ;	// Remove p from page string
+				$offset = ($page -1) * $max_thumbs;
+			}
+			$sliced_array = array_slice($pic_array, $offset, $max_thumbs);
+		}
+		foreach ($sliced_array as $filename) {						//  Use the sliced_array to display the thumbs and assign the links
 				print '<a class="fancybox-button" rel="fancybox-button" href="' . $blogURI . $dir . 'phpthumb/phpThumb.php?ar=x&w='. $srcW . '&src='. $pic_root . $gallerylink.'/'. $filename. '" title="<a href=' . $blogURI . $dir . 'phpthumb/phpThumb.php?src='. rawurlencode($pic_root) . rawurlencode($gallerylink) .'/'. $filename. ' title=Original>' . $filename .'</a>" /><img src="'. $blogURI . $dir . 'phpthumb/phpThumb.php?ar=x&src='. $pic_root . $gallerylink.'/'. $filename.'&w=' .$w. '"></a>'; 
 				$column++;
 				if ( $column == $columns ) {
 					print '<br>';
 					$column = 0;
 				}
-			} 
-	} 
-	print "	</tr>
+		} 
+		
+		// If we are displaying thumbnails across multiple pages, display Next/Previos page links
+		if ($max_thumbs < count($pic_array)) {	
+					
+			$pages = ceil(count($pic_array) / $max_thumbs) ;	//	Get the number of pages	
+			
+			if (!$page) $page = 1;
+			print "</tr><tr><td>";
+			if ($page > 1) 	{
+				$previous = $page - 1;
+				print '<a href="'. $permalink . $QorA .'gallerylink='. $gallerylink . '&page=p'. $previous .'">Previous Page</a>';
+			}
+			print  "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+			if ($pages > $page) {
+				$next = $page + 1;
+				print '<a href="'. $permalink . $QorA .'gallerylink='. $gallerylink . '&page=p'. $next .'">Next Page</a>';
+			}
+			print  "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - This gallery has $pages pages -";
+		}
+		
+		// Complete the table formatting 
+		print "	</td></tr>
 	</td>
 	</table>";
+	}
 }
 
 function size_readable ($size, $retstring = null) {
