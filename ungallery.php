@@ -235,7 +235,9 @@ function ungallery() {
 			$sliced_array = array_slice($pic_array, $offset, $max_thumbs);
 		}
 		foreach ($sliced_array as $filename) {						//  Use the sliced_array to display the thumbs and assign the links
-				print '<a class="fancybox-button" rel="fancybox-button" href="' . $blogURI . $dir . 'phpthumb/phpThumb.php?ar=x&w='. $srcW . '&src='. $pic_root . $gallerylink.'/'. $filename. '" title="<a href=' . $blogURI . $dir . 'phpthumb/phpThumb.php?src='. rawurlencode($pic_root) . rawurlencode($gallerylink) .'/'. $filename. ' title=Original>' . $filename .'</a>" /><img src="'. $blogURI . $dir . 'phpthumb/phpThumb.php?ar=x&src='. $pic_root . $gallerylink.'/'. $filename.'&w=' .$w. '"></a>'; 
+				$titlestring = $filename;
+				$imgfullpath = $pic_root . $gallerylink.'/'. $filename;
+				print '<a class="fancybox-button" rel="fancybox-button" href="' . $blogURI . $dir . 'phpthumb/phpThumb.php?ar=x&w='. $srcW . '&src='. $imgfullpath . '" title="<a href=' . $blogURI . $dir . 'phpthumb/phpThumb.php?src='. rawurlencode($pic_root) . rawurlencode($gallerylink) .'/'. $filename. ' title=Original>' . $titlestring .'</a>" /><img src="'. $blogURI . $dir . 'phpthumb/phpThumb.php?ar=x&src='. $imgfullpath .'&w=' .$w. '"></a>'; 
 				$column++;
 				if ( $column == $columns ) {
 					print '<br>';
