@@ -173,6 +173,7 @@ function mt_settings_page() {
 
         update_option( 'activate_fancybox', $_POST[ 'activate_fancybox' ] );
         update_option( 'disable_zip', $_POST[ 'disable_zip' ] );
+        update_option( 'thumb_square', $_POST[ 'thumb_square' ] );
 
         // Put settings updated message on the screen
 
@@ -302,6 +303,12 @@ Default: 3
 <p><?php _e("Thumbnail width in pixels:", 'thumbnail' ); ?> 
 <input type="text" name="<?php echo $thumbnail_data_field_name; ?>" value="<?php echo $thumbnail_val; ?>" size="10">
 Default: 190
+</p>
+
+<p><?php _e("Crop thumbnails to sqaure:", 'square' ); ?> 
+    <input name="thumb_square" id="thumb_square" value="true" type="checkbox" <?php 
+    if ( get_option('thumb_square') == 'true' ) echo ' checked="checked" '; 
+    ?> /> 
 </p>
 
 <p><?php _e("Selected picture width in pixels:", 'browse_view' ); ?> 
