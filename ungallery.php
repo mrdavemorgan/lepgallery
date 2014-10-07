@@ -237,6 +237,9 @@ function ungallery() {
 		foreach ($sliced_array as $filename) {						//  Use the sliced_array to display the thumbs and assign the links
 				$titlestring = $filename;
 				$imgfullpath = $pic_root . $gallerylink.'/'. $filename;
+				if (file_exists("$imgfullpath.txt")) {
+					$titlestring = file_get_contents("$imgfullpath.txt");
+				}
 				print '<a class="fancybox-button" rel="fancybox-button" href="' . $blogURI . $dir . 'phpthumb/phpThumb.php?ar=x&w='. $srcW . '&src='. $imgfullpath . '" title="<a href=' . $blogURI . $dir . 'phpthumb/phpThumb.php?src='. rawurlencode($pic_root) . rawurlencode($gallerylink) .'/'. $filename. ' title=Original>' . $titlestring .'</a>" /><img src="'. $blogURI . $dir . 'phpthumb/phpThumb.php?ar=x&src='. $imgfullpath .'&w=' .$w. '"></a>'; 
 				$column++;
 				if ( $column == $columns ) {
