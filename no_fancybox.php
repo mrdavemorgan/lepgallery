@@ -193,9 +193,16 @@
 		$filename = substr($src, $lastslash + 1);
 		$before_filename = $pic_array[array_search($filename, $pic_array) - 1 ];
 		$after_filename = $pic_array[array_search($filename, $pic_array) + 1 ];
+		$sizedurl = $blogURI . $dir . 'phpthumb/phpThumb.php?ar=x&src='. $src. '&w='. $srcW;
+		$directurl = $blogURI . $dir . 'phpthumb/phpThumb.php?src='. $src;
+		if( get_option('allow_raw') === 'true' ){
+			$directurl = $blogURI . $dir . 'phpthumb/phpThumb.php?src='. $src;
+		} else {
+			$directurl = $sizedurl;
+		}
 																	//  Display the current/websize pic
 		print '
-		<td align="center" rowspan="2" style="vertical-align:middle;"><a href="'. $blogURI . $dir .'phpthumb/phpThumb.php?src=' . $src . '"><img src="'. $blogURI . $dir . 'phpthumb/phpThumb.php?ar=x&src='. $src. '&w='. $srcW. '"></a></td>
+		<td align="center" rowspan="2" style="vertical-align:middle;"><a href="'. $directurl . '"><img src="'. $sizedurl. '"></a></td>
 		<td valign="center">';
 			
 		if ($before_filename) {										// Display the before thumb, if it exists
