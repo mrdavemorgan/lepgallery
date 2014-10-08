@@ -97,6 +97,10 @@ function mt_settings_page() {
     $watermark_name = 'watermark_image';
     $watermark_data_field_name = 'watermark_image';
 
+    // variables for the columns field  
+    $breadcrumb_separator_name = 'breadcrumb_separator';
+    $breadcrumb_separator_data_field_name = 'breadcrumb_separator';
+
     // Read in existing option value from database
     $version_val = get_option( $version_name );
     $gallery_val = get_option( $gallery_name );
@@ -119,6 +123,7 @@ function mt_settings_page() {
     $movie_width_val = get_option( $movie_width_name );
     $max_thumbs_val = get_option( $max_thumbs_name );
     $watermark_val = get_option( $watermark_name );
+    $breadcrumb_separator_val = get_option( $breadcrumb_separator_name );
 
     // Apply defaults to form if db field is blank 
     //if ($gallery_val == "") $gallery_val = "gallery";
@@ -129,6 +134,7 @@ function mt_settings_page() {
     if ($movie_height_val == "") $movie_height_val = "495";
     if ($movie_width_val == "") $movie_width_val = "640";
     if ($max_thumbs_val == "") $max_thumbs_val = "10";
+    if ($breadcrumb_separator_val == "") $breadcrumb_separator_val = " / ";
 
     // See if the user has submitted information
     // If they did, this hidden field will be set to 'Y'
@@ -154,6 +160,7 @@ function mt_settings_page() {
         $movie_width_val = $_POST[ $movie_width_data_field_name ];
         $max_thumbs_val = $_POST[ $max_thumbs_data_field_name ];
         $watermark_val = $_POST[ $watermark_data_field_name ];
+        $breadcrumb_separator_val = $_POST[ $breadcrumb_separator_data_field_name ];
 
         // Save the new values in the database
         update_option( $version_name, $version_val );
@@ -177,6 +184,7 @@ function mt_settings_page() {
         update_option( $movie_width_name, $movie_width_val );
         update_option( $max_thumbs_name, $max_thumbs_val );
         update_option( $watermark_name, $watermark_val );
+        update_option( $breadcrumb_separator_name, $breadcrumb_separator_val );
 
         update_option( 'activate_fancybox', $_POST[ 'activate_fancybox' ] );
         update_option( 'disable_zip', $_POST[ 'disable_zip' ] );
@@ -304,6 +312,11 @@ UnGallery faces a unique plugin challenge in leaving the WordPress environment t
 <hr />
 
 <h3>Layout Settings</h3>
+<p><?php _e("Breadcrumb separator:", 'breadcrumb_separator' ); ?> 
+<input type="text" name="<?php echo $breadcrumb_separator_data_field_name; ?>" value="<?php echo $breadcrumb_separator_val; ?>" size="10">
+Default: /
+</p>
+
 <p><?php _e("Number of thumbnail columns:", 'columns' ); ?> 
 <input type="text" name="<?php echo $columns_data_field_name; ?>" value="<?php echo $columns_val; ?>" size="10">
 Default: 3

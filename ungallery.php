@@ -32,6 +32,9 @@ if($gallery4 == "") $gallery4 = "UnGalleryWontLoad";
 if($gallery5 == "") $gallery5 = "UnGalleryWontLoad";
 if($gallery6 == "") $gallery6 = "UnGalleryWontLoad";
 
+$breadcrumb_separator = get_option( 'breadcrumb_separator' );
+if ($breadcrumb_separator == "") $breadcrumb_separator = " / ";
+
 // If the search flag is active, display the search page
 if (strpos($_SERVER["REQUEST_URI"], "&search=")) add_filter('the_content', "search"); 
 
@@ -51,6 +54,7 @@ function no_fancybox() {
 function ungallery() {
 	//  Get the page name from the WP page slug
 	global $wp_query;
+	global $breadcrumb_separator;
 	$post_obj = $wp_query->get_queried_object();
 	$post_ID = $post_obj->ID;
 	$post_name = $post_obj->post_name;
@@ -120,7 +124,7 @@ function ungallery() {
 		print '<a href="'. $permalink .'">Top</a>';
 		foreach ($gallerylinkarray as $key => $level) {
 			$parentpath = $parentpath . $level ;
-			print ' / <a href="'. $permalink . $QorA .'gallerylink='. $parentpath .'" >'. $level .'</a>';
+			print $breadcrumb_separator . '<a href="'. $permalink . $QorA .'gallerylink='. $parentpath .'" >'. $level .'</a>';
 			$parentpath = $parentpath . "/";
 		}
 	}
@@ -142,11 +146,11 @@ function ungallery() {
 	if($pic_array) rsort($pic_array);	
 	
 	// Display the zip link
-	if ( get_option('disable_zip') !== 'true' ) print '  / <a href="'. $permalink . $QorA .'zip=' . $gallerylink . '" title="Download a zipped archive of all photos in this gallery">-zip-</a> ';
+	if ( get_option('disable_zip') !== 'true' ) print $breadcrumb_separator  . '<a href="'. $permalink . $QorA .'zip=' . $gallerylink . '" title="Download a zipped archive of all photos in this gallery">-zip-</a>';
 	
 	// Display the search form
 	if ( get_option('disable_search') !== 'true' ) 
-	print ' / <form name="myform" action="/' . $permalink . '" style="display: inline" > 
+	print $breadcrumb_separator  . '<form name="myform" action="/' . $permalink . '" style="display: inline" > 
 	<input type="hidden" name="gallerylink" value="' . $gallerylink . '">
 	<a href="javascript: submitform()">-search-</a> <input type="text" name="search" size="8"/>
 	</form>
@@ -162,7 +166,7 @@ function ungallery() {
 		print ' <br>Movies:&nbsp;&nbsp;';
 		foreach ($movie_array as $filename => $filesize) {
 			print  '
-				<a href="./wp-content/plugins/ungallery/source.php?movie=' . $pic_root . substr($parentpath, 0, strlen($parentpath) -1).$subdir.'/'.$filename. '" title="This movie file size is '. $filesize .'">'	.$filename.'</a>&nbsp;&nbsp;/&nbsp;&nbsp;';
+				<a href="./wp-content/plugins/ungallery/source.php?movie=' . $pic_root . substr($parentpath, 0, strlen($parentpath) -1).$subdir.'/'.$filename. '" title="This movie file size is '. $filesize .'">'	.$filename.'</a>' . $breadcrumb_separator ;
 		}
 	}
 	closedir($dp);
@@ -178,7 +182,7 @@ function ungallery() {
 		print '&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;Sub Galleries&nbsp;:&nbsp;&nbsp;';
 		sort($subdirs);	
 		foreach ($subdirs as $key => $subdir) {
-			print  '<a href="'. $permalink . $QorA .'gallerylink='. $parentpath.rawurlencode($subdir). '" >'	.$subdir.'</a> / ';
+			print  '<a href="'. $permalink . $QorA .'gallerylink='. $parentpath.rawurlencode($subdir). '" >'	.$subdir.'</a>' . $breadcrumb_separator ;
 		}
 	}
 	closedir($dp);

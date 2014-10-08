@@ -24,6 +24,9 @@
 	if($gallery_ID == get_option( 'gallery4' )) $pic_root = get_option( 'images4_path' );
 	if($gallery_ID == get_option( 'gallery5' )) $pic_root = get_option( 'images5_path' );
 	if($gallery_ID == get_option( 'gallery6' )) $pic_root = get_option( 'images6_path' );
+
+	$breadcrumb_separator = get_option( 'breadcrumb_separator' );
+	if ($breadcrumb_separator == "") $breadcrumb_separator = " / ";
 	
 	//	Load the configuration data from the database
 	$version = get_option( 'version' );
@@ -69,7 +72,7 @@
 		print '<a href="'. $permalink .'">Top</a>';
 		foreach ($gallerylinkarray as $key => $level) {
 			$parentpath = $parentpath . $level ;
-			print ' / <a href="'. $permalink . $QorA .'gallerylink='. $parentpath .'" >'. $level .'</a>';
+			print $breadcrumb_separator  . '<a href="'. $permalink . $QorA .'gallerylink='. $parentpath .'" >'. $level .'</a>';
 			$parentpath = $parentpath . "/";
 		}
 	}
@@ -89,7 +92,7 @@
 	// If we are viewing a gallery, arrange the thumbs
 	if($pic_array) sort($pic_array);	
 	// Unless we are at the top level or the marquee is set, display the zip link and search form
-	if ($_SERVER["REQUEST_URI"]  !== "/".$gallery) print '  / <a href="'. $permalink . $QorA .'zip=' . $gallerylink . '" title="Download a zipped archive of all photos in this gallery">-zip-</a> / <form name="myform" action="'. $permalink . '" style="display: inline" > 
+	if ($_SERVER["REQUEST_URI"]  !== "/".$gallery) print $breadcrumb_separator  . '<a href="'. $permalink . $QorA .'zip=' . $gallerylink . '" title="Download a zipped archive of all photos in this gallery">-zip-</a>' . $breadcrumb_separator  . '<form name="myform" action="'. $permalink . '" style="display: inline" > 
 	<input type="hidden" name="gallerylink" value="' . $gallerylink . '">
 	<a href="javascript: submitform()">-search-</a> <input type="text" name="search" size="8"/>
 	</form>
@@ -99,14 +102,14 @@
 	  document.myform.submit();
 	}
 	</script>';	
-	elseif ($marquee !== "yes") print '  / <a href="'. $permalink . $QorA .'zip=' . $gallerylink . '" title="Download a zipped archive of all photos in this gallery">-zip-</a> / ';	
+	elseif ($marquee !== "yes") print $breadcrumb_separator  . '<a href="'. $permalink . $QorA .'zip=' . $gallerylink . '" title="Download a zipped archive of all photos in this gallery">-zip-</a>' . $breadcrumb_separator ;	
 
 	// Display the movie links
 	if($movie_array) {					
 		print ' <br>Movies:&nbsp;&nbsp;';
 		foreach ($movie_array as $filename => $filesize) {
 			print  '
-				<a href="./wp-content/plugins/ungallery/source.php?movie=' . $pic_root . substr($parentpath, 0, strlen($parentpath) -1).$subdir.'/'.$filename. '" title="This movie file size is '. $filesize .'">'	.$filename.'</a>&nbsp;&nbsp;/&nbsp;&nbsp;';
+				<a href="./wp-content/plugins/ungallery/source.php?movie=' . $pic_root . substr($parentpath, 0, strlen($parentpath) -1).$subdir.'/'.$filename. '" title="This movie file size is '. $filesize .'">'	.$filename.'</a>' . $breadcrumb_separator ;
 		}
 	}
 	closedir($dp);
@@ -122,7 +125,7 @@
 		print '&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;Sub Galleries&nbsp;:&nbsp;&nbsp;';
 		sort($subdirs);	
 		foreach ($subdirs as $key => $subdir) {
-			print  '<a href="'. $permalink . $QorA .'gallerylink='. $parentpath.$subdir. '" >'	.$subdir.'</a> / ';
+			print  '<a href="'. $permalink . $QorA .'gallerylink='. $parentpath.$subdir. '" >'	.$subdir.'</a>' . $breadcrumb_separator ;
 		}
 	}
 	closedir($dp);
