@@ -145,6 +145,7 @@ function ungallery() {
 	if ( get_option('disable_zip') !== 'true' ) print '  / <a href="'. $permalink . $QorA .'zip=' . $gallerylink . '" title="Download a zipped archive of all photos in this gallery">-zip-</a> ';
 	
 	// Display the search form
+	if ( get_option('disable_search') !== 'true' ) 
 	print ' / <form name="myform" action="/' . $permalink . '" style="display: inline" > 
 	<input type="hidden" name="gallerylink" value="' . $gallerylink . '">
 	<a href="javascript: submitform()">-search-</a> <input type="text" name="search" size="8"/>

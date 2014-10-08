@@ -182,6 +182,7 @@ function mt_settings_page() {
         update_option( 'disable_zip', $_POST[ 'disable_zip' ] );
         update_option( 'thumb_square', $_POST[ 'thumb_square' ] );
         update_option( 'allow_raw', $_POST[ 'allow_raw' ] );
+        update_option( 'disable_search', $_POST[ 'disable_search' ] );
 
         // Put settings updated message on the screen
 
@@ -343,6 +344,10 @@ Full path on the local filesystem.  (Leave this empty to have no watermark.) * S
 
 <p>Do not display the zip archive link: <input name="disable_zip" id="disable_zip" value="true" type="checkbox" <?php if ( get_option('disable_zip') == 'true' ) echo ' checked="checked" '; ?> /> <br />
 <?php _e('Check this box to remove the zip link from all pages.'); ?>
+</p>
+
+<p>Do not display the search field: <input name="disable_search" id="disable_search" value="true" type="checkbox" <?php if ( get_option('disable_search') == 'true' ) echo ' checked="checked" '; ?> /> <br />
+<?php _e('Check this box to remove the search field from all pages.'); ?>
 </p>
 
 <p>Link to raw image: <input name="allow_raw" id="allow_raw" value="true" type="checkbox" <?php 
