@@ -152,7 +152,13 @@
 			$sliced_array = array_slice($pic_array, $offset, $max_thumbs);
 		}
 		foreach ($sliced_array as $filename) {						//  Use the pic_array to display the thumbs and assign the links
-			print '<a href="' . $permalink . $QorA . 'src='. $pic_root . $gallerylink. "/" .$filename.'"><img src="'. $blogURI . $dir . 'phpthumb/phpThumb.php?ar=x&src='. $pic_root . $gallerylink. "/". $filename.'&w=' .$w. '"></a>'; 
+			$imgfullpath = $pic_root . $gallerylink.'/'. $filename;
+			if( get_option('thumb_square') === 'true' ){
+				$thumburl = $blogURI . $dir . 'phpthumb/phpThumb.php?ar=x&zc=1&src='. $imgfullpath .'&w=' .$w . '&h=' .$w;
+			} else {
+				$thumburl = $blogURI . $dir . 'phpthumb/phpThumb.php?ar=x&src='. $imgfullpath .'&w=' .$w;
+			}
+			print '<a href="' . $permalink . $QorA . 'src='.$imgfullpath.'"><img src="'.$thumburl.'"></a>'; 
 			$column++;
 			if ( $column == $columns ) {
 				print '<br>';
