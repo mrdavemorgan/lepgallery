@@ -186,8 +186,7 @@ function ungallery() {
 		}
 	}
 	closedir($dp);
-	print '
-		<table width="100%"><tr>';			//	Begin the table
+	print '		<table width="100%"><tr>';			//	Begin the table
 		if (!isset($src) && isset($pic_array)) {							//	If we are in thumbnails view,
 			if ($marquee == "yes" && $gallerylink == "") $w = $marquee_size	;			//	Set size of marquee picture
 				else $w = $thumbW;
@@ -291,6 +290,9 @@ function ungallery() {
 		// Complete the table formatting 
 		print "	</td></tr>
 	</td>
+	</table>";
+	} else {
+		print "	</tr>
 	</table>";
 	}
 }
