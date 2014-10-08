@@ -191,13 +191,13 @@ function ungallery() {
 		if (!isset($src) && isset($pic_array)) {							//	If we are in thumbnails view,
 			if ($marquee == "yes" && $gallerylink == "") $w = $marquee_size	;			//	Set size of marquee picture
 				else $w = $thumbW;
-			print '<td align="center"><div class="post-headline"><p style="text-align: center;">'; 
+			print '<td align="center"><div class="post-headline">'; 
 			if (file_exists($pic_root.$gallerylink."/banner.txt")) {
 				include ($pic_root.$gallerylink."/banner.txt");					//	We also display the caption from banner.txt
 			} else {
 				$lastslash =  strrpos($gallerylink, "/");
-				if (strpos($gallerylink, "/")) print "<h2>" . substr($gallerylink, $lastslash + 1) ."</h2>";
-				else print "<h2>" . $gallerylink . "</h2>";
+				if (strpos($gallerylink, "/")) print "<h2 style=\"text-align: center;\">" . substr($gallerylink, $lastslash + 1) ."</h2>";
+				else print "<h2 style=\"text-align: center;\">" . $gallerylink . "</h2>";
 			}
 			print "</td></tr><tr>";									//	Close cell. Add a bit of space
 			print '<td align="center"><p style="text-align: center;">
