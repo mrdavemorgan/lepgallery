@@ -238,7 +238,7 @@ function ungallery() {
 				$titlestring = $filename;
 				$imgfullpath = $pic_root . $gallerylink.'/'. $filename;
 				if (file_exists("$imgfullpath.txt")) {
-					$titlestring = file_get_contents("$imgfullpath.txt");
+					$titlestring = htmlentities(file_get_contents("$imgfullpath.txt"),ENT_QUOTES);
 				}
 				if( get_option('thumb_square') === 'true' ){
 					$thumburl = $blogURI . $dir . 'phpthumb/phpThumb.php?ar=x&zc=1&src='. $imgfullpath .'&w=' .$w . '&h=' .$w;
