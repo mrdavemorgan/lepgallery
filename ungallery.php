@@ -170,7 +170,7 @@ function ungallery() {
 	$dp = opendir($pic_root.$gallerylink);	//  Read the directory for subdirectories
 	while ($subdir = readdir($dp)) {		//  If it is a subdir and not set as hidden, enter it into the array
 		if (is_dir($pic_root.$gallerylink. "/". $subdir) && $subdir != "." && $subdir != ".." && !strstr($subdir, $hidden)) {
-			$subdirs[] = rawurlencode($subdir);
+			$subdirs[] = $subdir;
 		}
 	}
 
@@ -178,7 +178,7 @@ function ungallery() {
 		print '&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;Sub Galleries&nbsp;:&nbsp;&nbsp;';
 		sort($subdirs);	
 		foreach ($subdirs as $key => $subdir) {
-			print  '<a href="'. $permalink . $QorA .'gallerylink='. $parentpath.$subdir. '" >'	.$subdir.'</a> / ';
+			print  '<a href="'. $permalink . $QorA .'gallerylink='. $parentpath.rawurlencode($subdir). '" >'	.$subdir.'</a> / ';
 		}
 	}
 	closedir($dp);
