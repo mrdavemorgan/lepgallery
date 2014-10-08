@@ -235,6 +235,10 @@ function ungallery() {
 			$sliced_array = array_slice($pic_array, $offset, $max_thumbs);
 		}
 		foreach ($sliced_array as $filename) {						//  Use the sliced_array to display the thumbs and assign the links
+				$watermark = get_option('watermark_image');
+				if($watermark !== ""){
+					$watermark = "&fltr[]=wmi|$watermark|BL|100";
+				}
 				$titlestring = $filename;
 				$imgfullpath = $pic_root . $gallerylink.'/'. $filename;
 				if (file_exists("$imgfullpath.txt")) {
@@ -245,8 +249,8 @@ function ungallery() {
 				} else {
 					$thumburl = $blogURI . $dir . 'phpthumb/phpThumb.php?ar=x&src='. $imgfullpath .'&w=' .$w;
 				}
-				$fancyboxurl = $blogURI . $dir . 'phpthumb/phpThumb.php?ar=x&w='. $srcW . '&src='. $imgfullpath;
-				$rawurl = $blogURI . $dir . 'phpthumb/phpThumb.php?src='. rawurlencode($imgfullpath);
+				$fancyboxurl = $blogURI . $dir . 'phpthumb/phpThumb.php?ar=x&w='. $srcW . '&src='. $imgfullpath . $watermark;
+				$rawurl = $blogURI . $dir . 'phpthumb/phpThumb.php?src='. rawurlencode($imgfullpath) . $watermark;
 
 				if( get_option('allow_raw') === 'true' ){
 					print '<a class="fancybox-button" rel="fancybox-button" href="'.$fancyboxurl.'" title="<a href='.$rawurl.'  title=Original>'.$titlestring.'</a>" /><img src="'.$thumburl.'"/></a>'; 

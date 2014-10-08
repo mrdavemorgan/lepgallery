@@ -93,6 +93,10 @@ function mt_settings_page() {
     $max_thumbs_name = 'max_thumbs';
     $max_thumbs_data_field_name = 'max_thumbs';
 
+    // variables for the watermark field  
+    $watermark_name = 'watermark_image';
+    $watermark_data_field_name = 'watermark_image';
+
     // Read in existing option value from database
     $version_val = get_option( $version_name );
     $gallery_val = get_option( $gallery_name );
@@ -114,6 +118,7 @@ function mt_settings_page() {
     $movie_height_val = get_option( $movie_height_name );
     $movie_width_val = get_option( $movie_width_name );
     $max_thumbs_val = get_option( $max_thumbs_name );
+    $watermark_val = get_option( $watermark_name );
 
     // Apply defaults to form if db field is blank 
     //if ($gallery_val == "") $gallery_val = "gallery";
@@ -148,6 +153,7 @@ function mt_settings_page() {
         $movie_height_val = $_POST[ $movie_height_data_field_name ];
         $movie_width_val = $_POST[ $movie_width_data_field_name ];
         $max_thumbs_val = $_POST[ $max_thumbs_data_field_name ];
+        $watermark_val = $_POST[ $watermark_data_field_name ];
 
         // Save the new values in the database
         update_option( $version_name, $version_val );
@@ -170,6 +176,7 @@ function mt_settings_page() {
         update_option( $movie_height_name, $movie_height_val );
         update_option( $movie_width_name, $movie_width_val );
         update_option( $max_thumbs_name, $max_thumbs_val );
+        update_option( $watermark_name, $watermark_val );
 
         update_option( 'activate_fancybox', $_POST[ 'activate_fancybox' ] );
         update_option( 'disable_zip', $_POST[ 'disable_zip' ] );
@@ -327,6 +334,11 @@ Default: 10
 <p><?php _e("Name used for hidden galleries:", 'hidden' ); ?> 
 <input type="text" name="<?php echo $hidden_data_field_name; ?>" value="<?php echo $hidden_val; ?>" size="20">
 Example: hidden
+</p>
+
+<p><?php _e("Path to watermark image file:", 'watermark_image' ); ?>
+<input type="text" name="<?php echo $watermark_data_field_name; ?>" value="<?php echo $watermark_val; ?>" size="70">  <br />
+Full path on the local filesystem.  (Leave this empty to have no watermark.) * See path tips above for help.
 </p>
 
 <p>Do not display the zip archive link: <input name="disable_zip" id="disable_zip" value="true" type="checkbox" <?php if ( get_option('disable_zip') == 'true' ) echo ' checked="checked" '; ?> /> <br />

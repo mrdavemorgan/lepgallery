@@ -190,13 +190,16 @@
 	</table>";
 	} else {	//  Render the browsing version, link to original, last/next picture, and link to parent gallery
 	if (isset($src) && !in_array(substr($src, -3), $movie_types)) { //  If we are in broswing mode and the source is not a movie
+		$watermark = get_option('watermark_image');
+		if($watermark !== ""){
+			$watermark = "&fltr[]=wmi|$watermark|BL|100";
+		}
 		$filename = substr($src, $lastslash + 1);
 		$before_filename = $pic_array[array_search($filename, $pic_array) - 1 ];
 		$after_filename = $pic_array[array_search($filename, $pic_array) + 1 ];
-		$sizedurl = $blogURI . $dir . 'phpthumb/phpThumb.php?ar=x&src='. $src. '&w='. $srcW;
-		$directurl = $blogURI . $dir . 'phpthumb/phpThumb.php?src='. $src;
+		$sizedurl = $blogURI . $dir . 'phpthumb/phpThumb.php?ar=x&src='. $src. '&w='. $srcW . $watermark;
 		if( get_option('allow_raw') === 'true' ){
-			$directurl = $blogURI . $dir . 'phpthumb/phpThumb.php?src='. $src;
+			$directurl = $blogURI . $dir . 'phpthumb/phpThumb.php?src='. $src . $watermark;
 		} else {
 			$directurl = $sizedurl;
 		}
