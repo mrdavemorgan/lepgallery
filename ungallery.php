@@ -248,7 +248,11 @@ function ungallery() {
 				$fancyboxurl = $blogURI . $dir . 'phpthumb/phpThumb.php?ar=x&w='. $srcW . '&src='. $imgfullpath;
 				$rawurl = $blogURI . $dir . 'phpthumb/phpThumb.php?src='. rawurlencode($imgfullpath);
 
-				print '<a class="fancybox-button" rel="fancybox-button" href="'.$fancyboxurl.'" title="<a href='.$rawurl.'  title=Original>'.$titlestring.'</a>" /><img src="'.$thumburl.'"/></a>'; 
+				if( get_option('allow_raw') === 'true' ){
+					print '<a class="fancybox-button" rel="fancybox-button" href="'.$fancyboxurl.'" title="<a href='.$rawurl.'  title=Original>'.$titlestring.'</a>" /><img src="'.$thumburl.'"/></a>'; 
+				} else {
+					print '<a class="fancybox-button" rel="fancybox-button" href="'.$fancyboxurl.'" title="'.$titlestring.'" /><img src="'.$thumburl.'"/></a>'; 
+				}
 				$column++;
 				if ( $column == $columns ) {
 					print '<br>';

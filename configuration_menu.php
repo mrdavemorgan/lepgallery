@@ -174,6 +174,7 @@ function mt_settings_page() {
         update_option( 'activate_fancybox', $_POST[ 'activate_fancybox' ] );
         update_option( 'disable_zip', $_POST[ 'disable_zip' ] );
         update_option( 'thumb_square', $_POST[ 'thumb_square' ] );
+        update_option( 'allow_raw', $_POST[ 'allow_raw' ] );
 
         // Put settings updated message on the screen
 
@@ -330,6 +331,11 @@ Example: hidden
 
 <p>Do not display the zip archive link: <input name="disable_zip" id="disable_zip" value="true" type="checkbox" <?php if ( get_option('disable_zip') == 'true' ) echo ' checked="checked" '; ?> /> <br />
 <?php _e('Check this box to remove the zip link from all pages.'); ?>
+</p>
+
+<p>Link to raw image: <input name="allow_raw" id="allow_raw" value="true" type="checkbox" <?php 
+    if ( get_option('allow_raw') == 'true' ) echo ' checked="checked" '; ?> /><br/>
+    <?php _e('Check this box to have expose the link to the raw image. Otherwise it will be replaced with the "selected picture" size.'); ?>
 </p>
 
 <p>A single gallery can contain an unlimited number of images and sub-galleries organized using the file system directory tree.  <br />
