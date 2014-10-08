@@ -69,7 +69,7 @@
 		$gallerylinkarray =  explode("/", $gallerylink);
 	
 		//  Render the Up/Current directory links
-		print '<a href="'. $permalink .'">Top</a>';
+		print '<a href="'. $permalink .'">' . get_the_title() . '</a>';
 		foreach ($gallerylinkarray as $key => $level) {
 			$parentpath = $parentpath . $level ;
 			print $breadcrumb_separator  . '<a href="'. $permalink . $QorA .'gallerylink='. $parentpath .'" >'. $level .'</a>';
