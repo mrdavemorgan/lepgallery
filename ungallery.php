@@ -239,27 +239,18 @@ function ungallery() {
 			$sliced_array = array_slice($pic_array, $offset, $max_thumbs);
 		}
 		foreach ($sliced_array as $filename) {						//  Use the sliced_array to display the thumbs and assign the links
+				$phpthumburl = $blogURI . $dir . 'phpthumb/phpThumb.php';
 				$watermark = get_option('watermark_image');
-				if($watermark !== ""){
-					$watermark = "&fltr[]=wmi|$watermark|BL|100";
-				}
-				$titlestring = $filename;
 				$imgfullpath = $pic_root . $gallerylink.'/'. $filename;
-				if (file_exists("$imgfullpath.txt")) {
-					$titlestring = htmlentities(file_get_contents("$imgfullpath.txt"),ENT_QUOTES);
-				}
-				if( get_option('thumb_square') === 'true' ){
-					$thumburl = $blogURI . $dir . 'phpthumb/phpThumb.php?ar=x&zc=1&src='. $imgfullpath .'&w=' .$w . '&h=' .$w;
-				} else {
-					$thumburl = $blogURI . $dir . 'phpthumb/phpThumb.php?ar=x&src='. $imgfullpath .'&w=' .$w;
-				}
-				$fancyboxurl = $blogURI . $dir . 'phpthumb/phpThumb.php?ar=x&w='. $srcW . '&src='. $imgfullpath . $watermark;
-				$rawurl = $blogURI . $dir . 'phpthumb/phpThumb.php?src='. rawurlencode($imgfullpath) . $watermark;
+				$titlestring = getTitleString($imgfullpath, $filename);
+				$thumburl = getThumbUrl($phpthumburl, $w, (get_option('thumb_square') === 'true'), $imgfullpath, 0);
+				$fancyboxurl = getThumbUrl($phpthumburl, $srcW, 0, $imgfullpath, $watermark);
+				$rawurl = getThumbUrl($phpthumburl, 0, 0, $imgfullpath, $watermark);
 
 				if( get_option('allow_raw') === 'true' ){
-					print '<a class="fancybox-button" rel="fancybox-button" href="'.$fancyboxurl.'" title="<a href='.$rawurl.'  title=Original>'.$titlestring.'</a>" /><img src="'.$thumburl.'"/></a>'; 
+					printFancyBoxButton($titlestring, $thumburl, $fancyboxurl, $rawurl);
 				} else {
-					print '<a class="fancybox-button" rel="fancybox-button" href="'.$fancyboxurl.'" title="'.$titlestring.'" /><img src="'.$thumburl.'"/></a>'; 
+					printFancyBoxButton($titlestring, $thumburl, $fancyboxurl, 0);
 				}
 				$column++;
 				if ( $column == $columns ) {
@@ -296,6 +287,42 @@ function ungallery() {
 	</table>";
 	}
 }
+
+function getTitleString($imagepath, $default){
+	if (file_exists("$imagepath.txt")) {
+		return htmlentities(file_get_contents("$imagepath.txt"),ENT_QUOTES);
+	}
+	return $default;
+}
+
+function getThumbUrl($phpthumburl, $width, $square, $imgpath, $watermark){
+	if($width > 0){
+		$ret = "$phpthumburl?ar=x&w=$width&src=$imgpath";
+		if($square){
+			$ret .= "&zc=1&h=$width";
+		}
+	} else {
+		$ret = "$phpthumburl?ar=x&src=$imgpath";
+	}
+	if($watermark){
+		$ret .= "&fltr[]=wmi|$watermark|BL|100";
+	}
+	return $ret;
+}
+
+function printFancyBoxButton($title, $thumburl, $expandedurl, $rawurl){
+	if($rawurl){
+		?>
+		<a class="fancybox-button" rel="fancybox-button" href="<?=$expandedurl;?>" title="<a href=<?=$rawurl;?>  title=Original><?=$title;?></a>" /><img src="<?=$thumburl;?>"/></a>
+		<?
+	} else {
+		?>
+		<a class="fancybox-button" rel="fancybox-button" href="<?=$expandedurl;?>" title="<?=$title;?>" /><img src="<?=$thumburl;?>"/></a>
+		<?
+	}
+}
+
+
 
 function size_readable ($size, $retstring = null) {
         // adapted from code at http://aidanlister.com/repos/v/function.size_readable.php
