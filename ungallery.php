@@ -248,9 +248,9 @@ function ungallery() {
 				$rawurl = getThumbUrl($phpthumburl, 0, 0, $imgfullpath, $watermark);
 
 				if( get_option('allow_raw') === 'true' ){
-					printFancyBoxButton($titlestring, $thumburl, $fancyboxurl, $rawurl);
+					printLightBoxButton($titlestring, $thumburl, $fancyboxurl, $rawurl);
 				} else {
-					printFancyBoxButton($titlestring, $thumburl, $fancyboxurl, 0);
+					printLightBoxButton($titlestring, $thumburl, $fancyboxurl, 0);
 				}
 				$column++;
 				if ( $column == $columns ) {
@@ -318,6 +318,18 @@ function printFancyBoxButton($title, $thumburl, $expandedurl, $rawurl){
 	} else {
 		?>
 		<a class="fancybox-button" rel="fancybox-button" href="<?=$expandedurl;?>" title="<?=$title;?>" /><img src="<?=$thumburl;?>"/></a>
+		<?
+	}
+}
+
+function printLightBoxButton($title, $thumburl, $expandedurl, $rawurl){
+	if($rawurl){
+		?>
+		<a class="fancybox-button" href="<?=$expandedurl;?>" data-lightbox="lightbox-set" data-title="<a href=<?=$rawurl;?>  title=Original><?=$title;?></a>"><img src="<?=$thumburl;?>" alt=""/></a>
+		<?
+	} else {
+		?>
+		<a class="fancybox-button" href="<?=$expandedurl;?>" data-lightbox="lightbox-set" data-title="<?=$title;?>"><img src="<?=$thumburl;?>" alt=""/></a>
 		<?
 	}
 }
