@@ -101,25 +101,26 @@ function ungallery() {
 		//  Render the Up/Current directory links
 		print '<a href="'. $permalink .'">'. get_the_title() . '</a>';
 		foreach ($gallerylinkarray as $key => $level) {
-			$parentpath = $parentpath . $level ;
+			$parentpath .= $level ;
 			print $breadcrumb_separator . '<a href="'. $permalink . $QorA .'gallerylink='. $parentpath .'" >'. $level .'</a>';
-			$parentpath = $parentpath . "/";
+			$parentpath .= "/";
 		}
 	}
 
 	// Create the arrays with the dir's media files
 	$dp = opendir( $pic_root.$gallerylink);
+	$pic_types = array("JPG", "jpg", "GIF", "gif", "PNG", "png", "BMP", "bmp"); 	
 	while ($filename = readdir($dp)) {
-		if (!is_dir($pic_root.$gallerylink. "/". $filename))  {  // If it's a file, begin
-				$pic_types = array("JPG", "jpg", "GIF", "gif", "PNG", "png", "BMP", "bmp"); 		
-				if (in_array(substr($filename, -3), $pic_types)) $pic_array[] = rawurlencode($filename);		// If it's a picture, add it to thumb array
+		if ((!is_dir($pic_root.$gallerylink. "/". $filename))  && (in_array(pathinfo($filename, PATHINFO_EXTENSION), $pic_types))) { 
+			$pic_array[] = rawurlencode($filename);		// If it's a picture, add it to thumb array
 		}
 	} 
+	closedir($dp);
 
 	// If we are viewing a gallery, arrange the thumbs
-	if($pic_array) rsort($pic_array);	
-	
-	closedir($dp);
+	if($pic_array) {
+		rsort($pic_array);	
+	}
 
 	$dp = opendir($pic_root.$gallerylink);	//  Read the directory for subdirectories
 	while ($subdir = readdir($dp)) {		//  If it is a subdir and not set as hidden, enter it into the array
@@ -128,10 +129,11 @@ function ungallery() {
 		}
 	}
 	closedir($dp);
-	print '		<table width="100%"><tr>';			//	Begin the table
+
+	?>		<table width="100%"><tr><? //	Begin the table
 		if (!isset($src) && isset($pic_array)) {							//	If we are in thumbnails view,
 			$w = $thumbW;
-			print '<td align="center"><div class="post-headline">'; 
+			?><td align="center"><div class="post-headline">'<?
 			if (file_exists($pic_root.$gallerylink."/banner.txt")) {
 				include ($pic_root.$gallerylink."/banner.txt");					//	We also display the caption from banner.txt
 			} else {
@@ -139,16 +141,15 @@ function ungallery() {
 				if (strpos($gallerylink, "/")) print "<h2 style=\"text-align: center;\">" . substr($gallerylink, $lastslash + 1) ."</h2>";
 				else print "<h2 style=\"text-align: center;\">" . $gallerylink . "</h2>";
 			}
-			print "</td></tr><tr>";									//	Close cell. Add a bit of space
-			print '<td align="center"><p style="text-align: center;">
+												//	Close cell. Add a bit of space
+			?></td></tr><tr>
+			<td align="center"><p style="text-align: center;">
 				<script type="text/javascript">
 				$(document).ready(function() {
 					$(".fancybox-button").fancybox({
-						';
-					print "prevEffect		: 'none',
+					prevEffect		: 'none',
 						nextEffect		: 'none',
-						";
-					print "closeBtn		: true,
+					closeBtn		: true,
 						helpers		: { 
 							title	: { 
 								type : 'inside' 
@@ -168,7 +169,7 @@ function ungallery() {
 					});
 				});
 			    </script>
-			";
+			<?
 		$column = 0;
 		// Handle maximum thumbs per page 
 		$sliced_array = $pic_array;
