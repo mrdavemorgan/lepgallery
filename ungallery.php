@@ -127,14 +127,6 @@ function ungallery() {
 			$subdirs[] = $subdir;
 		}
 	}
-
-	if($subdirs) {							//  List each subdir and link
-		print '&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;Sub Galleries&nbsp;:&nbsp;&nbsp;';
-		sort($subdirs);	
-		foreach ($subdirs as $key => $subdir) {
-			print  '<a href="'. $permalink . $QorA .'gallerylink='. $parentpath.rawurlencode($subdir). '" >'	.$subdir.'</a>' . $breadcrumb_separator ;
-		}
-	}
 	closedir($dp);
 	print '		<table width="100%"><tr>';			//	Begin the table
 		if (!isset($src) && isset($pic_array)) {							//	If we are in thumbnails view,
