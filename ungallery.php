@@ -35,20 +35,9 @@ if($gallery6 == "") $gallery6 = "UnGalleryWontLoad";
 $breadcrumb_separator = get_option( 'breadcrumb_separator' );
 if ($breadcrumb_separator == "") $breadcrumb_separator = " / ";
 
-// If the search flag is active, display the search page
-if (strpos($_SERVER["REQUEST_URI"], "&search=")) add_filter('the_content', "search"); 
-
-// If the zip flag is active, display the archive page
-elseif (strpos($_SERVER["REQUEST_URI"], "?zip")) add_filter('the_content', "zip"); 
-
 // If any gallery flags are active, run the display gallery code
-elseif (strstr($_SERVER["REQUEST_URI"], "/". $gallery) || (strstr($_SERVER["REQUEST_URI"], "/". $gallery2)) || (strstr($_SERVER["REQUEST_URI"], "/". $gallery3)) || 	(strstr($_SERVER["REQUEST_URI"], "/". $gallery4)) || (strstr($_SERVER["REQUEST_URI"], "/". $gallery5)) || (strstr($_SERVER["REQUEST_URI"], "/". $gallery6))) {			
-			if ( get_option('activate_fancybox') !== 'true' ) add_filter('the_content', "no_fancybox") ;
-			else add_filter('the_content', "ungallery");
-		}
-
-function no_fancybox() {
-	include ("no_fancybox.php");
+if (strstr($_SERVER["REQUEST_URI"], "/". $gallery) || (strstr($_SERVER["REQUEST_URI"], "/". $gallery2)) || (strstr($_SERVER["REQUEST_URI"], "/". $gallery3)) || 	(strstr($_SERVER["REQUEST_URI"], "/". $gallery4)) || (strstr($_SERVER["REQUEST_URI"], "/". $gallery5)) || (strstr($_SERVER["REQUEST_URI"], "/". $gallery6))) {			
+	add_filter('the_content', "ungallery");
 }
 
 function ungallery() {
@@ -105,10 +94,7 @@ function ungallery() {
 		$gallerylink = substr($gallerylink, 0, $length);	// 	Trim the filename off the end
 	}
 
-	if ($gallerylink == "") {
-		$gallerylink =  "";
-	} else {   	//  If ?gallerylink is set and not "" then....
-	
+	if ($gallerylink) {
 		//  Build the full gallery path into an array
 		$gallerylinkarray =  explode("/", $gallerylink);
 	
@@ -133,22 +119,6 @@ function ungallery() {
 	// If we are viewing a gallery, arrange the thumbs
 	if($pic_array) rsort($pic_array);	
 	
-	// Display the zip link
-	if ( get_option('disable_zip') !== 'true' ) print $breadcrumb_separator  . '<a href="'. $permalink . $QorA .'zip=' . $gallerylink . '" title="Download a zipped archive of all photos in this gallery">-zip-</a>';
-	
-	// Display the search form
-	if ( get_option('disable_search') !== 'true' ) 
-	print $breadcrumb_separator  . '<form name="myform" action="/' . $permalink . '" style="display: inline" > 
-	<input type="hidden" name="gallerylink" value="' . $gallerylink . '">
-	<a href="javascript: submitform()">-search-</a> <input type="text" name="search" size="8"/>
-	</form>
-	<script type="text/javascript">
-	function submitform()
-	{
-	  document.myform.submit();
-	}
-	</script>';	
-
 	closedir($dp);
 
 	$dp = opendir($pic_root.$gallerylink);	//  Read the directory for subdirectories
@@ -354,18 +324,6 @@ function getThumbUrl($phpthumburl, $width, $square, $imgpath, $watermark){
 	return $ret;
 }
 
-function printFancyBoxButton($title, $thumburl, $expandedurl, $rawurl){
-	if($rawurl){
-		?>
-		<a class="fancybox-button" rel="fancybox-button" href="<?=$expandedurl;?>" title="<a href=<?=$rawurl;?>  title=Original><?=$title;?></a>" /><img src="<?=$thumburl;?>"/></a>
-		<?
-	} else {
-		?>
-		<a class="fancybox-button" rel="fancybox-button" href="<?=$expandedurl;?>" title="<?=$title;?>" /><img src="<?=$thumburl;?>"/></a>
-		<?
-	}
-}
-
 function printLightBoxButton($title, $thumburl, $expandedurl, $rawurl){
 	if($rawurl){
 		?><a class="fancybox-button" href="<?=$expandedurl;?>" data-lightbox="lightbox-set" data-title="<a href=<?=$rawurl;?>  title=Original><?=$title;?></a>"><img src="<?=$thumburl;?>" alt=""/></a><?
@@ -391,15 +349,6 @@ function size_readable ($size, $retstring = null) {
         }
         if ($sizestring == $sizes[0]) { $retstring = '%01d %s'; } // Bytes aren't normally fractional
         return sprintf($retstring, $size, $sizestring);
-}
-
-function search() {
-	include ("search.php");
-}
-
-function zip() {
-	$blogURI = get_bloginfo('url') . "/";	
-	include ("zip.php");
 }
 
 // Add settings link on plugin page
