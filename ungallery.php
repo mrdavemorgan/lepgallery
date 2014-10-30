@@ -347,7 +347,6 @@ function getFolderImageFile($folder){
 					closedir($dp);
 					return $subdirimg;
 				}
-			}
 		}
 	} 
 	closedir($dp);
