@@ -238,6 +238,24 @@ function ungallery() {
 			}
 			$sliced_array = array_slice($pic_array, $offset, $max_thumbs);
 		}
+
+		if($subdirs) {							//  List each subdir and link
+			sort($subdirs);	
+			foreach ($subdirs as $key => $filename) {
+				$phpthumburl = $blogURI . $dir . 'phpthumb/phpThumb.php';
+				$dirfullpath = $pic_root . $gallerylink.'/'. $filename;
+				$imgfullpath = getFolderImageFile($dirfullpath);//$pic_root . $gallerylink.'/'. $filename . '/_folderimage';
+				$thumburl = getThumbUrl($phpthumburl, $w, (get_option('thumb_square') === 'true'), $imgfullpath, 0);
+				$titlestring = getTitleString($dirfullpath, $filename);
+				if(!file_exists($imgfullpath)){
+					$thumburl = '';
+				}
+				printSubdirButton($filename, 
+					$thumburl, $permalink . $QorA .'gallerylink='. $parentpath.rawurlencode($filename));
+			}
+		}
+
+
 		foreach ($sliced_array as $filename) {						//  Use the sliced_array to display the thumbs and assign the links
 				$phpthumburl = $blogURI . $dir . 'phpthumb/phpThumb.php';
 				$watermark = get_option('watermark_image');
@@ -283,9 +301,57 @@ function ungallery() {
 	</td>
 	</table>";
 	} else {
+
+		if($subdirs) {							//  List each subdir and link
+			print '<td align="center"><p style="text-align: center;">';
+			sort($subdirs);	
+			foreach ($subdirs as $key => $filename) {
+				$phpthumburl = $blogURI . $dir . 'phpthumb/phpThumb.php';
+				$dirfullpath = $pic_root . $gallerylink.'/'. $filename;
+				$imgfullpath = getFolderImageFile($dirfullpath);//$pic_root . $gallerylink.'/'. $filename . '/_folderimage';
+				$thumburl = getThumbUrl($phpthumburl, $w, (get_option('thumb_square') === 'true'), $imgfullpath, 0);
+				$titlestring = getTitleString($dirfullpath, $filename);
+				if(!file_exists($imgfullpath)){
+					$thumburl = '';
+				}
+				printSubdirButton($filename, 
+					$thumburl, $permalink . $QorA .'gallerylink='. $parentpath.rawurlencode($filename));
+			}
+			print '</p></td>';
+		}
 		print "	</tr>
 	</table>";
 	}
+}
+
+function getFolderImageFile($folder){
+	$imgfullpath = $folder . '/_folderimage';
+	if(file_exists($imgfullpath)){
+		return $imgfullpath;
+	}
+
+	$dp = opendir($folder);
+	$pic_types = array("JPG", "jpg", "JPEG", "jpeg"); 
+	while ($filename = readdir($dp)) {
+		if(is_dir($folder. "/". $filename)){
+		} else if (in_array(pathinfo($filename, PATHINFO_EXTENSION), $pic_types)){
+			closedir($dp);
+			return $folder. "/". $filename;
+		}
+	} 
+	rewinddir($dp);
+	while ($filename = readdir($dp)) {
+		if((is_dir($folder. "/". $filename)) && (substr($filename,0,1) != '.')){
+				$subdirimg =  getFolderImageFile($folder. "/". $filename);
+				if($subdirimg){
+					closedir($dp);
+					return $subdirimg;
+				}
+			}
+		}
+	} 
+	closedir($dp);
+	return '';
 }
 
 function getTitleString($imagepath, $default){
@@ -324,17 +390,17 @@ function printFancyBoxButton($title, $thumburl, $expandedurl, $rawurl){
 
 function printLightBoxButton($title, $thumburl, $expandedurl, $rawurl){
 	if($rawurl){
-		?>
-		<a class="fancybox-button" href="<?=$expandedurl;?>" data-lightbox="lightbox-set" data-title="<a href=<?=$rawurl;?>  title=Original><?=$title;?></a>"><img src="<?=$thumburl;?>" alt=""/></a>
-		<?
+		?><a class="fancybox-button" href="<?=$expandedurl;?>" data-lightbox="lightbox-set" data-title="<a href=<?=$rawurl;?>  title=Original><?=$title;?></a>"><img src="<?=$thumburl;?>" alt=""/></a><?
 	} else {
-		?>
-		<a class="fancybox-button" href="<?=$expandedurl;?>" data-lightbox="lightbox-set" data-title="<?=$title;?>"><img src="<?=$thumburl;?>" alt=""/></a>
-		<?
+		?><a class="fancybox-button" href="<?=$expandedurl;?>" data-lightbox="lightbox-set" data-title="<?=$title;?>"><img src="<?=$thumburl;?>" alt=""/></a><?
 	}
 }
 
-
+function printSubdirButton($title, $thumburl, $url){
+	?><a class="fancybox-button" style="position: relative;" href="<?=$url;?>"
+	><img src="<?=$thumburl;?>" style="opacity: 0.75;"/><span 
+		style="position: absolute; left: 10px; bottom: 0px; width: 100%; height: 100%; vertical-align: center; color: black;"><?=$title;?></span></a><?
+}
 
 function size_readable ($size, $retstring = null) {
         // adapted from code at http://aidanlister.com/repos/v/function.size_readable.php
