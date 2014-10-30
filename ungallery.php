@@ -83,17 +83,12 @@ function ungallery() {
 	//	Load the configuration data from the database
 	$version = get_option( 'version' );
 	$hidden = get_option( 'hidden' );
-	$marquee = get_option( 'marquee' );
-	$marquee_size = get_option( 'marquee_size' );
 	$thumbW = get_option( 'thumbnail' );
 	$srcW = get_option( 'browse_view' );
 	$columns = get_option( 'columns' );
 	if($columns == "") $columns = 4; // set a default so admin page does not need visit after update. Remove at some point.
 	$max_thumbs = get_option( 'max_thumbs' ); 
 	if ($max_thumbs == 0) $max_thumbs = 25;
-			
-	//	Provide the version of UnGallery
-	print "<!-- UnGallery version: ". $version ." -->";
 
 	$w = $thumbW;
 	$blogURI = get_bloginfo('url') . "/";	
@@ -173,8 +168,7 @@ function ungallery() {
 	closedir($dp);
 	print '		<table width="100%"><tr>';			//	Begin the table
 		if (!isset($src) && isset($pic_array)) {							//	If we are in thumbnails view,
-			if ($marquee == "yes" && $gallerylink == "") $w = $marquee_size	;			//	Set size of marquee picture
-				else $w = $thumbW;
+			$w = $thumbW;
 			print '<td align="center"><div class="post-headline">'; 
 			if (file_exists($pic_root.$gallerylink."/banner.txt")) {
 				include ($pic_root.$gallerylink."/banner.txt");					//	We also display the caption from banner.txt
