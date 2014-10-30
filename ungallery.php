@@ -87,8 +87,6 @@ function ungallery() {
 	$marquee_size = get_option( 'marquee_size' );
 	$thumbW = get_option( 'thumbnail' );
 	$srcW = get_option( 'browse_view' );
-	$movie_height = get_option( 'movie_height' );
-	$movie_width = get_option( 'movie_width' );
 	$columns = get_option( 'columns' );
 	if($columns == "") $columns = 4; // set a default so admin page does not need visit after update. Remove at some point.
 	$max_thumbs = get_option( 'max_thumbs' ); 
@@ -102,7 +100,6 @@ function ungallery() {
 	$dir = "wp-content/plugins/ungallery/";
 	$gallerylink = $_GET['gallerylink'];
 	$src = $_GET['src'];
-	$movie_types = array();
 	$page = $_GET['page'];
 
 	//	If we are browsing a gallery, gallerylink is not set so derive it from src in URL
@@ -135,10 +132,6 @@ function ungallery() {
 		if (!is_dir($pic_root.$gallerylink. "/". $filename))  {  // If it's a file, begin
 				$pic_types = array("JPG", "jpg", "GIF", "gif", "PNG", "png", "BMP", "bmp"); 		
 				if (in_array(substr($filename, -3), $pic_types)) $pic_array[] = rawurlencode($filename);		// If it's a picture, add it to thumb array
-				else {
-					$movie_types = array("MP4", "mp4");								
-					if (in_array(substr($filename, -3), $movie_types)) $movie_array[rawurlencode($filename)] = size_readable(filesize($pic_root.$gallerylink. "/". $filename));		// If it's a movie, add name and size to the movie array
-				}
 		}
 	} 
 
@@ -161,14 +154,6 @@ function ungallery() {
 	}
 	</script>';	
 
-	// Display the movie links
-	if($movie_array) {					
-		print ' <br>Movies:&nbsp;&nbsp;';
-		foreach ($movie_array as $filename => $filesize) {
-			print  '
-				<a href="./wp-content/plugins/ungallery/source.php?movie=' . $pic_root . substr($parentpath, 0, strlen($parentpath) -1).$subdir.'/'.$filename. '" title="This movie file size is '. $filesize .'">'	.$filename.'</a>' . $breadcrumb_separator ;
-		}
-	}
 	closedir($dp);
 
 	$dp = opendir($pic_root.$gallerylink);	//  Read the directory for subdirectories
