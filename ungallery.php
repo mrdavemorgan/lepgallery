@@ -40,6 +40,42 @@ if (strstr($_SERVER["REQUEST_URI"], "/". $gallery) || (strstr($_SERVER["REQUEST_
 	add_filter('the_content', "ungallery");
 }
 
+function makeItemElement($type, $name, $gallerypath, $galleryroot){
+	$gallerypath = ltrim($gallerypath, '/');
+	$ret = array(
+	    'gallerypath' => $gallerypath,
+	    'fullpath' => $galleryroot . $gallerypath,
+	);
+	if($name){
+		$ret['name'] = $name;
+	} else {
+		$ret['name'] = array_pop(explode("/", $gallerypath));
+	}
+	if($type == "breadcrumb"){
+		if (file_exists($ret['fullpath']."/banner.txt")) {
+			$ret['banner'] = $ret['fullpath']."/banner.txt";
+		}
+		if (file_exists($ret['fullpath']."/title.txt")) {
+			$ret['name'] = file_get_contents($ret['fullpath']."/title.txt");
+		}
+		// don't care about thumb for breadcrumb since it's not displayed here
+	} else if($type == 'subdir'){
+		$thumb = getFolderImageFile($ret['fullpath']);
+		if(file_exists($thumb)){
+			$ret['thumb'] = $thumb;
+		}
+		if (file_exists($ret['fullpath']."/title.txt")) {
+			$ret['name'] = file_get_contents($ret['fullpath']."/title.txt");
+		}
+		// don't care about banner for subdir since it's not used here
+	} else if($type == 'image'){
+		if (file_exists($ret['fullpath'] . ".txt")) {
+			$ret['name'] = htmlentities(file_get_contents($ret['fullpath'] . ".txt"),ENT_QUOTES);
+		}
+	}
+	return $ret;
+}
+
 function ungallery() {
 	//  Get the page name from the WP page slug
 	global $wp_query;
@@ -93,11 +129,59 @@ function ungallery() {
 		$length = strrpos($gallerylink, "/"); 		// 	Find length of gallery in string
 		$gallerylink = substr($gallerylink, 0, $length);	// 	Trim the filename off the end
 	}
+	if ($gallerylink) {
+		$gallerylinkarray =  explode("/", $gallerylink);
+	}
+
+
+	$breadcrumbs = array();
+	$breadcrumbs[] = makeItemElement("breadcrumb", get_the_title(), "", $pic_root);
+	if($gallerylinkarray){
+		foreach ($gallerylinkarray as $level) {
+			$pp .= $level ;
+			$breadcrumbs[] = makeItemElement("breadcrumb", "", $pp, $pic_root);
+			$pp .= "/";
+		}
+	}
+
+	$subdirectories = array();
+	$dp = opendir($pic_root.$gallerylink);	//  Read the directory for subdirectories
+	while ($subdir = readdir($dp)) {		//  If it is a subdir and not set as hidden, enter it into the array
+		if (is_dir($pic_root.$gallerylink. "/". $subdir) && $subdir != "." && $subdir != ".." && !strstr($subdir, $hidden)) {
+			$subdirectories[] = makeItemElement("subdir", "", $gallerylink . "/" . $subdir, $pic_root);
+		}
+	}
+	closedir($dp);
+
+
+	$images = array();
+	$dp = opendir( $pic_root.$gallerylink);
+	$pic_types = array("JPG", "jpg", "GIF", "gif", "PNG", "png", "BMP", "bmp"); 	
+	while ($filename = readdir($dp)) {
+		if ((!is_dir($pic_root.$gallerylink. "/". $filename))  && (in_array(pathinfo($filename, PATHINFO_EXTENSION), $pic_types))) { 
+			$images[] = makeItemElement("image", "", $gallerylink . "/" . $filename, $pic_root);
+		}
+	} 
+	closedir($dp);
+
+
+
+
+	echo "<pre>\n";
+	echo "BREADCRUMBS\n";
+	var_dump($breadcrumbs);
+	echo "\n\n\n\nSUBDIRS\n";
+	var_dump($subdirectories);
+	echo "\n\n\n\nIMAGES\n";
+	var_dump($images);	
+	echo "</pre>\n";
+
+
+
+
+
 
 	if ($gallerylink) {
-		//  Build the full gallery path into an array
-		$gallerylinkarray =  explode("/", $gallerylink);
-	
 		//  Render the Up/Current directory links
 		print '<a href="'. $permalink .'">'. get_the_title() . '</a>';
 		foreach ($gallerylinkarray as $key => $level) {
@@ -131,45 +215,18 @@ function ungallery() {
 	closedir($dp);
 
 	?>		<table width="100%"><tr><? //	Begin the table
-		if (!isset($src) && isset($pic_array)) {							//	If we are in thumbnails view,
-			$w = $thumbW;
-			?><td align="center"><div class="post-headline">'<?
-			if (file_exists($pic_root.$gallerylink."/banner.txt")) {
-				include ($pic_root.$gallerylink."/banner.txt");					//	We also display the caption from banner.txt
-			} else {
-				$lastslash =  strrpos($gallerylink, "/");
-				if (strpos($gallerylink, "/")) print "<h2 style=\"text-align: center;\">" . substr($gallerylink, $lastslash + 1) ."</h2>";
-				else print "<h2 style=\"text-align: center;\">" . $gallerylink . "</h2>";
-			}
-												//	Close cell. Add a bit of space
-			?></td></tr><tr>
-			<td align="center"><p style="text-align: center;">
-				<script type="text/javascript">
-				$(document).ready(function() {
-					$(".fancybox-button").fancybox({
-					prevEffect		: 'none',
-						nextEffect		: 'none',
-					closeBtn		: true,
-						helpers		: { 
-							title	: { 
-								type : 'inside' 
-							},
-							buttons	: {},
-							overlay	: {
-								opacity : 0.7,
-								css : {
-									'background-color' : '#000'
-								}
-							},
-							thumbs	: {
-								width	: 100,
-								height	: 100
-							}
-}
-					});
-				});
-			    </script>
-			<?
+	if (!isset($src) && isset($pic_array)) {							//	If we are in thumbnails view,
+		$w = $thumbW;
+		print '<td align="center"><div class="post-headline">';
+		if (file_exists($pic_root.$gallerylink."/banner.txt")) {
+			include ($pic_root.$gallerylink."/banner.txt");					//	We also display the caption from banner.txt
+		} else {
+			print "<h2 style=\"text-align: center;\">" . array_pop(explode("/", $gallerylink)) ."</h2>";
+		}
+											//	Close cell. Add a bit of space
+		?></td></tr><tr>
+		<td align="center"><p style="text-align: center;">
+		<?
 		$column = 0;
 		// Handle maximum thumbs per page 
 		$sliced_array = $pic_array;
