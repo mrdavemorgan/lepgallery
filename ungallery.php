@@ -168,8 +168,9 @@ function ungallery() {
 		if ((!is_dir($pic_root.$gallerylink. "/". $filename))  && (in_array(pathinfo($filename, PATHINFO_EXTENSION), $pic_types))) { 
 			$images[] = makeItemElement("image", "", $gallerylink . "/" . $filename, $pic_root);
 		}
-	} 
+	}
 	closedir($dp);
+	$imagecounttotal = count($images);
 
 	// echo "<pre>\n";
 	// echo "BREADCRUMBS\n";
@@ -184,7 +185,7 @@ function ungallery() {
 
 
 
-
+	// print the breadcrumbs
 	if(count($breadcrumbs)>1){
 		foreach ($breadcrumbs as $bc) {
 			print $breadcrumb_separator . '<a href="'. $permalink . $QorA .'gallerylink='. $bc['gallerypath'] .'" >'. $bc['name'] .'</a>';
@@ -192,33 +193,38 @@ function ungallery() {
 	}
 
 
-	?>		<table width="100%"><tr><? //	Begin the table
 
-	$w = $thumbW;
 
-	print '<td align="center"><div class="post-headline">';
+	?><table width="100%"><tr>
+	<td align="center"><div class="post-headline"><?
 
+	// print title or banner
 	$here = end($breadcrumbs);
 	if($here['banner']){
 		include($here['banner']);
 	} else {
 		print "<h2 style=\"text-align: center;\">" . $here['name'] ."</h2>";
 	}
-										//	Close cell. Add a bit of space
+
+
 	?></td></tr><tr>
 	<td align="center"><p style="text-align: center;">
-	<?
+	<? //	Close cell. Add a bit of space
+
+
+
+
+	// prepare images for paging
 	$column = 0;
-	if ($max_thumbs < count($images)) {		// If we are displaying thumbnails across multiple pages, update array with page data
+	if ($max_thumbs < $imagecounttotal) {		// If we are displaying thumbnails across multiple pages, update array with page data
 		if($page) {
-			if(substr($page, 0, 1) == 'p'){
-				$page = substr($page, 1) ;	// Remove p from page string
-			}
 			$offset = ($page -1) * $max_thumbs;
 		}
 		$images = array_slice($images, $offset, $max_thumbs);
 	}
 
+
+	// print subdirectories
 	if(count($subdirectories)>0){
 		$phpthumburl = $blogURI . $dir . 'phpthumb/phpThumb.php';
 		foreach ($subdirectories as $sd) {
@@ -235,6 +241,7 @@ function ungallery() {
 		}
 	}
 
+	// print images
 	if(count($images)>0){
 		$column = 0;
 		$phpthumburl = $blogURI . $dir . 'phpthumb/phpThumb.php';
@@ -255,28 +262,30 @@ function ungallery() {
 	}
 	
 	// If we are displaying thumbnails across multiple pages, display Next/Previos page links
-	if ($max_thumbs < count($images)) {	
+	if ($max_thumbs < $imagecounttotal) {	
 				
-		$pages = ceil(count($images) / $max_thumbs) ;	//	Get the number of pages	
+		$pages = ceil($imagecounttotal / $max_thumbs) ;	//	Get the number of pages	
 		
-		if (!$page) $page = 1;
+		if (!$page) {
+			$page = 1;
+		}
 		print "</tr><tr><td>";
 		if ($page > 1) 	{
 			$previous = $page - 1;
-			print '<a href="'. $permalink . $QorA .'gallerylink='. $gallerylink . '&page=p'. $previous .'">Previous Page</a>';
+			print '<a href="'. $permalink . $QorA .'gallerylink='. $gallerylink . '&page=1">&lt;&lt;</a>&nbsp';
+			print '<a href="'. $permalink . $QorA .'gallerylink='. $gallerylink . '&page='. $previous .'">&lt;</a>';
 		}
-		print  "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+		print  " - Page $page / $pages - ";
 		if ($pages > $page) {
 			$next = $page + 1;
-			print '<a href="'. $permalink . $QorA .'gallerylink='. $gallerylink . '&page=p'. $next .'">Next Page</a>';
+			print '<a href="'. $permalink . $QorA .'gallerylink='. $gallerylink . '&page='. $next .'">&gt;</a>&nbsp;';
+			print '<a href="'. $permalink . $QorA .'gallerylink='. $gallerylink . '&page='. $pages .'">&gt;&gt;</a>';
 		}
-		print  "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - This gallery has $pages pages -";
+		
 	}
 	
 	// Complete the table formatting 
-	print "	</td></tr>
-</td>
-</table>";
+	?></td></tr></td></table><?
 
 }
 
