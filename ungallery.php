@@ -131,8 +131,7 @@ function ungallery() {
 	$offset = ($page -1) * $max_thumbs;
 	$endset = $page * $max_thumbs;
 	$squarethumb = (get_option('thumb_square') === 'true');
-	$allowraw = (get_option('allow_raw') === 'true');
-	
+		
 	//	If we are browsing a gallery, gallerylink is not set so derive it from src in URL
 	if (isset($src)) {
 		$lastslash =  strrpos($src, "/");	
@@ -140,6 +139,13 @@ function ungallery() {
 		$length = strrpos($gallerylink, "/"); 		// 	Find length of gallery in string
 		$gallerylink = substr($gallerylink, 0, $length);	// 	Trim the filename off the end
 	}
+
+
+
+
+
+
+
 
 
 
@@ -193,6 +199,13 @@ function ungallery() {
 
 
 
+
+
+
+
+
+
+
 	// print the breadcrumbs
 	if(count($breadcrumbs)>1){
 		foreach ($breadcrumbs as $bc) {
@@ -202,7 +215,7 @@ function ungallery() {
 
 
 
-
+	// table setup
 	?><table width="100%"><tr>
 	<td align="center"><div class="post-headline"><?
 
@@ -214,18 +227,14 @@ function ungallery() {
 		print "<h2 style=\"text-align: center;\">" . $here['name'] ."</h2>";
 	}
 
-
-	?></td></tr><tr>
-	<td align="center"><p style="text-align: center;">
-	<? //	Close cell. Add a bit of space
-
+	//	Close cell. Add a bit of space
+	?></td></tr><tr><td align="center"><p style="text-align: center;"><? 
 
 
  	$column = 0;
 
 	// print subdirectories
 	if(count($subdirectories)>0){
-
 		foreach ($subdirectories as $sd) {
 			if(file_exists($sd['thumb'])){
 				$thumburl = getThumbUrl($phpthumburl, $w, $squarethumb, $sd['thumb'], 0);
@@ -240,32 +249,25 @@ function ungallery() {
 	// print images
 	if(count($images)>0){
 		for($i=$offset; ($i<count($images) && $i<$endset); $i++){
-			$img = $images[$i];
-			$thumburl = getThumbUrl($phpthumburl, $w, $squarethumb, $img['fullpath'], 0);
-			$lightboxurl = getThumbUrl($phpthumburl, $srcW, 0, $img['fullpath'], $watermark);
-			if( $allowraw ){
-				printLightBoxButton($img['name'], $thumburl, $lightboxurl, $rawurl);
-			} else {
-				printLightBoxButton($img['name'], $thumburl, $lightboxurl, 0);
-			}
+			$thumburl = getThumbUrl($phpthumburl, $w, $squarethumb, $images[$i]['fullpath'], 0);
+			$lightboxurl = getThumbUrl($phpthumburl, $srcW, 0, $images[$i]['fullpath'], $watermark);
+			printLightBoxButton($images[$i]['name'], $thumburl, $lightboxurl);
 			if((++$column) % $columns == 0){
 				print "<br/>";
 			}
 		}
 	}
 	
-	// If we are displaying thumbnails across multiple pages, display Next/Previos page links
+	// If we are displaying thumbnails across multiple pages, display Next/Previous page links
 	if ($pages > 1) {	
 		print "</tr><tr><td>";
 		if ($page > 1) 	{
-			$previous = $page - 1;
 			print '<a href="'. $permalink . $QorA .'gallerylink='. $gallerylink . '&page=1">&lt;&lt;</a>&nbsp';
-			print '<a href="'. $permalink . $QorA .'gallerylink='. $gallerylink . '&page='. $previous .'">&lt;</a>';
+			print '<a href="'. $permalink . $QorA .'gallerylink='. $gallerylink . '&page='. ($page - 1) .'">&lt;</a>';
 		}
 		print  " - Page $page / $pages - ";
 		if ($pages > $page) {
-			$next = $page + 1;
-			print '<a href="'. $permalink . $QorA .'gallerylink='. $gallerylink . '&page='. $next .'">&gt;</a>&nbsp;';
+			print '<a href="'. $permalink . $QorA .'gallerylink='. $gallerylink . '&page='. ($page + 1) .'">&gt;</a>&nbsp;';
 			print '<a href="'. $permalink . $QorA .'gallerylink='. $gallerylink . '&page='. $pages .'">&gt;&gt;</a>';
 		}
 	}
@@ -326,12 +328,8 @@ function getThumbUrl($phpthumburl, $width, $square, $imgpath, $watermark){
 	return $ret;
 }
 
-function printLightBoxButton($title, $thumburl, $expandedurl, $rawurl){
-	if($rawurl){
-		?><a class="fancybox-button" href="<?=$expandedurl;?>" data-lightbox="lightbox-set" data-title="<a href=<?=$rawurl;?>  title=Original><?=$title;?></a>"><img src="<?=$thumburl;?>" alt=""/></a><?
-	} else {
-		?><a class="fancybox-button" href="<?=$expandedurl;?>" data-lightbox="lightbox-set" data-title="<?=$title;?>"><img src="<?=$thumburl;?>" alt=""/></a><?
-	}
+function printLightBoxButton($title, $thumburl, $expandedurl){
+	?><a class="fancybox-button" href="<?=$expandedurl;?>" data-lightbox="lightbox-set" data-title="<?=$title;?>"><img src="<?=$thumburl;?>" alt=""/></a><?
 }
 
 function printSubdirButton($title, $thumburl, $url){
