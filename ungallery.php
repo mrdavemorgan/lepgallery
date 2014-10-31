@@ -230,11 +230,19 @@ function ungallery() {
 		$w = $thumbW;
 		// TODO: drop the banner in here
 		print '<td align="center"><div class="post-headline">';
+		
 		if (file_exists($pic_root.$gallerylink."/banner.txt")) {
 			include ($pic_root.$gallerylink."/banner.txt");					//	We also display the caption from banner.txt
 		} else {
 			print "<h2 style=\"text-align: center;\">" . array_pop(explode("/", $gallerylink)) ."</h2>";
 		}
+		// TODO: use this shit
+		// $here = end($breadcrumbs);
+		// if($here['banner']){
+		// 	include($here['banner']);
+		// } else {
+		// 	print "<h2 style=\"text-align: center;\">" . $here['title'] ."</h2>";
+		// }
 											//	Close cell. Add a bit of space
 		?></td></tr><tr>
 		<td align="center"><p style="text-align: center;">
@@ -250,15 +258,15 @@ function ungallery() {
 			$sliced_array = array_slice($pic_array, $offset, $max_thumbs);
 		}
 		// TODO: use this shit
-		if ($max_thumbs < count($images)) {		// If we are displaying thumbnails across multiple pages, update array with page data
-			if($page) {
-				if(substr($page, 0, 1) == 'p'){
-					$page = substr($page, 1) ;	// Remove p from page string
-				}
-				$offset = ($page -1) * $max_thumbs;
-			}
-			$images = array_slice($images, $offset, $max_thumbs);
-		}
+		// if ($max_thumbs < count($images)) {		// If we are displaying thumbnails across multiple pages, update array with page data
+		// 	if($page) {
+		// 		if(substr($page, 0, 1) == 'p'){
+		// 			$page = substr($page, 1) ;	// Remove p from page string
+		// 		}
+		// 		$offset = ($page -1) * $max_thumbs;
+		// 	}
+		// 	$images = array_slice($images, $offset, $max_thumbs);
+		// }
 
 		if($subdirs) {							//  List each subdir and link
 			sort($subdirs);	
