@@ -124,6 +124,11 @@ function ungallery() {
 	$gallerylink = $_GET['gallerylink'];
 	$src = $_GET['src'];
 	$page = $_GET['page'];
+	if (!$page) {
+		$page = 1;
+	}
+	$offset = ($page -1) * $max_thumbs;
+	$endset = $page * $max_thumbs;
 
 	//	If we are browsing a gallery, gallerylink is not set so derive it from src in URL
 	if (isset($src)) {
@@ -170,7 +175,7 @@ function ungallery() {
 		}
 	}
 	closedir($dp);
-	$imagecounttotal = count($images);
+	$pages = ceil(count($images) / $max_thumbs) ;	//	Get the number of pages	
 
 	// echo "<pre>\n";
 	// echo "BREADCRUMBS\n";
@@ -213,19 +218,10 @@ function ungallery() {
 
 
 
-
-	// prepare images for paging
-	$column = 0;
-	if ($max_thumbs < $imagecounttotal) {		// If we are displaying thumbnails across multiple pages, update array with page data
-		if($page) {
-			$offset = ($page -1) * $max_thumbs;
-		}
-		$images = array_slice($images, $offset, $max_thumbs);
-	}
-
-
+ 
 	// print subdirectories
 	if(count($subdirectories)>0){
+		$column = 0;
 		$phpthumburl = $blogURI . $dir . 'phpthumb/phpThumb.php';
 		foreach ($subdirectories as $sd) {
 			if(file_exists($sd['thumb'])){
@@ -241,11 +237,13 @@ function ungallery() {
 		}
 	}
 
+
 	// print images
 	if(count($images)>0){
 		$column = 0;
 		$phpthumburl = $blogURI . $dir . 'phpthumb/phpThumb.php';
-		foreach ($images as $img) {
+		for($i=$offset; ($i<count($images) && $i<$endset); $i++){
+			$img = $images[$i];
 			$thumburl = getThumbUrl($phpthumburl, $w, (get_option('thumb_square') === 'true'), $img['fullpath'], 0);
 			$lightboxurl = getThumbUrl($phpthumburl, $srcW, 0, $img['fullpath'], $watermark);
 			if( get_option('allow_raw') === 'true' ){
@@ -262,13 +260,7 @@ function ungallery() {
 	}
 	
 	// If we are displaying thumbnails across multiple pages, display Next/Previos page links
-	if ($max_thumbs < $imagecounttotal) {	
-				
-		$pages = ceil($imagecounttotal / $max_thumbs) ;	//	Get the number of pages	
-		
-		if (!$page) {
-			$page = 1;
-		}
+	if ($pages > 1) {	
 		print "</tr><tr><td>";
 		if ($page > 1) 	{
 			$previous = $page - 1;
@@ -281,7 +273,6 @@ function ungallery() {
 			print '<a href="'. $permalink . $QorA .'gallerylink='. $gallerylink . '&page='. $next .'">&gt;</a>&nbsp;';
 			print '<a href="'. $permalink . $QorA .'gallerylink='. $gallerylink . '&page='. $pages .'">&gt;&gt;</a>';
 		}
-		
 	}
 	
 	// Complete the table formatting 
