@@ -1,0 +1,47 @@
+div.ungallerytable {
+  width: 100%;
+  text-align: center;
+}
+
+.ungallerytable a {
+  position: relative;
+}
+
+.ungallerytable img {
+}
+
+.ungallerydir img {
+  opacity: 0.75; 
+}
+
+.ungallerydir span {
+  position: absolute; 
+  left: 10px; 
+  bottom: 0px; 
+  width: 100%; 
+  height: 100%; 
+  vertical-align: center; 
+  color: black;
+}
+
+.ungallerytable p {
+  text-align: center;
+}
+
+#ungallery_breadcrumbs {
+	
+}
+
+#ungallery_banner {
+	text-align: center;
+}
+
+#ungallery_grid {
+	
+}
+
+#ungallery_footer {
+	
+}
+
+	

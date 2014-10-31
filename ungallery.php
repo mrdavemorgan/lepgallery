@@ -144,32 +144,39 @@ function ungallery($content) {
 
 
 
-	// print the breadcrumbs
-	if(count($breadcrumbs)>1){
-		foreach ($breadcrumbs as $bc) {
-			print $breadcrumb_separator . '<a href="'. $permalink . $QorA .'gallerylink='. $bc['gallerypath'] .'" >'. $bc['name'] .'</a>';
-		}
-	}
 
 
 
 	// table setup
-	?><table width="100%"><tr>
-	<td align="center"><div class="post-headline"><?
+	?><div class="ungallerytable"><?
+
+	// print the breadcrumbs
+	if(count($breadcrumbs)>1){
+		print '<p id="ungallery_breadcrumbs">';
+		foreach ($breadcrumbs as $bc) {
+			print $breadcrumb_separator . '<a href="'. $permalink . $QorA .'gallerylink='. $bc['gallerypath'] .'" >'. $bc['name'] .'</a>';
+		}
+		print "</p>";
+	}
 
 	// print title or banner
 	$here = end($breadcrumbs);
 	if($here['banner']){
+		print '<p id="ungallery_banner">';
 		include($here['banner']);
+		print "</p>";
 	} else {
-		print "<h2 style=\"text-align: center;\">" . $here['name'] ."</h2>";
+		print '<h2 id="ungallery_banner">' . $here['name'] ."</h2>";
 	}
 
 	//	Close cell. Add a bit of space
-	?></td></tr><tr><td align="center"><p style="text-align: center;"><? 
+	?><p id="ungallery_grid"><? 
 
 
  	$column = 0;
+		if($squarethumb){
+			$forcedsize = $w;
+		}
 
 	// print subdirectories
 	if(count($subdirectories)>0){
@@ -177,7 +184,7 @@ function ungallery($content) {
 			if(file_exists($sd['thumb'])){
 				$thumburl = getThumbUrl($phpthumburl, $w, $squarethumb, $sd['thumb'], 0);
 			}
-			printSubdirButton($sd['name'], $thumburl, $permalink . $QorA .'gallerylink='. rawurlencode($sd['gallerypath']));
+			printSubdirButton($sd['name'], $thumburl, $permalink . $QorA .'gallerylink='. rawurlencode($sd['gallerypath']), $forcedsize);
 			if((++$column) % $columns == 0){
 				print "<br/>";
 			}
@@ -189,7 +196,7 @@ function ungallery($content) {
 		for($i=$offset; ($i<count($images) && $i<$endset); $i++){
 			$thumburl = getThumbUrl($phpthumburl, $w, $squarethumb, $images[$i]['fullpath'], 0);
 			$lightboxurl = getThumbUrl($phpthumburl, $srcW, 0, $images[$i]['fullpath'], $watermark);
-			printLightBoxButton($images[$i]['name'], $thumburl, $lightboxurl);
+			printLightBoxButton($images[$i]['name'], $thumburl, $lightboxurl, $forcedsize);
 			if((++$column) % $columns == 0){
 				print "<br/>";
 			}
@@ -198,7 +205,7 @@ function ungallery($content) {
 	
 	// If we are displaying thumbnails across multiple pages, display Next/Previous page links
 	if ($pages > 1) {	
-		print "</tr><tr><td>";
+		print '</p><p id="ungallery_footer">';
 		if ($page > 1) 	{
 			print '<a href="'. $permalink . $QorA .'gallerylink='. $gallerylink . '&page=1">&lt;&lt;</a>&nbsp';
 			print '<a href="'. $permalink . $QorA .'gallerylink='. $gallerylink . '&page='. ($page - 1) .'">&lt;</a>';
@@ -211,7 +218,7 @@ function ungallery($content) {
 	}
 	
 	// Complete the table formatting 
-	?></td></tr></td></table>
+	?></p></div>
 	<script src="wp-content/plugins/ungallery/lightbox/js/lightbox.js"></script>
 	<?
 
@@ -304,14 +311,22 @@ function getThumbUrl($phpthumburl, $width, $square, $imgpath, $watermark){
 	return $ret;
 }
 
-function printLightBoxButton($title, $thumburl, $expandedurl){
-	?><a class="fancybox-button" href="<?=$expandedurl;?>" data-lightbox="lightbox-set" data-title="<?=$title;?>"><img src="<?=$thumburl;?>" alt=""/></a><?
+function printLightBoxButton($title, $thumburl, $expandedurl, $forcedsize){
+	if($forcedsize){
+		?><a href="<?=$expandedurl;?>" data-lightbox="lightbox-set" data-title="<?=$title;?>"><img 
+			style="width: <?=$forcedsize;?>px; height: <?=$forcedsize;?>px;" src="<?=$thumburl;?>" alt=""/></a><?
+	} else {
+		?><a href="<?=$expandedurl;?>" data-lightbox="lightbox-set" data-title="<?=$title;?>"><img src="<?=$thumburl;?>" alt=""/></a><?
+	}
 }
 
-function printSubdirButton($title, $thumburl, $url){
-	?><a class="fancybox-button" style="position: relative;" href="<?=$url;?>"
-	><img src="<?=$thumburl;?>" style="opacity: 0.75;"/><span 
-		style="position: absolute; left: 10px; bottom: 0px; width: 100%; height: 100%; vertical-align: center; color: black;"><?=$title;?></span></a><?
+function printSubdirButton($title, $thumburl, $url, $forcedsize){
+	if($forcedsize){
+		?><a class="ungallerydir" href="<?=$url;?>"><img 
+		style="width: <?=$forcedsize;?>px; height: <?=$forcedsize;?>px;" src="<?=$thumburl;?>"/><span><?=$title;?></span></a><?
+	} else {
+		?><a class="ungallerydir" href="<?=$url;?>"><img src="<?=$thumburl;?>"/><span><?=$title;?></span></a><?
+	}
 }
 
 // Add settings link on plugin page
@@ -334,7 +349,8 @@ function ungallery_set_plugin_meta($links, $file) {
 }
 
 function ungallery_enqueue_style() {
-	wp_enqueue_style( 'ungallery-lightbox', 'wp-content/plugins/ungallery/lightbox/css/lightbox.css', false ); 
+	wp_enqueue_style( 'ungallery-lightbox', '/wp-content/plugins/ungallery/lightbox/css/lightbox.css', false ); 
+	wp_enqueue_style( 'ungallery-style', '/wp-content/plugins/ungallery/style.css', false ); 
 }
 
 add_filter( 'plugin_row_meta', 'ungallery_set_plugin_meta', 10, 2 );
