@@ -54,8 +54,6 @@ function mt_settings_page() {
     $columns_val = get_option( $columns_name );
     $thumbnail_val = get_option( $thumbnail_name );
     $browse_view_val = get_option( $browse_view_name );
-    $movie_height_val = get_option( $movie_height_name );
-    $movie_width_val = get_option( $movie_width_name );
     $max_thumbs_val = get_option( $max_thumbs_name );
     $watermark_val = get_option( $watermark_name );
     $breadcrumb_separator_val = get_option( $breadcrumb_separator_name );
@@ -64,8 +62,6 @@ function mt_settings_page() {
     if ($columns_val == "") $columns_val = "3";
     if ($thumbnail_val == "") $thumbnail_val = "190";
     if ($browse_view_val == "") $browse_view_val = "440";
-    if ($movie_height_val == "") $movie_height_val = "495";
-    if ($movie_width_val == "") $movie_width_val = "640";
     if ($max_thumbs_val == "") $max_thumbs_val = "10";
     if ($breadcrumb_separator_val == "") $breadcrumb_separator_val = " / ";
 
@@ -76,8 +72,6 @@ function mt_settings_page() {
         $columns_val = $_POST[ $columns_data_field_name ];
         $thumbnail_val = $_POST[ $thumbnail_data_field_name ];
         $browse_view_val = $_POST[ $browse_view_data_field_name ];
-        $movie_height_val = $_POST[ $movie_height_data_field_name ];
-        $movie_width_val = $_POST[ $movie_width_data_field_name ];
         $max_thumbs_val = $_POST[ $max_thumbs_data_field_name ];
         $watermark_val = $_POST[ $watermark_data_field_name ];
         $breadcrumb_separator_val = $_POST[ $breadcrumb_separator_data_field_name ];
@@ -87,8 +81,6 @@ function mt_settings_page() {
         update_option( $columns_name, $columns_val );
         update_option( $thumbnail_name, $thumbnail_val );
         update_option( $browse_view_name, $browse_view_val );
-        update_option( $movie_height_name, $movie_height_val );
-        update_option( $movie_width_name, $movie_width_val );
         update_option( $max_thumbs_name, $max_thumbs_val );
         update_option( $watermark_name, $watermark_val );
         update_option( $breadcrumb_separator_name, $breadcrumb_separator_val );
