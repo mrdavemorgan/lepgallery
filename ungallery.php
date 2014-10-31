@@ -40,42 +40,6 @@ if (strstr($_SERVER["REQUEST_URI"], "/". $gallery) || (strstr($_SERVER["REQUEST_
 	add_filter('the_content', "ungallery");
 }
 
-function makeItemElement($type, $name, $gallerypath, $galleryroot){
-	$gallerypath = ltrim($gallerypath, '/');
-	$ret = array(
-	    'gallerypath' => $gallerypath,
-	    'fullpath' => $galleryroot . $gallerypath,
-	);
-	if($name){
-		$ret['name'] = $name;
-	} else {
-		$ret['name'] = array_pop(explode("/", $gallerypath));
-	}
-	if($type == "breadcrumb"){
-		if (file_exists($ret['fullpath']."/banner.txt")) {
-			$ret['banner'] = $ret['fullpath']."/banner.txt";
-		}
-		if (file_exists($ret['fullpath']."/title.txt")) {
-			$ret['name'] = file_get_contents($ret['fullpath']."/title.txt");
-		}
-		// don't care about thumb for breadcrumb since it's not displayed here
-	} else if($type == 'subdir'){
-		$thumb = getFolderImageFile($ret['fullpath']);
-		if(file_exists($thumb)){
-			$ret['thumb'] = $thumb;
-		}
-		if (file_exists($ret['fullpath']."/title.txt")) {
-			$ret['name'] = file_get_contents($ret['fullpath']."/title.txt");
-		}
-		// don't care about banner for subdir since it's not used here
-	} else if($type == 'image'){
-		if (file_exists($ret['fullpath'] . ".txt")) {
-			$ret['name'] = htmlentities(file_get_contents($ret['fullpath'] . ".txt"),ENT_QUOTES);
-		}
-	}
-	return $ret;
-}
-
 function ungallery() {
 	//  Get the page name from the WP page slug
 	global $wp_query;
@@ -275,6 +239,42 @@ function ungallery() {
 	// Complete the table formatting 
 	?></td></tr></td></table><?
 
+}
+
+function makeItemElement($type, $name, $gallerypath, $galleryroot){
+	$gallerypath = ltrim($gallerypath, '/');
+	$ret = array(
+	    'gallerypath' => $gallerypath,
+	    'fullpath' => $galleryroot . $gallerypath,
+	);
+	if($name){
+		$ret['name'] = $name;
+	} else {
+		$ret['name'] = array_pop(explode("/", $gallerypath));
+	}
+	if($type == "breadcrumb"){
+		if (file_exists($ret['fullpath']."/banner.txt")) {
+			$ret['banner'] = $ret['fullpath']."/banner.txt";
+		}
+		if (file_exists($ret['fullpath']."/title.txt")) {
+			$ret['name'] = file_get_contents($ret['fullpath']."/title.txt");
+		}
+		// don't care about thumb for breadcrumb since it's not displayed here
+	} else if($type == 'subdir'){
+		$thumb = getFolderImageFile($ret['fullpath']);
+		if(file_exists($thumb)){
+			$ret['thumb'] = $thumb;
+		}
+		if (file_exists($ret['fullpath']."/title.txt")) {
+			$ret['name'] = file_get_contents($ret['fullpath']."/title.txt");
+		}
+		// don't care about banner for subdir since it's not used here
+	} else if($type == 'image'){
+		if (file_exists($ret['fullpath'] . ".txt")) {
+			$ret['name'] = htmlentities(file_get_contents($ret['fullpath'] . ".txt"),ENT_QUOTES);
+		}
+	}
+	return $ret;
 }
 
 function getFolderImageFile($folder){
