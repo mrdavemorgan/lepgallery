@@ -211,7 +211,9 @@ function ungallery($content) {
 	}
 	
 	// Complete the table formatting 
-	?></td></tr></td></table><?
+	?></td></tr></td></table>
+	<script src="wp-content/plugins/ungallery/lightbox/js/lightbox.js"></script>
+	<?
 
 }
 
@@ -318,7 +320,6 @@ function plugin_settings_link($links) {
   array_unshift($links, $settings_link); 
   return $links; 
 }
-add_filter("plugin_action_links_" . plugin_basename(__FILE__), 'plugin_settings_link' );
 
 function ungallery_set_plugin_meta($links, $file) {
 	// create link
@@ -331,6 +332,13 @@ function ungallery_set_plugin_meta($links, $file) {
 	}
 	return $links;
 }
+
+function ungallery_enqueue_style() {
+	wp_enqueue_style( 'ungallery-lightbox', 'wp-content/plugins/ungallery/lightbox/css/lightbox.css', false ); 
+}
+
 add_filter( 'plugin_row_meta', 'ungallery_set_plugin_meta', 10, 2 );
+add_filter( 'plugin_action_links_' . plugin_basename(__FILE__), 'plugin_settings_link' );
+add_action( 'wp_enqueue_scripts', 'ungallery_enqueue_style' );
 
 ?>
