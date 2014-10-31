@@ -121,6 +121,7 @@ function ungallery() {
 	$w = $thumbW;
 	$blogURI = get_bloginfo('url') . "/";	
 	$dir = "wp-content/plugins/ungallery/";
+	$phpthumburl = $blogURI . $dir . 'phpthumb/phpThumb.php';
 	$gallerylink = $_GET['gallerylink'];
 	$src = $_GET['src'];
 	$page = $_GET['page'];
@@ -129,7 +130,9 @@ function ungallery() {
 	}
 	$offset = ($page -1) * $max_thumbs;
 	$endset = $page * $max_thumbs;
-
+	$squarethumb = (get_option('thumb_square') === 'true');
+	$allowraw = (get_option('allow_raw') === 'true');
+	
 	//	If we are browsing a gallery, gallerylink is not set so derive it from src in URL
 	if (isset($src)) {
 		$lastslash =  strrpos($src, "/");	
@@ -218,43 +221,35 @@ function ungallery() {
 
 
 
- 
+ 	$column = 0;
+
 	// print subdirectories
 	if(count($subdirectories)>0){
-		$column = 0;
-		$phpthumburl = $blogURI . $dir . 'phpthumb/phpThumb.php';
+
 		foreach ($subdirectories as $sd) {
 			if(file_exists($sd['thumb'])){
-				$thumburl = getThumbUrl($phpthumburl, $w, (get_option('thumb_square') === 'true'), $sd['thumb'], 0);
+				$thumburl = getThumbUrl($phpthumburl, $w, $squarethumb, $sd['thumb'], 0);
 			}
-			printSubdirButton($sd['name'], 
-				$thumburl, $permalink . $QorA .'gallerylink='. rawurlencode($sd['gallerypath']));
-			$column++;
-			if ( $column == $columns ) {
-				print '<br/>';
-				$column = 0;
+			printSubdirButton($sd['name'], $thumburl, $permalink . $QorA .'gallerylink='. rawurlencode($sd['gallerypath']));
+			if((++$column) % $columns == 0){
+				print "<br/>";
 			}
 		}
 	}
 
-
 	// print images
 	if(count($images)>0){
-		$column = 0;
-		$phpthumburl = $blogURI . $dir . 'phpthumb/phpThumb.php';
 		for($i=$offset; ($i<count($images) && $i<$endset); $i++){
 			$img = $images[$i];
-			$thumburl = getThumbUrl($phpthumburl, $w, (get_option('thumb_square') === 'true'), $img['fullpath'], 0);
+			$thumburl = getThumbUrl($phpthumburl, $w, $squarethumb, $img['fullpath'], 0);
 			$lightboxurl = getThumbUrl($phpthumburl, $srcW, 0, $img['fullpath'], $watermark);
-			if( get_option('allow_raw') === 'true' ){
+			if( $allowraw ){
 				printLightBoxButton($img['name'], $thumburl, $lightboxurl, $rawurl);
 			} else {
 				printLightBoxButton($img['name'], $thumburl, $lightboxurl, 0);
 			}
-			$column++;
-			if ( $column == $columns ) {
-				print '<br/>';
-				$column = 0;
+			if((++$column) % $columns == 0){
+				print "<br/>";
 			}
 		}
 	}
