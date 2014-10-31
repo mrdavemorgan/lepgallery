@@ -91,8 +91,7 @@ function ungallery() {
 	if (strstr($permalink, "?")) {
 		$QorA = "&";
 		$gallery_ID = "?page_id=" . $post_ID;
-	}
-	 else {
+	} else {
 		$QorA = "?";
 		$gallery_ID = $post_name;
 	}
@@ -111,9 +110,13 @@ function ungallery() {
 	$thumbW = get_option( 'thumbnail' );
 	$srcW = get_option( 'browse_view' );
 	$columns = get_option( 'columns' );
-	if($columns == "") $columns = 4; // set a default so admin page does not need visit after update. Remove at some point.
+	if($columns == "") {
+		$columns = 4; // set a default so admin page does not need visit after update. Remove at some point.
+	}
 	$max_thumbs = get_option( 'max_thumbs' ); 
-	if ($max_thumbs == 0) $max_thumbs = 25;
+	if ($max_thumbs == 0) {
+		$max_thumbs = 25;
+	}
 
 	$w = $thumbW;
 	$blogURI = get_bloginfo('url') . "/";	
@@ -129,14 +132,18 @@ function ungallery() {
 		$length = strrpos($gallerylink, "/"); 		// 	Find length of gallery in string
 		$gallerylink = substr($gallerylink, 0, $length);	// 	Trim the filename off the end
 	}
-	if ($gallerylink) {
-		$gallerylinkarray =  explode("/", $gallerylink);
-	}
 
 
+
+
+
+
+
+	// populating our content arrays
 	$breadcrumbs = array();
 	$breadcrumbs[] = makeItemElement("breadcrumb", get_the_title(), "", $pic_root);
-	if($gallerylinkarray){
+	if($gallerylink){
+		$gallerylinkarray =  explode("/", $gallerylink);
 		foreach ($gallerylinkarray as $level) {
 			$pp .= $level ;
 			$breadcrumbs[] = makeItemElement("breadcrumb", "", $pp, $pic_root);
@@ -164,9 +171,6 @@ function ungallery() {
 	} 
 	closedir($dp);
 
-
-
-
 	// echo "<pre>\n";
 	// echo "BREADCRUMBS\n";
 	// var_dump($breadcrumbs);
@@ -182,158 +186,98 @@ function ungallery() {
 
 
 	if(count($breadcrumbs)>1){
-		$QorA = '?';
-		if(strstr($permalink,'?')){
-			$QorA = '&';
-		}
 		foreach ($breadcrumbs as $bc) {
 			print $breadcrumb_separator . '<a href="'. $permalink . $QorA .'gallerylink='. $bc['gallerypath'] .'" >'. $bc['name'] .'</a>';
 		}
 	}
 
 
-	// Create the arrays with the dir's media files
-	$dp = opendir( $pic_root.$gallerylink);
-	$pic_types = array("JPG", "jpg", "GIF", "gif", "PNG", "png", "BMP", "bmp"); 	
-	while ($filename = readdir($dp)) {
-		if ((!is_dir($pic_root.$gallerylink. "/". $filename))  && (in_array(pathinfo($filename, PATHINFO_EXTENSION), $pic_types))) { 
-			$pic_array[] = rawurlencode($filename);		// If it's a picture, add it to thumb array
-		}
-	} 
-	closedir($dp);
-
-	// If we are viewing a gallery, arrange the thumbs
-	if($pic_array) {
-		rsort($pic_array);	
-	}
-
-	$dp = opendir($pic_root.$gallerylink);	//  Read the directory for subdirectories
-	while ($subdir = readdir($dp)) {		//  If it is a subdir and not set as hidden, enter it into the array
-		if (is_dir($pic_root.$gallerylink. "/". $subdir) && $subdir != "." && $subdir != ".." && !strstr($subdir, $hidden)) {
-			$subdirs[] = $subdir;
-		}
-	}
-	closedir($dp);
-
 	?>		<table width="100%"><tr><? //	Begin the table
-	if (!isset($src) && isset($pic_array)) {							//	If we are in thumbnails view,
-		$w = $thumbW;
 
-		print '<td align="center"><div class="post-headline">';
+	$w = $thumbW;
 
-		$here = end($breadcrumbs);
-		if($here['banner']){
-			include($here['banner']);
-		} else {
-			print "<h2 style=\"text-align: center;\">" . $here['title'] ."</h2>";
-		}
-											//	Close cell. Add a bit of space
-		?></td></tr><tr>
-		<td align="center"><p style="text-align: center;">
-		<?
-		$column = 0;
-		if ($max_thumbs < count($images)) {		// If we are displaying thumbnails across multiple pages, update array with page data
-			if($page) {
-				if(substr($page, 0, 1) == 'p'){
-					$page = substr($page, 1) ;	// Remove p from page string
-				}
-				$offset = ($page -1) * $max_thumbs;
-			}
-			$images = array_slice($images, $offset, $max_thumbs);
-		}
+	print '<td align="center"><div class="post-headline">';
 
-		if(count($subdirectories)>0){
-			$QorA = '?';
-			if(strstr($permalink,'?')){
-				$QorA = '&';
-			}
-			$phpthumburl = $blogURI . $dir . 'phpthumb/phpThumb.php';
-			foreach ($subdirectories as $sd) {
-				if(file_exists($sd['thumb'])){
-					$thumburl = getThumbUrl($phpthumburl, $w, (get_option('thumb_square') === 'true'), $sd['thumb'], 0);
-				}
-				printSubdirButton($sd['name'], 
-					$thumburl, $permalink . $QorA .'gallerylink='. rawurlencode($sd['gallerypath']));
-				$column++;
-				if ( $column == $columns ) {
-					print '<br/>';
-					$column = 0;
-				}
-			}
-		}
-
-		if(count($images)>0){
-			$column = 0;
-			$QorA = '?';
-			if(strstr($permalink,'?')){
-				$QorA = '&';
-			}
-			$phpthumburl = $blogURI . $dir . 'phpthumb/phpThumb.php';
-			foreach ($images as $img) {
-				$thumburl = getThumbUrl($phpthumburl, $w, (get_option('thumb_square') === 'true'), $img['fullpath'], 0);
-				$lightboxurl = getThumbUrl($phpthumburl, $srcW, 0, $img['fullpath'], $watermark);
-				if( get_option('allow_raw') === 'true' ){
-					printLightBoxButton($img['name'], $thumburl, $lightboxurl, $rawurl);
-				} else {
-					printLightBoxButton($img['name'], $thumburl, $lightboxurl, 0);
-				}
-				$column++;
-				if ( $column == $columns ) {
-					print '<br/>';
-					$column = 0;
-				}
-			}
-		}
-		
-		// If we are displaying thumbnails across multiple pages, display Next/Previos page links
-		if ($max_thumbs < count($pic_array)) {	
-					
-			$pages = ceil(count($pic_array) / $max_thumbs) ;	//	Get the number of pages	
-			
-			if (!$page) $page = 1;
-			print "</tr><tr><td>";
-			if ($page > 1) 	{
-				$previous = $page - 1;
-				print '<a href="'. $permalink . $QorA .'gallerylink='. $gallerylink . '&page=p'. $previous .'">Previous Page</a>';
-			}
-			print  "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-			if ($pages > $page) {
-				$next = $page + 1;
-				print '<a href="'. $permalink . $QorA .'gallerylink='. $gallerylink . '&page=p'. $next .'">Next Page</a>';
-			}
-			print  "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - This gallery has $pages pages -";
-		}
-		
-		// Complete the table formatting 
-		print "	</td></tr>
-	</td>
-	</table>";
+	$here = end($breadcrumbs);
+	if($here['banner']){
+		include($here['banner']);
 	} else {
-
-		if(count($subdirectories)>0){
-			print '<td align="center"><p style="text-align: center;">';
-			$QorA = '?';
-			if(strstr($permalink,'?')){
-				$QorA = '&';
-			}
-			$phpthumburl = $blogURI . $dir . 'phpthumb/phpThumb.php';
-			foreach ($subdirectories as $sd) {
-				if(file_exists($sd['thumb'])){
-					$thumburl = getThumbUrl($phpthumburl, $w, (get_option('thumb_square') === 'true'), $sd['thumb'], 0);
-				}
-				printSubdirButton($sd['name'], 
-					$thumburl, $permalink . $QorA .'gallerylink='. rawurlencode($sd['gallerypath']));
-				$column++;
-				if ( $column == $columns ) {
-					print '<br/>';
-					$column = 0;
-				}
-			}
-			print '</p></td>';
-		}
-		print "	</tr>
-	</table>";
+		print "<h2 style=\"text-align: center;\">" . $here['name'] ."</h2>";
 	}
+										//	Close cell. Add a bit of space
+	?></td></tr><tr>
+	<td align="center"><p style="text-align: center;">
+	<?
+	$column = 0;
+	if ($max_thumbs < count($images)) {		// If we are displaying thumbnails across multiple pages, update array with page data
+		if($page) {
+			if(substr($page, 0, 1) == 'p'){
+				$page = substr($page, 1) ;	// Remove p from page string
+			}
+			$offset = ($page -1) * $max_thumbs;
+		}
+		$images = array_slice($images, $offset, $max_thumbs);
+	}
+
+	if(count($subdirectories)>0){
+		$phpthumburl = $blogURI . $dir . 'phpthumb/phpThumb.php';
+		foreach ($subdirectories as $sd) {
+			if(file_exists($sd['thumb'])){
+				$thumburl = getThumbUrl($phpthumburl, $w, (get_option('thumb_square') === 'true'), $sd['thumb'], 0);
+			}
+			printSubdirButton($sd['name'], 
+				$thumburl, $permalink . $QorA .'gallerylink='. rawurlencode($sd['gallerypath']));
+			$column++;
+			if ( $column == $columns ) {
+				print '<br/>';
+				$column = 0;
+			}
+		}
+	}
+
+	if(count($images)>0){
+		$column = 0;
+		$phpthumburl = $blogURI . $dir . 'phpthumb/phpThumb.php';
+		foreach ($images as $img) {
+			$thumburl = getThumbUrl($phpthumburl, $w, (get_option('thumb_square') === 'true'), $img['fullpath'], 0);
+			$lightboxurl = getThumbUrl($phpthumburl, $srcW, 0, $img['fullpath'], $watermark);
+			if( get_option('allow_raw') === 'true' ){
+				printLightBoxButton($img['name'], $thumburl, $lightboxurl, $rawurl);
+			} else {
+				printLightBoxButton($img['name'], $thumburl, $lightboxurl, 0);
+			}
+			$column++;
+			if ( $column == $columns ) {
+				print '<br/>';
+				$column = 0;
+			}
+		}
+	}
+	
+	// If we are displaying thumbnails across multiple pages, display Next/Previos page links
+	if ($max_thumbs < count($images)) {	
+				
+		$pages = ceil(count($images) / $max_thumbs) ;	//	Get the number of pages	
+		
+		if (!$page) $page = 1;
+		print "</tr><tr><td>";
+		if ($page > 1) 	{
+			$previous = $page - 1;
+			print '<a href="'. $permalink . $QorA .'gallerylink='. $gallerylink . '&page=p'. $previous .'">Previous Page</a>';
+		}
+		print  "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+		if ($pages > $page) {
+			$next = $page + 1;
+			print '<a href="'. $permalink . $QorA .'gallerylink='. $gallerylink . '&page=p'. $next .'">Next Page</a>';
+		}
+		print  "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - This gallery has $pages pages -";
+	}
+	
+	// Complete the table formatting 
+	print "	</td></tr>
+</td>
+</table>";
+
 }
 
 function getFolderImageFile($folder){
