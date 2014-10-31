@@ -3,9 +3,8 @@
 Plugin Name: UnGallery
 Description: Publish thousands of pictures in WordPress, in minutes.    
 Plugin URI: http://markpreynolds.com/technology/wordpress-ungallery
-Author: Mark Reynolds
-Author URI: http://markpreynolds.com
-Author Email: mark@markpreynolds.com
+Author: Dave Morgan
+Author URI: http://lepidoptera.net
 Version: 2.2.2
 */
 
@@ -338,36 +337,21 @@ function printSubdirButton($title, $thumburl, $url){
 		style="position: absolute; left: 10px; bottom: 0px; width: 100%; height: 100%; vertical-align: center; color: black;"><?=$title;?></span></a><?
 }
 
-function size_readable ($size, $retstring = null) {
-        // adapted from code at http://aidanlister.com/repos/v/function.size_readable.php
-        $sizes = array('B', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB');
-        if ($retstring === null) { $retstring = '%01.2f %s'; }
-        $lastsizestring = end($sizes);
-        foreach ($sizes as $sizestring) {
-                if ($size < 1024) { break; }
-                if ($sizestring != $lastsizestring) { $size /= 1024; }
-        }
-        if ($sizestring == $sizes[0]) { $retstring = '%01d %s'; } // Bytes aren't normally fractional
-        return sprintf($retstring, $size, $sizestring);
-}
-
 // Add settings link on plugin page
 function plugin_settings_link($links) { 
   $settings_link = '<a href="options-general.php?page=ungallerysettings">Settings</a>'; 
   array_unshift($links, $settings_link); 
   return $links; 
 }
-$plugin = plugin_basename(__FILE__); 
-add_filter("plugin_action_links_$plugin", 'plugin_settings_link' );
+add_filter("plugin_action_links_" . plugin_basename(__FILE__), 'plugin_settings_link' );
 
 function ungallery_set_plugin_meta($links, $file) {
-	$plugin = plugin_basename(__FILE__);
 	// create link
-	if ($file == $plugin) {
+	if ($file == plugin_basename(__FILE__)) {
 		return array_merge( $links, array( 
 			'<a href="http://wordpress.org/tags/ungallery">' . __('Support Forum') . '</a>',
 			'<a href="http://wordpress.org/extend/plugins/ungallery/faq/">' . __('FAQ') . '</a>',
-			'<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=L6GZ4FVE8YR2S" title="If you find the plugin useful, consider supporting!">' . __('Donate') . '</a>'
+			'<a href="https://winadatewithrusschapman.com" title="Russ!">' . __('Get a Date') . '</a>'
 		));
 	}
 	return $links;
