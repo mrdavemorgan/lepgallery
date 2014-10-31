@@ -130,39 +130,7 @@ Require valid-user');
 		}
 } else 	print $_SERVER['DOCUMENT_ROOT']."/wp-content/cache/";
 ?>" size="70"> <br />
-This is the directory UnGallery creates and writes cache files to.
-
-<hr />
-
-<h3>FancyBox</h3>
-
-<p>
-This section configures the very stylish fancyBox features created by Jānis Skarnelis.  UnGallery goes from being a handy way of efficiently publishing many images, to also delivering the look and feel of the most polished gallery plugins.  FancyBox Version 2x is licensed via Creative Commons, not GPL and therefor not included with UnGallery (to comply with WordPress.org policy).  FancyBox is free for personal and non-profit use and a small fee is charged for commercial use.  Please check <a href="http://sites.fastspring.com/fancyapps/product/store">here</a> for details.  The Creative Commons license details are <a href="http://creativecommons.org/licenses/by-nc/3.0/">here</a>. 
-</p>
-Setup is simple but I'll work to automate it in the future. <br />
-<p><strong>Step 1:</strong><br />
-Copy and paste the fancyBox calls into the WordPress header.  You can do this from the <a href="<?php print get_bloginfo('url')  ?>/wp-admin/theme-editor.php"> WordPress admin menu / Appearance / Editor </a> Navigate there or click the link and then the header.php link.  Insert the lines below between the &lt;head&gt; and &lt;/head&gt; tags.</p>
-
-<pre>
-&lt;!-- Add jQuery library and fancyBox--&gt;
-&lt;script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"&gt;&lt;/script&gt;
-&lt;link rel="stylesheet" href="./wp-content/plugins/fancybox/source/jquery.fancybox.css?v=2.0.5" type="text/css" media="screen" /&gt;
-&lt;script type="text/javascript" src="./wp-content/plugins/fancybox/source/jquery.fancybox.pack.js?v=2.0.5"&gt;&lt;/script&gt;
-&lt;link rel="stylesheet" href="./wp-content/plugins/fancybox/source/helpers/jquery.fancybox-buttons.css?v=2.0.5" type="text/css" media="screen" /&gt;
-&lt;script type="text/javascript" src="./wp-content/plugins/fancybox/source/helpers/jquery.fancybox-buttons.js?v=2.0.5"&gt;&lt;/script&gt;
-&lt;link rel="stylesheet" href="./wp-content/plugins/fancybox/source/helpers/jquery.fancybox-thumbs.css?v=2.0.5" type="text/css" media="screen" /&gt;
-&lt;script type="text/javascript" src="./wp-content/plugins/fancybox/source/helpers/jquery.fancybox-thumbs.js?v=2.0.5"&gt;&lt;/script&gt;
-</pre>
-
-<p><strong>Step 2:</strong> <br />
-Download fancyBox and unzip the directory to the same level (./wp-content/plugins/) as your other plugins:  ./wp-content/plugins/fancybox/.  It's available here: <a href="https://github.com/fancyapps/fancyBox/zipball/v2.0.5">fancyBox v. 2.0.5</a>. You can type or paste the following lines:<br />
-<pre>
-	cd ./wp-content/plugins/
-	wget https://github.com/fancyapps/fancyBox/zipball/v2.0.5
-	unzip v2.0.5
-	mv fancyapps-fancyBox-5403ca0 fancybox
-</pre>
-The new fancyBox directory should be here: <input type="text" readonly value="<?php print $_SERVER['DOCUMENT_ROOT']."/wp-content/fancybox/"; ?>" size="70"> <br />
+This is the directory where UnGallery creates and writes cache files.
 
 <hr />
 
