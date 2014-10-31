@@ -190,6 +190,17 @@ function ungallery() {
 			$parentpath .= "/";
 		}
 	}
+	// TODO: use this shit
+	// if(count($breadcrumbs)>1){
+	// 	$QorA = '?';
+	// 	if(strstr($permalink,'?')){
+	// 		$QorA = '&';
+	// 	}
+	// 	foreach ($breadcrumbs as $bc) {
+	// 		print $breadcrumb_separator . '<a href="'. $permalink . $QorA .'gallerylink='. $bc['gallerypath'] .'" >'. $bc['name'] .'</a>';
+	// 	}
+	// }
+
 
 	// Create the arrays with the dir's media files
 	$dp = opendir( $pic_root.$gallerylink);
@@ -217,6 +228,7 @@ function ungallery() {
 	?>		<table width="100%"><tr><? //	Begin the table
 	if (!isset($src) && isset($pic_array)) {							//	If we are in thumbnails view,
 		$w = $thumbW;
+		// TODO: drop the banner in here
 		print '<td align="center"><div class="post-headline">';
 		if (file_exists($pic_root.$gallerylink."/banner.txt")) {
 			include ($pic_root.$gallerylink."/banner.txt");					//	We also display the caption from banner.txt
@@ -237,6 +249,16 @@ function ungallery() {
 			}
 			$sliced_array = array_slice($pic_array, $offset, $max_thumbs);
 		}
+		// TODO: use this shit
+		if ($max_thumbs < count($images)) {		// If we are displaying thumbnails across multiple pages, update array with page data
+			if($page) {
+				if(substr($page, 0, 1) == 'p'){
+					$page = substr($page, 1) ;	// Remove p from page string
+				}
+				$offset = ($page -1) * $max_thumbs;
+			}
+			$images = array_slice($images, $offset, $max_thumbs);
+		}
 
 		if($subdirs) {							//  List each subdir and link
 			sort($subdirs);	
@@ -253,6 +275,26 @@ function ungallery() {
 					$thumburl, $permalink . $QorA .'gallerylink='. $parentpath.rawurlencode($filename));
 			}
 		}
+		// TODO: use this shit
+		// if(count($subdirectories)>0){
+		// 	$QorA = '?';
+		// 	if(strstr($permalink,'?')){
+		// 		$QorA = '&';
+		// 	}
+		// 	$phpthumburl = $blogURI . $dir . 'phpthumb/phpThumb.php';
+		// 	foreach ($subdirectories as $sd) {
+		// 		if(file_exists($sd['thumb'])){
+		// 			$thumburl = getThumbUrl($phpthumburl, $w, (get_option('thumb_square') === 'true'), $sd['thumb'], 0);
+		// 		}
+		// 		printSubdirButton($sd['name'], 
+		// 			$thumburl, $permalink . $QorA .'gallerylink='. rawurlencode($sd['gallerypath']));
+		// 		$column++;
+		// 		if ( $column == $columns ) {
+		// 			print '<br/>';
+		// 			$column = 0;
+		// 		}
+		// 	}
+		// }
 
 
 		foreach ($sliced_array as $filename) {						//  Use the sliced_array to display the thumbs and assign the links
@@ -275,6 +317,29 @@ function ungallery() {
 					$column = 0;
 				}
 		} 
+		// TODO: use this shit
+		// if(count($images)>0){
+		// 	$column = 0;
+		// 	$QorA = '?';
+		// 	if(strstr($permalink,'?')){
+		// 		$QorA = '&';
+		// 	}
+		// 	$phpthumburl = $blogURI . $dir . 'phpthumb/phpThumb.php';
+		// 	foreach ($images as $img) {
+		// 		$thumburl = getThumbUrl($phpthumburl, $w, (get_option('thumb_square') === 'true'), $img['fullpath'], 0);
+		// 		$lightboxurl = getThumbUrl($phpthumburl, $srcW, 0, $img['fullpath'], $watermark);
+		// 		if( get_option('allow_raw') === 'true' ){
+		// 			printLightBoxButton($img['name'], $thumburl, $lightboxurl, $rawurl);
+		// 		} else {
+		// 			printLightBoxButton($img['name'], $thumburl, $lightboxurl, 0);
+		// 		}
+		// 		$column++;
+		// 		if ( $column == $columns ) {
+		// 			print '<br/>';
+		// 			$column = 0;
+		// 		}
+		// 	}
+		// }
 		
 		// If we are displaying thumbnails across multiple pages, display Next/Previos page links
 		if ($max_thumbs < count($pic_array)) {	
@@ -318,6 +383,28 @@ function ungallery() {
 			}
 			print '</p></td>';
 		}
+		// TODO: use this shit
+		// if(count($subdirectories)>0){
+		// 	print '<td align="center"><p style="text-align: center;">';
+		// 	$QorA = '?';
+		// 	if(strstr($permalink,'?')){
+		// 		$QorA = '&';
+		// 	}
+		// 	$phpthumburl = $blogURI . $dir . 'phpthumb/phpThumb.php';
+		// 	foreach ($subdirectories as $sd) {
+		// 		if(file_exists($sd['thumb'])){
+		// 			$thumburl = getThumbUrl($phpthumburl, $w, (get_option('thumb_square') === 'true'), $sd['thumb'], 0);
+		// 		}
+		// 		printSubdirButton($sd['name'], 
+		// 			$thumburl, $permalink . $QorA .'gallerylink='. rawurlencode($sd['gallerypath']));
+		// 		$column++;
+		// 		if ( $column == $columns ) {
+		// 			print '<br/>';
+		// 			$column = 0;
+		// 		}
+		// 	}
+		// 	print '</p></td>';
+		// }
 		print "	</tr>
 	</table>";
 	}
