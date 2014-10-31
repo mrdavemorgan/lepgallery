@@ -15,31 +15,20 @@ update_option( "version", $version_val );
 //  Display the plugin administration menu
 include("configuration_menu.php");
 
-//  Get the gallery names from the database
-$gallery = get_option( 'gallery' );
-$gallery2 = get_option( 'gallery2' );
-$gallery3 = get_option( 'gallery3' );
-$gallery4 = get_option( 'gallery4' );
-$gallery5 = get_option( 'gallery5' );
-$gallery6 = get_option( 'gallery6' );
+add_filter('the_content', "ungallery");
 
-//  If a gallery is not set in db, give it a value besides "" so not to trigger plugin
-if($gallery == "") $gallery = "UnGalleryWontLoad"; 
-if($gallery2 == "") $gallery2 = "UnGalleryWontLoad"; 
-if($gallery3 == "") $gallery3 = "UnGalleryWontLoad"; 
-if($gallery4 == "") $gallery4 = "UnGalleryWontLoad";
-if($gallery5 == "") $gallery5 = "UnGalleryWontLoad";
-if($gallery6 == "") $gallery6 = "UnGalleryWontLoad";
+function ungallery($content) {
+	if(strpos( $content, "{ungallery=") === false){
+		print $content;
+		return;
+	}
+	if(preg_match('/{ungallery=(.+?)}/', $content, $matches)){
+		$pic_root = $matches[1];
+	} else {
+		print "ungallery error";
+		return;
+	}
 
-$breadcrumb_separator = get_option( 'breadcrumb_separator' );
-if ($breadcrumb_separator == "") $breadcrumb_separator = " / ";
-
-// If any gallery flags are active, run the display gallery code
-if (strstr($_SERVER["REQUEST_URI"], "/". $gallery) || (strstr($_SERVER["REQUEST_URI"], "/". $gallery2)) || (strstr($_SERVER["REQUEST_URI"], "/". $gallery3)) || 	(strstr($_SERVER["REQUEST_URI"], "/". $gallery4)) || (strstr($_SERVER["REQUEST_URI"], "/". $gallery5)) || (strstr($_SERVER["REQUEST_URI"], "/". $gallery6))) {			
-	add_filter('the_content', "ungallery");
-}
-
-function ungallery() {
 	//  Get the page name from the WP page slug
 	global $wp_query;
 	global $breadcrumb_separator;
@@ -53,23 +42,12 @@ function ungallery() {
 	//  Base the UnGallery linking format on the site's permalink settings
 	if (strstr($permalink, "?")) {
 		$QorA = "&";
-		$gallery_ID = "?page_id=" . $post_ID;
 	} else {
 		$QorA = "?";
-		$gallery_ID = $post_name;
 	}
 
-	//  Get the image directory path associated with the gallery 	
-	if($gallery_ID == get_option( 'gallery' )) $pic_root = get_option( 'images_path' );
-	if($gallery_ID == get_option( 'gallery2' )) $pic_root = get_option( 'images2_path' );
-	if($gallery_ID == get_option( 'gallery3' )) $pic_root = get_option( 'images3_path' );
-	if($gallery_ID == get_option( 'gallery4' )) $pic_root = get_option( 'images4_path' );
-	if($gallery_ID == get_option( 'gallery5' )) $pic_root = get_option( 'images5_path' );
-	if($gallery_ID == get_option( 'gallery6' )) $pic_root = get_option( 'images6_path' );
-	
 	//	Load the configuration data from the database
 	$version = get_option( 'version' );
-	$hidden = get_option( 'hidden' );
 	$thumbW = get_option( 'thumbnail' );
 	$srcW = get_option( 'browse_view' );
 	$columns = get_option( 'columns' );
@@ -86,7 +64,6 @@ function ungallery() {
 	$dir = "wp-content/plugins/ungallery/";
 	$phpthumburl = $blogURI . $dir . 'phpthumb/phpThumb.php';
 	$gallerylink = $_GET['gallerylink'];
-	$src = $_GET['src'];
 	$page = $_GET['page'];
 	if (!$page) {
 		$page = 1;
@@ -94,14 +71,12 @@ function ungallery() {
 	$offset = ($page -1) * $max_thumbs;
 	$endset = $page * $max_thumbs;
 	$squarethumb = (get_option('thumb_square') === 'true');
-		
-	//	If we are browsing a gallery, gallerylink is not set so derive it from src in URL
-	if (isset($src)) {
-		$lastslash =  strrpos($src, "/");	
-		$gallerylink = substr($src, strlen($pic_root));		// 	Trim the path off root and above
-		$length = strrpos($gallerylink, "/"); 		// 	Find length of gallery in string
-		$gallerylink = substr($gallerylink, 0, $length);	// 	Trim the filename off the end
+	$breadcrumb_separator = get_option( 'breadcrumb_separator' );
+	if ($breadcrumb_separator == "") {
+		$breadcrumb_separator = " / ";
 	}
+
+
 
 
 
@@ -130,8 +105,8 @@ function ungallery() {
 
 	$subdirectories = array();
 	$dp = opendir($pic_root.$gallerylink);	//  Read the directory for subdirectories
-	while ($subdir = readdir($dp)) {		//  If it is a subdir and not set as hidden, enter it into the array
-		if (is_dir($pic_root.$gallerylink. "/". $subdir) && $subdir != "." && $subdir != ".." && !strstr($subdir, $hidden)) {
+	while ($subdir = readdir($dp)) {		//  If it is a subdir enter it into the array
+		if (is_dir($pic_root.$gallerylink. "/". $subdir) && (substr($subdir,0,1) != ".")) {
 			$subdirectories[] = makeItemElement("subdir", "", $gallerylink . "/" . $subdir, $pic_root);
 		}
 	}
