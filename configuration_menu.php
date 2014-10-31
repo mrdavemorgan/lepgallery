@@ -29,58 +29,6 @@ function mt_settings_page() {
     $columns_name = 'columns';
     $columns_data_field_name = 'columns';
 
-    // variables for the gallery URL string field 
-    $gallery_name = 'gallery';
-    $gallery_data_field_name = 'gallery';
-
-    // variables for the gallery URL string field 
-    $gallery2_name = 'gallery2';
-    $gallery2_data_field_name = 'gallery2';
-
-    // variables for the gallery URL string field 
-    $gallery3_name = 'gallery3';
-    $gallery3_data_field_name = 'gallery3';
-
-    // variables for the gallery URL string field 
-    $gallery4_name = 'gallery4';
-    $gallery4_data_field_name = 'gallery4';
-
-    // variables for the gallery URL string field 
-    $gallery5_name = 'gallery5';
-    $gallery5_data_field_name = 'gallery5';
-
-    // variables for the gallery URL string field 
-    $gallery6_name = 'gallery6';
-    $gallery6_data_field_name = 'gallery6';
-
-    // variables for the path to images field  
-    $path_name = 'images_path';
-    $path_data_field_name = 'images_path';
-
-    // variables for the path to images field  
-    $path2_name = 'images2_path';
-    $path2_data_field_name = 'images2_path';
-
-    // variables for the path to images field  
-    $path3_name = 'images3_path';
-    $path3_data_field_name = 'images3_path';
-
-    // variables for the path to images field  
-    $path4_name = 'images4_path';
-    $path4_data_field_name = 'images4_path';
-
-    // variables for the path to images field  
-    $path5_name = 'images5_path';
-    $path5_data_field_name = 'images5_path';
-
-    // variables for the path to images field  
-    $path6_name = 'images6_path';
-    $path6_data_field_name = 'images6_path';
-
-    // variables for the hidden field  
-    $hidden_name = 'hidden';
-    $hidden_data_field_name = 'hidden';
-
     // variables for the thumbnail width field  
     $thumbnail_name = 'thumbnail';
     $thumbnail_data_field_name = 'thumbnail';
@@ -103,19 +51,6 @@ function mt_settings_page() {
 
     // Read in existing option value from database
     $version_val = get_option( $version_name );
-    $gallery_val = get_option( $gallery_name );
-    $gallery2_val = get_option( $gallery2_name );
-    $gallery3_val = get_option( $gallery3_name );
-    $gallery4_val = get_option( $gallery4_name );
-    $gallery5_val = get_option( $gallery5_name );
-    $gallery6_val = get_option( $gallery6_name );
-    $path_val = get_option( $path_name );
-    $path2_val = get_option( $path2_name );
-    $path3_val = get_option( $path3_name );
-    $path4_val = get_option( $path4_name );
-    $path5_val = get_option( $path5_name );
-    $path6_val = get_option( $path6_name );
-    $hidden_val = get_option( $hidden_name );
     $columns_val = get_option( $columns_name );
     $thumbnail_val = get_option( $thumbnail_name );
     $browse_view_val = get_option( $browse_view_name );
@@ -126,8 +61,6 @@ function mt_settings_page() {
     $breadcrumb_separator_val = get_option( $breadcrumb_separator_name );
 
     // Apply defaults to form if db field is blank 
-    //if ($gallery_val == "") $gallery_val = "gallery";
-    if ($hidden_val == "") $hidden_val = "hidden";
     if ($columns_val == "") $columns_val = "3";
     if ($thumbnail_val == "") $thumbnail_val = "190";
     if ($browse_view_val == "") $browse_view_val = "440";
@@ -140,19 +73,6 @@ function mt_settings_page() {
     // If they did, this hidden field will be set to 'Y'
     if( isset($_POST[ $hidden_field_name ]) && $_POST[ $hidden_field_name ] == 'Y' ) {
         // Read the form values
-        $gallery_val = $_POST[ $gallery_data_field_name ];
-        $gallery2_val = $_POST[ $gallery2_data_field_name ];
-        $gallery3_val = $_POST[ $gallery3_data_field_name ];
-        $gallery4_val = $_POST[ $gallery4_data_field_name ];
-        $gallery5_val = $_POST[ $gallery5_data_field_name ];
-        $gallery6_val = $_POST[ $gallery6_data_field_name ];
-        $path_val = $_POST[ $path_data_field_name ];
-        $path2_val = $_POST[ $path2_data_field_name ];
-        $path3_val = $_POST[ $path3_data_field_name ];
-        $path4_val = $_POST[ $path4_data_field_name ];
-        $path5_val = $_POST[ $path5_data_field_name ];
-        $path6_val = $_POST[ $path6_data_field_name ];
-        $hidden_val = $_POST[ $hidden_data_field_name ];
         $columns_val = $_POST[ $columns_data_field_name ];
         $thumbnail_val = $_POST[ $thumbnail_data_field_name ];
         $browse_view_val = $_POST[ $browse_view_data_field_name ];
@@ -164,19 +84,6 @@ function mt_settings_page() {
 
         // Save the new values in the database
         update_option( $version_name, $version_val );
-        update_option( $gallery_name, $gallery_val );
-        update_option( $gallery2_name, $gallery2_val );
-        update_option( $gallery3_name, $gallery3_val );
-        update_option( $gallery4_name, $gallery4_val );
-        update_option( $gallery5_name, $gallery5_val );
-        update_option( $gallery6_name, $gallery6_val );
-        update_option( $path_name, $path_val );
-        update_option( $path2_name, $path2_val );
-        update_option( $path3_name, $path3_val );
-        update_option( $path4_name, $path4_val );
-        update_option( $path5_name, $path5_val );
-        update_option( $path6_name, $path6_val );
-        update_option( $hidden_name, $hidden_val );
         update_option( $columns_name, $columns_val );
         update_option( $thumbnail_name, $thumbnail_val );
         update_option( $browse_view_name, $browse_view_val );
@@ -186,11 +93,7 @@ function mt_settings_page() {
         update_option( $watermark_name, $watermark_val );
         update_option( $breadcrumb_separator_name, $breadcrumb_separator_val );
 
-        update_option( 'activate_fancybox', $_POST[ 'activate_fancybox' ] );
-        update_option( 'disable_zip', $_POST[ 'disable_zip' ] );
         update_option( 'thumb_square', $_POST[ 'thumb_square' ] );
-        update_option( 'allow_raw', $_POST[ 'allow_raw' ] );
-        update_option( 'disable_search', $_POST[ 'disable_search' ] );
 
         // Put settings updated message on the screen
 
@@ -215,17 +118,6 @@ function mt_settings_page() {
 <h3>General Settings</h3>	
 <form name="form1" method="post" action="">
 <input type="hidden" name="<?php echo $hidden_field_name; ?>" value="Y">
-
-<p><?php _e("Path to image directory:", 'images_path' ); ?>
-<input type="text" name="<?php echo $path_data_field_name; ?>" value="<?php echo $path_val; ?>" size="70"> 	<br />
-Full path including trailing slash/.  * See path tips below for help.
-</p>
-
-<p>Website: <input type="text" readonly name="URI" value="<? print get_bloginfo('url'); ?>/" size="40"><?php _e("", 'gallery' ); ?> 
-Permalink: <input type="text" name="<?php echo $gallery_data_field_name; ?>" value="<?php echo $gallery_val; ?>" size="20"><br />
-Match the permalink format of the page you created in step 2. Examples are "?page_id=4" and "gallery".<br />
-Note:  I recommend changing the permalink from the default to: "/%category%/%postname%" on the Settings / Permalink page for friendlier looking WordPress and UnGallery URLs.
-</p>
 
 UnGallery version: <input type="text" readonly name="<?php echo $version_name; ?>" value="<?php echo $version_val; ?>" size="10"><br />
 
@@ -279,9 +171,6 @@ Download fancyBox and unzip the directory to the same level (./wp-content/plugin
 	mv fancyapps-fancyBox-5403ca0 fancybox
 </pre>
 The new fancyBox directory should be here: <input type="text" readonly value="<?php print $_SERVER['DOCUMENT_ROOT']."/wp-content/fancybox/"; ?>" size="70"> <br />
-<p><strong>Step 3:</strong> Activate fancyBox<br />
-<input name="activate_fancybox" id="activate_fancybox" value="true" type="checkbox" <?php if ( get_option('activate_fancybox') == 'true' ) echo ' checked="checked" '; ?> /> <?php _e('Toggle this checkbox to activate or deactivate fancyBox.'); ?>
-</p>
 
 <hr />
 
@@ -345,60 +234,9 @@ Default: 10
 
 <h3>Advanced Options</h3>
 
-<p><?php _e("Name used for hidden galleries:", 'hidden' ); ?> 
-<input type="text" name="<?php echo $hidden_data_field_name; ?>" value="<?php echo $hidden_val; ?>" size="20">
-Example: hidden
-</p>
-
 <p><?php _e("Path to watermark image file:", 'watermark_image' ); ?>
 <input type="text" name="<?php echo $watermark_data_field_name; ?>" value="<?php echo $watermark_val; ?>" size="70">  <br />
 Full path on the local filesystem.  (Leave this empty to have no watermark.) * See path tips above for help.
-</p>
-
-<p>Do not display the zip archive link: <input name="disable_zip" id="disable_zip" value="true" type="checkbox" <?php if ( get_option('disable_zip') == 'true' ) echo ' checked="checked" '; ?> /> <br />
-<?php _e('Check this box to remove the zip link from all pages.'); ?>
-</p>
-
-<p>Do not display the search field: <input name="disable_search" id="disable_search" value="true" type="checkbox" <?php if ( get_option('disable_search') == 'true' ) echo ' checked="checked" '; ?> /> <br />
-<?php _e('Check this box to remove the search field from all pages.'); ?>
-</p>
-
-<p>Link to raw image: <input name="allow_raw" id="allow_raw" value="true" type="checkbox" <?php 
-    if ( get_option('allow_raw') == 'true' ) echo ' checked="checked" '; ?> /><br/>
-    <?php _e('Check this box to have expose the link to the raw image. Otherwise it will be replaced with the "selected picture" size.'); ?>
-</p>
-
-<p>A single gallery can contain an unlimited number of images and sub-galleries organized using the file system directory tree.  <br />
-If you'd like to publish separate galleries, each with its own WordPress page, use the following fields to configure.<br />
-<br />
-<?php _e("2nd gallery permalink:", 'gallery2' ); ?> 
-<input type="text" name="<?php echo $gallery2_data_field_name; ?>" value="<?php echo $gallery2_val; ?>" size="20">&nbsp;&nbsp;&nbsp;&nbsp;
-<?php _e("Path to 2nd gallery image directory:", 'images2_path' ); ?> 
-<input type="text" name="<?php echo $path2_data_field_name; ?>" value="<?php echo $path2_val; ?>" size="30">
-</p>
-
-<p><?php _e("3rd gallery permalink:", 'gallery3' ); ?> 
-<input type="text" name="<?php echo $gallery3_data_field_name; ?>" value="<?php echo $gallery3_val; ?>" size="20">&nbsp;&nbsp;&nbsp;&nbsp;
-<?php _e("Path to 3rd gallery image directory:", 'images3_path' ); ?> 
-<input type="text" name="<?php echo $path3_data_field_name; ?>" value="<?php echo $path3_val; ?>" size="30">
-</p>
-
-<p><?php _e("4th gallery permalink:", 'gallery4' ); ?> 
-<input type="text" name="<?php echo $gallery4_data_field_name; ?>" value="<?php echo $gallery4_val; ?>" size="20">&nbsp;&nbsp;&nbsp;&nbsp;
-<?php _e("Path to 4th gallery image directory:", 'images4_path' ); ?> 
-<input type="text" name="<?php echo $path4_data_field_name; ?>" value="<?php echo $path4_val; ?>" size="30">
-</p>
-
-<p><?php _e("5th gallery permalink:", 'gallery5' ); ?> 
-<input type="text" name="<?php echo $gallery5_data_field_name; ?>" value="<?php echo $gallery5_val; ?>" size="20">&nbsp;&nbsp;&nbsp;&nbsp;
-<?php _e("Path to 5th gallery image directory:", 'images5_path' ); ?> 
-<input type="text" name="<?php echo $path5_data_field_name; ?>" value="<?php echo $path5_val; ?>" size="30">
-</p>
-
-<p><?php _e("6th gallery permalink:", 'gallery6' ); ?> 
-<input type="text" name="<?php echo $gallery6_data_field_name; ?>" value="<?php echo $gallery6_val; ?>" size="20">&nbsp;&nbsp;&nbsp;&nbsp;
-<?php _e("Path to 6th gallery image directory:", 'images6_path' ); ?> 
-<input type="text" name="<?php echo $path6_data_field_name; ?>" value="<?php echo $path6_val; ?>" size="30">
 </p>
 
 <p class="submit">
