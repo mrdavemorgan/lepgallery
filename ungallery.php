@@ -1,8 +1,8 @@
 <?php
 /*
-Plugin Name: UnGallery
-Description: Publish thousands of pictures in WordPress, in minutes.    
-Plugin URI: http://markpreynolds.com/technology/wordpress-ungallery
+Plugin Name: Lepgallery
+Description: Publish large image libraries with hierarchy. Based on UnGallery by Mark Reynolds.
+Plugin URI: http://lepidoptera.net
 Author: Dave Morgan
 Author URI: http://lepidoptera.net
 Version: 2.2.2
@@ -15,17 +15,17 @@ update_option( "version", $version_val );
 //  Display the plugin administration menu
 include("configuration_menu.php");
 
-add_filter('the_content', "ungallery");
+add_filter('the_content', "lepgallery");
 
-function ungallery($content) {
-	if(strpos( $content, "{ungallery=") === false){
+function lepgallery($content) {
+	if(strpos( $content, "{lepgallery=") === false){
 		print $content;
 		return;
 	}
-	if(preg_match('/{ungallery=(.+?)}/', $content, $matches)){
+	if(preg_match('/{lepgallery=(.+?)}/', $content, $matches)){
 		$pic_root = $matches[1];
 	} else {
-		print "ungallery error";
+		print "lepgallery error";
 		return;
 	}
 
@@ -39,7 +39,7 @@ function ungallery($content) {
 	//  Get the current gallery page's permalink
 	$permalink = get_permalink();
 	
-	//  Base the UnGallery linking format on the site's permalink settings
+	//  Base the gallery linking format on the site's permalink settings
 	if (strstr($permalink, "?")) {
 		$QorA = "&";
 	} else {
@@ -144,11 +144,11 @@ function ungallery($content) {
 
 
 	// table setup
-	?><div class="ungallerytable"><?
+	?><div class="lepgallerytable"><?
 
 	// print the breadcrumbs
 	if(count($breadcrumbs)>1){
-		print '<p id="ungallery_breadcrumbs">';
+		print '<p id="lepgallery_breadcrumbs">';
 		foreach ($breadcrumbs as $bc) {
 			print $breadcrumb_separator . '<a href="'. $permalink . $QorA .'gallerylink='. $bc['gallerypath'] .'" >'. $bc['name'] .'</a>';
 		}
@@ -158,15 +158,15 @@ function ungallery($content) {
 	// print title or banner
 	$here = end($breadcrumbs);
 	if($here['banner']){
-		print '<p id="ungallery_banner">';
+		print '<p id="lepgallery_banner">';
 		include($here['banner']);
 		print "</p>";
 	} else {
-		print '<h2 id="ungallery_banner">' . $here['name'] ."</h2>";
+		print '<h2 id="lepgallery_banner">' . $here['name'] ."</h2>";
 	}
 
 	//	Close cell. Add a bit of space
-	?><p id="ungallery_grid"><? 
+	?><p id="lepgallery_grid"><? 
 
 
  	$column = 0;
@@ -195,15 +195,15 @@ function ungallery($content) {
 	
 	// If we are displaying thumbnails across multiple pages, display Next/Previous page links
 	if ($pages > 1) {	
-		print '</p><p id="ungallery_footer">';
+		print '</p><p id="lepgallery_footer">';
 		if ($page > 1) 	{
-			print '<a href="'. $permalink . $QorA .'gallerylink='. $gallerylink . '&page=1" class="ungallery_chevron ungallery_chevronleftdouble"></a>';
-			print '<a href="'. $permalink . $QorA .'gallerylink='. $gallerylink . '&page='. ($page - 1) .'" class="ungallery_chevron ungallery_chevronleft"></a>';
+			print '<a href="'. $permalink . $QorA .'gallerylink='. $gallerylink . '&page=1" class="lepgallery_chevron lepgallery_chevronleftdouble"></a>';
+			print '<a href="'. $permalink . $QorA .'gallerylink='. $gallerylink . '&page='. ($page - 1) .'" class="lepgallery_chevron lepgallery_chevronleft"></a>';
 		}
-		print  "<span class=\"ungallery_pagecount\"> Page $page / $pages </span>";
+		print  "<span class=\"lepgallery_pagecount\"> Page $page / $pages </span>";
 		if ($pages > $page) {
-			print '<a href="'. $permalink . $QorA .'gallerylink='. $gallerylink . '&page='. ($page + 1) .'" class="ungallery_chevron ungallery_chevronright"></a>';
-			print '<a href="'. $permalink . $QorA .'gallerylink='. $gallerylink . '&page='. $pages .'" class="ungallery_chevron ungallery_chevronrightdouble"></a>';
+			print '<a href="'. $permalink . $QorA .'gallerylink='. $gallerylink . '&page='. ($page + 1) .'" class="lepgallery_chevron lepgallery_chevronright"></a>';
+			print '<a href="'. $permalink . $QorA .'gallerylink='. $gallerylink . '&page='. $pages .'" class="lepgallery_chevron lepgallery_chevronrightdouble"></a>';
 		}
 	}
 	
@@ -315,39 +315,39 @@ function printLightBoxButton($title, $thumburl, $expandedurl, $forcedsize){
 
 function printSubdirButton($title, $thumburl, $url, $forcedsize){
 	if($forcedsize){
-		?><a class="ungallerydir" href="<?=$url;?>"><img 
+		?><a class="lepgallerydir" href="<?=$url;?>"><img 
 		style="width: <?=$forcedsize;?>px; height: <?=$forcedsize;?>px;" src="<?=$thumburl;?>"/><span><?=$title;?></span></a><?
 	} else {
-		?><a class="ungallerydir" href="<?=$url;?>"><img src="<?=$thumburl;?>"/><span><?=$title;?></span></a><?
+		?><a class="lepgallerydir" href="<?=$url;?>"><img src="<?=$thumburl;?>"/><span><?=$title;?></span></a><?
 	}
 }
 
 // Add settings link on plugin page
 function plugin_settings_link($links) { 
-  $settings_link = '<a href="options-general.php?page=ungallerysettings">Settings</a>'; 
+  $settings_link = '<a href="options-general.php?page=lepgallerysettings">Settings</a>'; 
   array_unshift($links, $settings_link); 
   return $links; 
 }
 
-function ungallery_set_plugin_meta($links, $file) {
+function lepgallery_set_plugin_meta($links, $file) {
 	// create link
 	if ($file == plugin_basename(__FILE__)) {
 		return array_merge( $links, array( 
-			'<a href="http://wordpress.org/tags/ungallery">' . __('Support Forum') . '</a>',
-			'<a href="http://wordpress.org/extend/plugins/ungallery/faq/">' . __('FAQ') . '</a>',
+			'<a href="http://wordpress.org/tags/lepgallery">' . __('Support Forum') . '</a>',
+			'<a href="http://wordpress.org/extend/plugins/lepgallery/faq/">' . __('FAQ') . '</a>',
 			'<a href="https://winadatewithrusschapman.com" title="Russ!">' . __('Get a Date') . '</a>'
 		));
 	}
 	return $links;
 }
 
-function ungallery_enqueue_style() {
-	wp_enqueue_style( 'ungallery-lightbox', '/wp-content/plugins/ungallery/lightbox/css/lightbox.css', false ); 
-	wp_enqueue_style( 'ungallery-style', '/wp-content/plugins/ungallery/style.css', false ); 
+function lepgallery_enqueue_style() {
+	wp_enqueue_style( 'lepgallery-lightbox', '/wp-content/plugins/ungallery/lightbox/css/lightbox.css', false ); 
+	wp_enqueue_style( 'lepgallery-style', '/wp-content/plugins/ungallery/style.css', false ); 
 }
 
-add_filter( 'plugin_row_meta', 'ungallery_set_plugin_meta', 10, 2 );
+add_filter( 'plugin_row_meta', 'lepgallery_set_plugin_meta', 10, 2 );
 add_filter( 'plugin_action_links_' . plugin_basename(__FILE__), 'plugin_settings_link' );
-add_action( 'wp_enqueue_scripts', 'ungallery_enqueue_style' );
+add_action( 'wp_enqueue_scripts', 'lepgallery_enqueue_style' );
 
 ?>

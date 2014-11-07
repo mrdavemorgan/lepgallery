@@ -6,7 +6,7 @@ add_action('admin_menu', 'mt_add_pages');
 // action function for above hook
 function mt_add_pages() {
     // Add a new submenu under Settings:
-    add_options_page(__('UnGallery','ungallery_menu'), __('UnGallery','ungallery_menu'), 'manage_options', 'ungallerysettings', 'mt_settings_page');
+    add_options_page(__('Lepgallery','lepgallery_menu'), __('Lepgallery','lepgallery_menu'), 'manage_options', 'lepgallerysettings', 'mt_settings_page');
 }
 
 // mt_settings_page() displays the page content for the Test settings submenu
@@ -101,7 +101,7 @@ function mt_settings_page() {
 
     // header
 
-    echo "<h2>" . __( 'UnGallery Plugin Settings', 'images_path' ) . "</h2>";
+    echo "<h2>" . __( 'Lepgallery Plugin Settings', 'images_path' ) . "</h2>";
 
     // settings form
 
@@ -111,7 +111,7 @@ function mt_settings_page() {
 <form name="form1" method="post" action="">
 <input type="hidden" name="<?php echo $hidden_field_name; ?>" value="Y">
 
-UnGallery version: <input type="text" readonly name="<?php echo $version_name; ?>" value="<?php echo $version_val; ?>" size="10"><br />
+Lepgallery version: <input type="text" readonly name="<?php echo $version_name; ?>" value="<?php echo $version_val; ?>" size="10"><br />
 
 <p>Gallery cache directory: <input type="text" readonly name="cache_dir" value="
 <?php // Create cache directory at ./<WordPress install dir>/wp-content/cache/
@@ -130,13 +130,13 @@ Require valid-user');
 		}
 } else 	print $_SERVER['DOCUMENT_ROOT']."/wp-content/cache/";
 ?>" size="70"> <br />
-This is the directory where UnGallery creates and writes cache files.
+This is the directory where Lepgallery creates and writes cache files.
 
 <hr />
 
 <h3>Tips and Troubleshooting</h3>
 
-UnGallery faces a unique plugin challenge in leaving the WordPress environment to connect to your image library.  If your gallery does not display immediately, please check below for common solutions.  More info is available via the <a href="http://wordpress.org/extend/plugins/ungallery/faq/">FAQ</a>, <a href="http://wordpress.org/extend/plugins/ungallery/">plugin home page,</a> and <a href="http://wordpress.org/tags/ungallery">support forum</a>.  If you have any questions about configuring, using, or improving UnGallery please visit.
+Lepgallery faces a unique plugin challenge in leaving the WordPress environment to connect to your image library.  If your gallery does not display immediately, please check below for common solutions.  More info is available via the <a href="http://wordpress.org/extend/plugins/lepgallery/faq/">FAQ</a>, <a href="http://wordpress.org/extend/plugins/lepgallery/">plugin home page,</a> and <a href="http://wordpress.org/tags/lepgallery">support forum</a>.  If you have any questions about configuring, using, or improving Lepgallery please visit.
 <p>
 	<strong>Path</strong><br /> 
 	WordPress hosting environments can differ greatly, so here are a few path tips: <br />
@@ -148,14 +148,14 @@ UnGallery faces a unique plugin challenge in leaving the WordPress environment t
 
 <p>
 	<strong>Cache Directory</strong><br /> 
-	If the cache directory field above says unable to create cache directory a permission setting may be the issue.  UnGallery will work without the cache directory, but performance is much better with it set.  It can be created manually at [WordPress Install]/wp-content/cache/.  A remote file management tool like <a href="http://winscp.net/eng/index.php">WinSCP</a> or <a href="http://cyberduck.ch/">Cyberduck</a> can be used or from the Linux shell in the Wordpress directory the following commands can be used: <br />
+	If the cache directory field above says unable to create cache directory a permission setting may be the issue.  Lepgallery will work without the cache directory, but performance is much better with it set.  It can be created manually at [WordPress Install]/wp-content/cache/.  A remote file management tool like <a href="http://winscp.net/eng/index.php">WinSCP</a> or <a href="http://cyberduck.ch/">Cyberduck</a> can be used or from the Linux shell in the Wordpress directory the following commands can be used: <br />
 	&nbsp;&nbsp;mkdir wp-content/cache/<br />
 	&nbsp;&nbsp;chmod 777 wp-content/cache/<br />
 </p>
 
 <p>
 	<strong>Linux Only</strong><br />
-	The majority of hosting providers run WordPress on Linux so that platform was chosen.  UnGallery for WordPress running on Windows operating and file systems is almost an entirely separate plugin development process.  If you notice issues with custom permalinks or are unsure of what platform your provider uses to publish WordPress, you can check by typing your website address into an analyzer like <a href="http://www.webconfs.com/http-header-check.php">this one</a>.
+	The majority of hosting providers run WordPress on Linux so that platform was chosen.  Lepgallery for WordPress running on Windows operating and file systems is almost an entirely separate plugin development process.  If you notice issues with custom permalinks or are unsure of what platform your provider uses to publish WordPress, you can check by typing your website address into an analyzer like <a href="http://www.webconfs.com/http-header-check.php">this one</a>.
 </p>
 
 <hr />

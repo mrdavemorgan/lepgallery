@@ -1,31 +1,31 @@
-div.ungallerytable {
+div.lepgallerytable {
   width: 100%;
   text-align: center;
 }
 
-.ungallerytable a {
+.lepgallerytable a {
   position: relative;
 }
 
-.ungallerytable img {
+.lepgallerytable img {
 	border: 0px solid black;
 	margin: 3px;
 	box-shadow: 3px 3px 5px #666666;
 }
 
-.ungallerytable img:hover {
+.lepgallerytable img:hover {
 	border: 1px solid black;
 	margin: 2px;
 	box-shadow: 3px 3px 5px #444444;
 }
 
-.ungallerytable img:active {
+.lepgallerytable img:active {
 	border: 2px solid black;
 	margin: 1px;
 	box-shadow: 3px 3px 5px #222222;
 }
 
-.ungallerydir img {
+.lepgallerydir img {
   opacity: 0.4; 
 /*  -webkit-clip-path: polygon(
     0 0, 50% 0, 50% 6%, 100% 6%, 100% 100%, 0 100%
@@ -41,11 +41,11 @@ div.ungallerytable {
   );*/
 }
 
-a.ungallerydir {
+a.lepgallerydir {
 
 }
 
-.ungallerydir span {
+.lepgallerydir span {
   position: absolute; 
   left: 0px; 
   bottom: 0px; 
@@ -66,37 +66,37 @@ a.ungallerydir {
   -moz-osx-font-smoothing: grayscale;
 }
 
-.ungallerydir span:before {
+.lepgallerydir span:before {
   content: "\f115";
   margin-right: 5px;
 }
 
-.ungallerytable p {
+.lepgallerytable p {
   text-align: center;
 }
 
-#ungallery_breadcrumbs {
+#lepgallery_breadcrumbs {
 	
 }
 
-#ungallery_banner {
+#lepgallery_banner {
 	text-align: center;
 }
 
-#ungallery_grid {
+#lepgallery_grid {
 	
 }
 
-#ungallery_footer {
+#lepgallery_footer {
 	
 }
 
-#ungallery_pagecount {
+#lepgallery_pagecount {
 	margin-left: 8px;
 	margin-right: 8px;
 }
 
-.ungallery_chevron {
+.lepgallery_chevron {
   text-decoration: none;
   display: inline-block;
   font-family: FontAwesome;
@@ -107,24 +107,24 @@ a.ungallerydir {
   -moz-osx-font-smoothing: grayscale;
 }
 
-.ungallery_chevron:link {
+.lepgallery_chevron:link {
   text-decoration: none;
 }
 
-.ungallery_chevronleft:before {
+.lepgallery_chevronleft:before {
   content: "\f053";
   margin-right: 5px;
 }
-.ungallery_chevronleftdouble:before {
+.lepgallery_chevronleftdouble:before {
   content: "\f053 \f053";
   margin-right: 5px;
 }
 
-.ungallery_chevronright:before {
+.lepgallery_chevronright:before {
   content: "\f054";
   margin-left: 5px;
 }
-.ungallery_chevronrightdouble:before {
+.lepgallery_chevronrightdouble:before {
   content: "\f054 \f054";
   margin-left: 5px;
 }
