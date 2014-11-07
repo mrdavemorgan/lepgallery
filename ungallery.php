@@ -103,34 +103,30 @@ function ungallery($content) {
 		}
 	}
 
-	$subdirectories = array();
+	$items = array();
 	$dp = opendir($pic_root.$gallerylink);	//  Read the directory for subdirectories
 	while ($subdir = readdir($dp)) {		//  If it is a subdir enter it into the array
 		if (is_dir($pic_root.$gallerylink. "/". $subdir) && (substr($subdir,0,1) != ".")) {
-			$subdirectories[] = makeItemElement("subdir", "", $gallerylink . "/" . $subdir, $pic_root);
+			$items[] = makeItemElement("subdir", "", $gallerylink . "/" . $subdir, $pic_root);
 		}
 	}
 	closedir($dp);
 
-
-	$images = array();
 	$dp = opendir( $pic_root.$gallerylink);
 	$pic_types = array("JPG", "jpg", "GIF", "gif", "PNG", "png", "BMP", "bmp"); 	
 	while ($filename = readdir($dp)) {
 		if ((!is_dir($pic_root.$gallerylink. "/". $filename))  && (in_array(pathinfo($filename, PATHINFO_EXTENSION), $pic_types))) { 
-			$images[] = makeItemElement("image", "", $gallerylink . "/" . $filename, $pic_root);
+			$items[] = makeItemElement("image", "", $gallerylink . "/" . $filename, $pic_root);
 		}
 	}
 	closedir($dp);
-	$pages = ceil(count($images) / $max_thumbs) ;	//	Get the number of pages	
+	$pages = ceil(count($items) / $max_thumbs) ;	//	Get the number of pages	
 
 	// echo "<pre>\n";
 	// echo "BREADCRUMBS\n";
 	// var_dump($breadcrumbs);
-	// echo "\n\n\n\nSUBDIRS\n";
-	// var_dump($subdirectories);
-	// echo "\n\n\n\nIMAGES\n";
-	// var_dump($images);	
+	// echo "\n\n\n\nITEMS\n";
+	// var_dump($items);	
 	// echo "</pre>\n";
 
 
@@ -174,29 +170,23 @@ function ungallery($content) {
 
 
  	$column = 0;
-		if($squarethumb){
-			$forcedsize = $w;
-		}
-
-	// print subdirectories
-	if(count($subdirectories)>0){
-		foreach ($subdirectories as $sd) {
-			if(file_exists($sd['thumb'])){
-				$thumburl = getThumbUrl($phpthumburl, $w, $squarethumb, $sd['thumb'], 0, true);
-			}
-			printSubdirButton($sd['name'], $thumburl, $permalink . $QorA .'gallerylink='. rawurlencode($sd['gallerypath']), $forcedsize);
-			if((++$column) % $columns == 0){
-				print "<br/>";
-			}
-		}
+	if($squarethumb){
+		$forcedsize = $w;
 	}
 
-	// print images
-	if(count($images)>0){
-		for($i=$offset; ($i<count($images) && $i<$endset); $i++){
-			$thumburl = getThumbUrl($phpthumburl, $w, $squarethumb, $images[$i]['fullpath'], 0, false);
-			$lightboxurl = getThumbUrl($phpthumburl, $srcW, 0, $images[$i]['fullpath'], $watermark, false);
-			printLightBoxButton($images[$i]['name'], $thumburl, $lightboxurl, $forcedsize);
+	// print subdirectories and images
+	if(count($items)>0){
+		for($i=$offset; ($i<count($items) && $i<$endset); $i++){
+			if($items[$i]['type'] == 'image'){
+				$thumburl = getThumbUrl($phpthumburl, $w, $squarethumb, $items[$i]['fullpath'], 0, false);
+				$lightboxurl = getThumbUrl($phpthumburl, $srcW, 0, $items[$i]['fullpath'], $watermark, false);
+				printLightBoxButton($items[$i]['name'], $thumburl, $lightboxurl, $forcedsize);
+			} else {
+				if(file_exists($items[$i]['thumb'])){
+					$thumburl = getThumbUrl($phpthumburl, $w, $squarethumb, $items[$i]['thumb'], 0, true);
+				}
+				printSubdirButton($items[$i]['name'], $thumburl, $permalink . $QorA .'gallerylink='. rawurlencode($items[$i]['gallerypath']), $forcedsize);
+			}
 			if((++$column) % $columns == 0){
 				print "<br/>";
 			}
@@ -229,6 +219,7 @@ function makeItemElement($type, $name, $gallerypath, $galleryroot){
 	$ret = array(
 	    'gallerypath' => $gallerypath,
 	    'fullpath' => $galleryroot . $gallerypath,
+	    'type' => $type
 	);
 	if($name){
 		$ret['name'] = $name;
