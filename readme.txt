@@ -3,6 +3,7 @@ Contributors: mmond, mrdavemorgan
 Tags: gallery, lepgallery, ungallery, pictures, jpg, png, gallery, photos, browse, images, lightbox
 Requires at least: 
 Tested up to: 3.5
+TODO: specify a version
 Stable tag: 2.2.2
 
 Publish large image libraries with hierarchy. Based on UnGallery by Mark Reynolds.
@@ -15,11 +16,10 @@ The advantage of Lepgallery is there is there is no gallery management required 
 
 If you've ever had to reorganize galleries after publishing, you know how inconvenient it is to return to a web tool to correct the paths, relink the thumbnails, update titles, etc.   With Lepgallery, you can restructure entire galleries, edit a dozen party pic red-eyes, rename an event or remove individual photos and each of these changes is automatically live in WordPress.
 
-Dave Morgan http://lepidoptera.net
+This was a fork of the original UnGallery plugin by Mark Reynolds. It was then optimized for browsing taxonomic hierarchies of moth/butterfly photos, and was adapted to use Lightbox2 instead of FancyBox. At this point most of the code has been reworked, but it never would have gotten off the ground without UnGallery as a base. If Lepgallery lacks some of the features you need (search, zip, videos, etc.) you should also give the original UnGallery a try.
 
 == Installation ==
 
-= Lepgallery =
 1. Download to ./wp-content/plugins/ and activate via the Plugins menu.
 2. Create a blank WordPress Page, for example one called "Gallery".
 3. Set the body text of your page to be like this:
