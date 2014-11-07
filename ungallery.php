@@ -182,7 +182,7 @@ function ungallery($content) {
 	if(count($subdirectories)>0){
 		foreach ($subdirectories as $sd) {
 			if(file_exists($sd['thumb'])){
-				$thumburl = getThumbUrl($phpthumburl, $w, $squarethumb, $sd['thumb'], 0);
+				$thumburl = getThumbUrl($phpthumburl, $w, $squarethumb, $sd['thumb'], 0, true);
 			}
 			printSubdirButton($sd['name'], $thumburl, $permalink . $QorA .'gallerylink='. rawurlencode($sd['gallerypath']), $forcedsize);
 			if((++$column) % $columns == 0){
@@ -194,8 +194,8 @@ function ungallery($content) {
 	// print images
 	if(count($images)>0){
 		for($i=$offset; ($i<count($images) && $i<$endset); $i++){
-			$thumburl = getThumbUrl($phpthumburl, $w, $squarethumb, $images[$i]['fullpath'], 0);
-			$lightboxurl = getThumbUrl($phpthumburl, $srcW, 0, $images[$i]['fullpath'], $watermark);
+			$thumburl = getThumbUrl($phpthumburl, $w, $squarethumb, $images[$i]['fullpath'], 0, false);
+			$lightboxurl = getThumbUrl($phpthumburl, $srcW, 0, $images[$i]['fullpath'], $watermark, false);
 			printLightBoxButton($images[$i]['name'], $thumburl, $lightboxurl, $forcedsize);
 			if((++$column) % $columns == 0){
 				print "<br/>";
@@ -296,7 +296,7 @@ function getTitleString($imagepath, $default){
 	return $default;
 }
 
-function getThumbUrl($phpthumburl, $width, $square, $imgpath, $watermark){
+function getThumbUrl($phpthumburl, $width, $square, $imgpath, $watermark, $blur){
 	if($width > 0){
 		$ret = "$phpthumburl?ar=x&w=$width&src=$imgpath";
 		if($square){
@@ -307,6 +307,8 @@ function getThumbUrl($phpthumburl, $width, $square, $imgpath, $watermark){
 	}
 	if($watermark){
 		$ret .= "&fltr[]=wmi|$watermark|BL|100";
+	} else if($blur){
+		$ret .= "&fltr[]=blur|25";
 	}
 	return $ret;
 }

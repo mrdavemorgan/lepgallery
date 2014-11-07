@@ -8,20 +8,67 @@ div.ungallerytable {
 }
 
 .ungallerytable img {
+	border: 0px solid black;
+	margin: 3px;
+	box-shadow: 3px 3px 5px #666666;
+}
+
+.ungallerytable img:hover {
+	border: 1px solid black;
+	margin: 2px;
+	box-shadow: 3px 3px 5px #444444;
+}
+
+.ungallerytable img:active {
+	border: 2px solid black;
+	margin: 1px;
+	box-shadow: 3px 3px 5px #222222;
 }
 
 .ungallerydir img {
-  opacity: 0.75; 
+  opacity: 0.4; 
+/*  -webkit-clip-path: polygon(
+    0 0, 50% 0, 50% 6%, 100% 6%, 100% 100%, 0 100%
+  );
+  -moz-clip-path: polygon(
+    0 0, 50% 0, 50% 16%, 100% 6%, 100% 100%, 0 100%
+  );
+  -ms-clip-path: polygon(
+    0 0, 50% 0, 50% 6%, 100% 6%, 100% 100%, 0 100%
+  );
+  clip-path: polygon(
+    0 0, 50% 0, 50% 6%, 100% 6%, 100% 100%, 0 100%
+  );*/
+}
+
+a.ungallerydir {
+
 }
 
 .ungallerydir span {
   position: absolute; 
-  left: 10px; 
+  left: 0px; 
   bottom: 0px; 
   width: 100%; 
   height: 100%; 
   vertical-align: center; 
   color: black;
+  text-shadow: 0px 0px 1px white;
+  font-style: bold;
+  font-size: 1.2em;
+
+  display: inline-block;
+  font-family: FontAwesome;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.ungallerydir span:before {
+  content: "\f115";
+  margin-right: 5px;
 }
 
 .ungallerytable p {
@@ -42,6 +89,44 @@ div.ungallerytable {
 
 #ungallery_footer {
 	
+}
+
+
+
+
+/*!
+ *  Font Awesome 4.1.0 by @davegandy - http://fontawesome.io - @fontawesome
+ *  License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)
+ */
+/* FONT PATH
+ * -------------------------- */
+@font-face {
+  font-family: 'FontAwesome';
+  src: url('fonts/fontawesome-webfont.eot?v=4.1.0');
+  src: url('fonts/fontawesome-webfont.eot?#iefix&v=4.1.0') format('embedded-opentype'), url('fonts/fontawesome-webfont.woff?v=4.1.0') format('woff'), url('fonts/fontawesome-webfont.ttf?v=4.1.0') format('truetype'), url('fonts/fontawesome-webfont.svg?v=4.1.0#fontawesomeregular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+.fa {
+  display: inline-block;
+  font-family: FontAwesome;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.fa-folder:before {
+  content: "\f07b";
+}
+.fa-folder-open:before {
+  content: "\f07c";
+}
+.fa-folder-o:before {
+  content: "\f114";
+}
+.fa-folder-open-o:before {
+  content: "\f115";
 }
 
 	
