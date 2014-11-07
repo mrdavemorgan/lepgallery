@@ -197,13 +197,13 @@ function ungallery($content) {
 	if ($pages > 1) {	
 		print '</p><p id="ungallery_footer">';
 		if ($page > 1) 	{
-			print '<a href="'. $permalink . $QorA .'gallerylink='. $gallerylink . '&page=1">&lt;&lt;</a>&nbsp';
-			print '<a href="'. $permalink . $QorA .'gallerylink='. $gallerylink . '&page='. ($page - 1) .'">&lt;</a>';
+			print '<a href="'. $permalink . $QorA .'gallerylink='. $gallerylink . '&page=1" class="ungallery_chevron ungallery_chevronleftdouble"></a>';
+			print '<a href="'. $permalink . $QorA .'gallerylink='. $gallerylink . '&page='. ($page - 1) .'" class="ungallery_chevron ungallery_chevronleft"></a>';
 		}
-		print  " - Page $page / $pages - ";
+		print  "<span class=\"ungallery_pagecount\"> Page $page / $pages </span>";
 		if ($pages > $page) {
-			print '<a href="'. $permalink . $QorA .'gallerylink='. $gallerylink . '&page='. ($page + 1) .'">&gt;</a>&nbsp;';
-			print '<a href="'. $permalink . $QorA .'gallerylink='. $gallerylink . '&page='. $pages .'">&gt;&gt;</a>';
+			print '<a href="'. $permalink . $QorA .'gallerylink='. $gallerylink . '&page='. ($page + 1) .'" class="ungallery_chevron ungallery_chevronright"></a>';
+			print '<a href="'. $permalink . $QorA .'gallerylink='. $gallerylink . '&page='. $pages .'" class="ungallery_chevron ungallery_chevronrightdouble"></a>';
 		}
 	}
 	

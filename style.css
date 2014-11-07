@@ -91,6 +91,43 @@ a.ungallerydir {
 	
 }
 
+#ungallery_pagecount {
+	margin-left: 8px;
+	margin-right: 8px;
+}
+
+.ungallery_chevron {
+  text-decoration: none;
+  display: inline-block;
+  font-family: FontAwesome;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.ungallery_chevron:link {
+  text-decoration: none;
+}
+
+.ungallery_chevronleft:before {
+  content: "\f053";
+  margin-right: 5px;
+}
+.ungallery_chevronleftdouble:before {
+  content: "\f053 \f053";
+  margin-right: 5px;
+}
+
+.ungallery_chevronright:before {
+  content: "\f054";
+  margin-left: 5px;
+}
+.ungallery_chevronrightdouble:before {
+  content: "\f054 \f054";
+  margin-left: 5px;
+}
 
 
 
@@ -127,6 +164,14 @@ a.ungallerydir {
 }
 .fa-folder-open-o:before {
   content: "\f115";
+}
+
+
+.fa-chevron-left:before {
+  content: "\f053";
+}
+.fa-chevron-right:before {
+  content: "\f054";
 }
 
 	
