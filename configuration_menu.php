@@ -176,7 +176,7 @@ Default: 3
 Default: 190
 </p>
 
-<p><?php _e("Crop thumbnails to sqaure:", 'square' ); ?> 
+<p><?php _e("Crop thumbnails to square:", 'square' ); ?> 
     <input name="thumb_square" id="thumb_square" value="true" type="checkbox" <?php 
     if ( get_option('thumb_square') == 'true' ) echo ' checked="checked" '; 
     ?> /> 
