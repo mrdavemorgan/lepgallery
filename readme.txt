@@ -3,7 +3,7 @@ Contributors: mmond, mrdavemorgan
 Tags: gallery, lepgallery, pictures, jpg, png, gallery, photos, browse, images, lightbox
 Requires at least: 
 Tested up to: 4.0
-Stable tag: 2.2.2
+Stable tag: 2.2.3
 
 Publish large image libraries with hierarchy. Based on UnGallery by Mark Reynolds.
 
