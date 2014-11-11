@@ -333,8 +333,7 @@ function lepgallery_set_plugin_meta($links, $file) {
 	// create link
 	if ($file == plugin_basename(__FILE__)) {
 		return array_merge( $links, array( 
-			'<a href="http://wordpress.org/tags/lepgallery">' . __('Support Forum') . '</a>',
-			'<a href="http://wordpress.org/extend/plugins/lepgallery/faq/">' . __('FAQ') . '</a>'
+			'<a href="http://wordpress.org/tags/lepgallery">' . __('Support Forum') . '</a>'
 		));
 	}
 	return $links;
