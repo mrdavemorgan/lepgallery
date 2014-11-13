@@ -340,8 +340,8 @@ function lepgallery_set_plugin_meta($links, $file) {
 }
 
 function lepgallery_enqueue_style() {
-	wp_enqueue_style( 'lepgallery-lightbox', '/wp-content/plugins/lepgallery/lightbox/css/lightbox.css', false ); 
-	wp_enqueue_style( 'lepgallery-style', '/wp-content/plugins/lepgallery/style.css', false ); 
+	wp_enqueue_style( 'lepgallery-lightbox', plugins_url( 'lightbox/css/lightbox.css', __FILE__ ), false ); 
+	wp_enqueue_style( 'lepgallery-style', plugins_url( 'style.css', __FILE__ ), false ); 
 }
 
 add_filter( 'plugin_row_meta', 'lepgallery_set_plugin_meta', 10, 2 );
