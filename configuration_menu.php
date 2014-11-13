@@ -1,4 +1,5 @@
 <?php
+require_once("getlightbox.php"); 
 
 // Hook for adding admin menus
 add_action('admin_menu', 'mt_add_pages');
@@ -107,7 +108,7 @@ function mt_settings_page() {
 
 ?>
 
-<h3>General Settings</h3>	
+<h3>General Settings</h3>   
 <form name="form1" method="post" action="">
 <input type="hidden" name="<?php echo $hidden_field_name; ?>" value="Y">
 
@@ -116,21 +117,35 @@ Lepgallery version: <input type="text" readonly name="<?php echo $version_name; 
 <p>Gallery cache directory: <input type="text" readonly name="cache_dir" value="
 <?php // Create cache directory at ./<WordPress install dir>/wp-content/cache/
 if (!is_dir($_SERVER['DOCUMENT_ROOT']."/wp-content/cache/")) {
-		@mkdir($_SERVER['DOCUMENT_ROOT']."/wp-content/cache/");
-		if (!is_dir($_SERVER['DOCUMENT_ROOT']."/wp-content/cache/")) print "Could not create cache directory";
-		else {
-			@chmod($_SERVER['DOCUMENT_ROOT']."/wp-content/cache/", 0700); 
-			$file = $_SERVER['DOCUMENT_ROOT']."/wp-content/cache/.htaccess";
-			file_put_contents($file, 'AuthType Basic
+        @mkdir($_SERVER['DOCUMENT_ROOT']."/wp-content/cache/");
+        if (!is_dir($_SERVER['DOCUMENT_ROOT']."/wp-content/cache/")) print "Could not create cache directory";
+        else {
+            @chmod($_SERVER['DOCUMENT_ROOT']."/wp-content/cache/", 0700); 
+            $file = $_SERVER['DOCUMENT_ROOT']."/wp-content/cache/.htaccess";
+            file_put_contents($file, 'AuthType Basic
 AuthName "Password Required"
 AuthUserFile /does_not_exist
 Require valid-user');
-			@chmod($file, 0700);
-			print $_SERVER['DOCUMENT_ROOT']."/wp-content/cache/";
-		}
-} else 	print $_SERVER['DOCUMENT_ROOT']."/wp-content/cache/";
+            @chmod($file, 0700);
+            print $_SERVER['DOCUMENT_ROOT']."/wp-content/cache/";
+        }
+} else  print $_SERVER['DOCUMENT_ROOT']."/wp-content/cache/";
 ?>" size="70"> <br />
 This is the directory where Lepgallery creates and writes cache files.
+
+<hr />
+
+<h3>LightBox 2</h3>   
+<p>LightBox is not not required for Lepgallery to work, but your galleries will look and perform much better with it.</p>
+<p>Go <a href="http://lokeshdhakar.com/projects/lightbox2/">here</a> for more information about LightBox.</p>
+<p><?
+if(isLightBoxInstalled()){
+    echo "LightBox is installed.";
+} else {
+    echo '<span style="color: red;">LightBox is not installed.</span> Click <a href="' . getLighBoxInstallUrl();
+    echo '"">here</a> to install it.';
+}
+?></p>
 
 <hr />
 

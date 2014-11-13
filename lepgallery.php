@@ -14,6 +14,7 @@ update_option( "version", $version_val );
 
 //  Display the plugin administration menu
 include("configuration_menu.php");
+require_once("getlightbox.php"); 
 
 add_filter('the_content', "lepgallery");
 
@@ -210,9 +211,10 @@ function lepgallery($content) {
 	
 	// Complete the table formatting 
 	?></p></div>
-	<script src="wp-content/plugins/lepgallery/lightbox/js/lightbox.js"></script>
 	<?
-
+	if(isLightBoxInstalled()){
+		?> <script src="wp-content/plugins/lepgallery/lightbox/js/lightbox.js"></script> <?
+	}
 }
 
 function makeItemElement($type, $name, $gallerypath, $galleryroot){
@@ -341,7 +343,9 @@ function lepgallery_set_plugin_meta($links, $file) {
 }
 
 function lepgallery_enqueue_style() {
-	wp_enqueue_style( 'lepgallery-lightbox', plugins_url( 'lightbox/css/lightbox.css', __FILE__ ), false ); 
+	if(isLightBoxInstalled()){
+		wp_enqueue_style( 'lepgallery-lightbox', plugins_url( 'lightbox/css/lightbox.css', __FILE__ ), false ); 
+	}
 	wp_enqueue_style( 'lepgallery-style', plugins_url( 'style.css', __FILE__ ), false ); 
 }
 
