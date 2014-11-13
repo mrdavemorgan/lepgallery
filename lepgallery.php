@@ -50,6 +50,7 @@ function lepgallery($content) {
 	$version = get_option( 'version' );
 	$thumbW = get_option( 'thumbnail' );
 	$srcW = get_option( 'browse_view' );
+	$watermark = get_option('watermark_image');
 	$columns = get_option( 'columns' );
 	if($columns == "") {
 		$columns = 4; // set a default so admin page does not need visit after update. Remove at some point.
