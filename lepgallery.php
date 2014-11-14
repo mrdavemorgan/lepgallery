@@ -5,11 +5,11 @@ Description: Publish large image libraries with hierarchy. Based on UnGallery by
 Plugin URI: http://lepidoptera.net
 Author: Dave Morgan
 Author URI: http://lepidoptera.net
-Version: 2.2.4
+Version: 2.2.5
 */
 
 //  Set plugin version, update database so admin menu can display it
-$version_val = "2.2.4";
+$version_val = "2.2.5";
 update_option( "version", $version_val );
 
 //  Display the plugin administration menu
