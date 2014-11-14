@@ -62,9 +62,7 @@ function lepgallery($content) {
 	}
 
 	$w = $thumbW;
-	$blogURI = get_bloginfo('url') . "/";	
-	$dir = "wp-content/plugins/lepgallery/";
-	$phpthumburl = $blogURI . $dir . 'phpthumb/phpThumb.php';
+	$phpthumburl = plugin_dir_url( __FILE__ ) . 'phpthumb/phpThumb.php';
 	$gallerylink = $_GET['gallerylink'];
 	$page = $_GET['page'];
 	if (!$page) {
@@ -213,7 +211,7 @@ function lepgallery($content) {
 	?></p></div>
 	<?
 	if(isLightBoxInstalled()){
-		?> <script src="wp-content/plugins/lepgallery/lightbox/js/lightbox.js"></script> <?
+		echo '<script src="' . plugin_dir_url( __FILE__ ) . 'lightbox/js/lightbox.js"></script>';
 	}
 }
 

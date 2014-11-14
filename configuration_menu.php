@@ -116,20 +116,20 @@ Lepgallery version: <input type="text" readonly name="<?php echo $version_name; 
 
 <p>Gallery cache directory: <input type="text" readonly name="cache_dir" value="
 <?php // Create cache directory at ./<WordPress install dir>/wp-content/cache/
-if (!is_dir($_SERVER['DOCUMENT_ROOT']."/wp-content/cache/")) {
-        @mkdir($_SERVER['DOCUMENT_ROOT']."/wp-content/cache/");
-        if (!is_dir($_SERVER['DOCUMENT_ROOT']."/wp-content/cache/")) print "Could not create cache directory";
+if (!is_dir(WP_CONTENT_DIR."/cache/")) {
+        @mkdir(WP_CONTENT_DIR."/cache/");
+        if (!is_dir(WP_CONTENT_DIR."/cache/")) print "Could not create cache directory";
         else {
-            @chmod($_SERVER['DOCUMENT_ROOT']."/wp-content/cache/", 0700); 
-            $file = $_SERVER['DOCUMENT_ROOT']."/wp-content/cache/.htaccess";
+            @chmod(WP_CONTENT_DIR."/cache/", 0700); 
+            $file = WP_CONTENT_DIR."/cache/.htaccess";
             file_put_contents($file, 'AuthType Basic
 AuthName "Password Required"
 AuthUserFile /does_not_exist
 Require valid-user');
             @chmod($file, 0700);
-            print $_SERVER['DOCUMENT_ROOT']."/wp-content/cache/";
+            print WP_CONTENT_DIR."/cache/";
         }
-} else  print $_SERVER['DOCUMENT_ROOT']."/wp-content/cache/";
+} else  print WP_CONTENT_DIR."/cache/";
 ?>" size="70"> <br />
 This is the directory where Lepgallery creates and writes cache files.
 
@@ -163,9 +163,11 @@ Lepgallery faces a unique plugin challenge in leaving the WordPress environment 
 
 <p>
 	<strong>Cache Directory</strong><br /> 
-	If the cache directory field above says unable to create cache directory a permission setting may be the issue.  Lepgallery will work without the cache directory, but performance is much better with it set.  It can be created manually at [WordPress Install]/wp-content/cache/.  A remote file management tool like <a href="http://winscp.net/eng/index.php">WinSCP</a> or <a href="http://cyberduck.ch/">Cyberduck</a> can be used or from the Linux shell in the Wordpress directory the following commands can be used: <br />
-	&nbsp;&nbsp;mkdir wp-content/cache/<br />
-	&nbsp;&nbsp;chmod 777 wp-content/cache/<br />
+	If the cache directory field above says unable to create cache directory a permission setting may be the issue.  Lepgallery will work without the cache directory, but performance is much better with it set.  
+    It can be created manually at <b><?=WP_CONTENT_DIR;?>/cache/</b>.  
+    A remote file management tool like <a href="http://winscp.net/eng/index.php">WinSCP</a> or <a href="http://cyberduck.ch/">Cyberduck</a> can be used or from the Linux shell in the Wordpress directory the following commands can be used: <br />
+	&nbsp;&nbsp;mkdir <?=WP_CONTENT_DIR;?>/cache/<br />
+	&nbsp;&nbsp;chmod 777 <?=WP_CONTENT_DIR;?>/cache/<br />
 </p>
 
 <p>
